@@ -1,0 +1,27 @@
+### snmpp.pc.in --- 
+## 
+## Filename: snmpp.pc.in
+## Author: Alexandre BIGUET
+## Created: Mer sep 13 20:50:34 2017 (+0200)
+## Last-Updated: Mer sep 13 20:51:33 2017 (+0200)
+##           By: Alexandre BIGUET
+##     Update #: 4
+## 
+## snmpp
+## 
+
+prefix=@CMAKE_INSTALL_PREFIX@
+exec_prefix=@INSTALL_PATH_BIN@
+libdir=@INSTALL_PATH_LIB@
+includedir=@INSTALL_PATH_HEADERS@
+
+Name: @PROJECT_NAME@
+Description: A Simple Numerical Methods library in C++
+Version: @VERSION@
+Requires: 
+Libs: -L${libdir} -lgeoKit
+Cflags: -I${includedir}
+
+
+
+######################################################################
