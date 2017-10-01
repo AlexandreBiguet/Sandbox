@@ -23,17 +23,17 @@ add_subdirectory( snmpp )
 ## Creation of the library
 
 add_library(
-  ${LIB_NAME}
+  ${PROJECT_LIB}
   SHARED
   $<TARGET_OBJECTS:${FAKE_OBJ}>
   )
 
 set_target_properties(
-  ${LIB_NAME} PROPERTIES VERSION ${VERSION} SOVERSION ${MAJOR_VERSION} )
+  ${PROJECT_LIB} PROPERTIES VERSION ${VERSION} SOVERSION ${MAJOR_VERSION} )
 
-target_link_libraries( ${LIB_NAME} ${Boost_LIBRARIES})
+target_link_libraries( ${PROJECT_LIB} ${Boost_LIBRARIES})
 
-install( TARGETS ${GKSLIB} LIBRARY DESTINATION ${INSTALL_PATH_LIB} )
+install( TARGETS ${PROJECT_LIB} LIBRARY DESTINATION ${INSTALL_PATH_LIB} )
 
 ################################################################################
 ## Installation of header files

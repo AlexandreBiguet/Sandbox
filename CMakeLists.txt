@@ -11,21 +11,16 @@
 ## 
 
 cmake_minimum_required (VERSION 3.5.1)
-project( snmpp CXX )
-set( PROJECT_NAME "snmpp" )
-set( LIB_NAME ${PROJECT_NAME} )
+project( snmpp  LANGUAGES CXX VERSION 0.0.1 )
+
+set( PROJECT_LIB ${PROJECT_NAME} )
 
 ################################################################################
 ## Options
 
 ################################################################################
 ## Version
-set ( MAJOR_VERSION 0 )
-set ( MINOR_VERSION 0 )
-set ( PATCH_VERSION 1 )
-
-set ( VERSION ${MAJOR_VERSION}.${MINOR_VERSION}.${PATCH_VERSION})
-set( SOVERSION ${VERSION})
+set( SOVERSION ${PROJECT_VERSION})
 
 ################################################################################
 ## Compilation outputs

@@ -19,7 +19,7 @@ Name: @PROJECT_NAME@
 Description: A Simple Numerical Methods library in C++
 Version: @VERSION@
 Requires: 
-Libs: -L${libdir} -lgeoKit
+Libs: -L${libdir} -lsnmpp
 Cflags: -I${includedir}
 
 

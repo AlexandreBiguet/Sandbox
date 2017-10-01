@@ -10,6 +10,7 @@
 // snmpp
 // 
 
+
 namespace snmpp { namespace fake {
 
 double fake( double x ) {
