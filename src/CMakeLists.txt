@@ -28,8 +28,10 @@ add_library(
   $<TARGET_OBJECTS:${FAKE_OBJ}>
   )
 
-set_target_properties(
-  ${PROJECT_LIB} PROPERTIES VERSION ${VERSION} SOVERSION ${MAJOR_VERSION} )
+set_target_properties(${PROJECT_LIB}
+        PROPERTIES
+        VERSION ${PROJECT_VERSION}
+        SOVERSION ${SOVERSION} )
 
 target_link_libraries( ${PROJECT_LIB} ${Boost_LIBRARIES})
 
@@ -42,6 +44,8 @@ file( GLOB_RECURSE HEADERS "*.hpp" )
 glob_recurse_without_dir( "${HEADERS}" "release" false )
 set( HEADERS "${NEW_LIST}" )
 install_files_rpath( "${HEADERS}" "${INSTALL_PATH_HEADERS}" "src/" false )
+
+
 
 
 ######################################################################

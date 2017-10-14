@@ -13,40 +13,50 @@
 cmake_minimum_required (VERSION 3.5.1)
 project( snmpp  LANGUAGES CXX VERSION 0.0.1 )
 
-set( PROJECT_LIB ${PROJECT_NAME} )
-
 ################################################################################
 ## Options
 
-################################################################################
-## Version
-set( SOVERSION ${PROJECT_VERSION})
+option( BUILD_SAMPLES "Build the sample test" ON )
+option( WITH_TESTS "Execution of tests" ON)
+option( ENABLE_SHARED "Building shared library" ON)
+option( NO_WARNINGS "Build without any additional warnings" OFF )
+option( CLANG_WEVERYTHING "Build with -Weverything if compiler accepts it" OFF)
+option( ENABLE_STATIC "Building static library" OFF )
 
 ################################################################################
-## Compilation outputs
+## Project related declarations
+set( PROJECT_LIB ${PROJECT_NAME} )
+set( PROJECT_RELEASE_TYPE "dev" )
+set( PROJECT_VERSION "${PROJECT_VERSION}-${PROJECT_RELEASE_TYPE}" )
+set( PROJECT_DESCRIPTION "A simple numerical library in c++" )
+
+set( SOVERSION 0 )
+set( CMAKE_POSITION_INDEPENDENT_CODE ON )
+set( CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake" )
+
+################################################################################
+## Includes
+include( CheckCXXCompilerFlag)
+include( GNUInstallDirs )
+include( "${CMAKE_MODULE_PATH}/utils.cmake" )
+include( "${CMAKE_MODULE_PATH}/Flags.cmake" )
+
+################################################################################
+## Compilation outputs and installation paths
 set ( CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin )
 set ( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib )
 set ( CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib )
-
-################################################################################
-## Flags
-set ( CMAKE_CXX_STANDARD 11)
-set ( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -W -Wall -Wextra" )
-set ( CMAKE_POSITION_INDEPENDENT_CODE ON)
-
-
-################################################################################
-## Including GNUInstallDirs for definition of CMAKE_INSTALL_<dir>
-include ( GNUInstallDirs )
 set ( INSTALL_PATH_LIB     ${CMAKE_INSTALL_LIBDIR}       )
 set ( INSTALL_PATH_BIN     ${CMAKE_INSTALL_BINDIR}       )
 set ( INSTALL_PATH_HEADERS ${CMAKE_INSTALL_INCLUDEDIR}   )
 set ( INSTALL_PATH_CONFIG  ${CMAKE_INSTALL_SYSCONFDIR}   )
 
 ################################################################################
-## Including cmake modules
-set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
-include( "${CMAKE_MODULE_PATH}/utils.cmake" )
+## Flags
+set ( CMAKE_CXX_STANDARD 11)
+SetCompilerFlags()
+
+
 
 ################################################################################
 ## Finding Package config
@@ -65,21 +75,35 @@ find_package(
 include_directories( ${Boost_INCLUDE_DIRS} )
 link_directories   ( ${Boost_LIBRARY_DIRS} )
 
+set( DEPENDENCY_LIST "Boost" )
 
 ################################################################################
-## Installation of header files and library done in src/CMakeLists.txt
-add_subdirectory(src)
+## Configuration files
 
-
-################################################################################
-## Creation and installation of the package config file
 configure_file( snmpp.pc.in
   "${CMAKE_BINARY_DIR}/lib/pkgconfig/${PROJECT_NAME}.pc" @ONLY )
 
 install( FILES "${CMAKE_BINARY_DIR}/lib/pkgconfig/${PROJECT_NAME}.pc"
   DESTINATION "${INSTALL_PATH_LIB}/pkgconfig")
 
+set( CONFILEPATH "${CMAKE_BINARY_DIR}/src/${PROJECT_NAME}/config" )
+configure_file(
+        ${CMAKE_SOURCE_DIR}/config.hpp.in
+        ${CONFILEPATH}/${PROJECT_NAME}_config.hpp @ONLY)
+include_directories(${CONFILEPATH})
 
+################################################################################
+## Where the action takes place
+add_subdirectory(src)
+
+if( BUILD_SAMPLES )
+    add_subdirectory(samples)
+endif()
+
+################################################################################
+## Informations output
+PrintPackagesInformation( "${DEPENDENCY_LIST}")
+PrintBuildInformations()
 
 ######################################################################
 ### CMakeLists.txt ends here
