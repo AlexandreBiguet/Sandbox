@@ -10,6 +10,7 @@
 // snmpp
 // 
 
+#include "fake.hpp"
 
 namespace snmpp { namespace fake {
 

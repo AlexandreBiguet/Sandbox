@@ -18,7 +18,7 @@ project( snmpp  LANGUAGES CXX VERSION 0.0.1 )
 
 option( BUILD_SAMPLES "Build the sample test" ON )
 option( WITH_TESTS "Execution of tests" ON)
-option( ENABLE_SHARED "Building shared library" ON)
+option( ENABLE_SHARED "Building shared library" ON )
 option( NO_WARNINGS "Build without any additional warnings" OFF )
 option( CLANG_WEVERYTHING "Build with -Weverything if compiler accepts it" OFF)
 option( ENABLE_STATIC "Building static library" OFF )
@@ -56,8 +56,6 @@ set ( INSTALL_PATH_CONFIG  ${CMAKE_INSTALL_SYSCONFDIR}   )
 set ( CMAKE_CXX_STANDARD 11)
 SetCompilerFlags()
 
-
-
 ################################################################################
 ## Finding Package config
 find_package ( PkgConfig REQUIRED )
@@ -73,7 +71,7 @@ find_package(
         thread
         REQUIRED)
 include_directories( ${Boost_INCLUDE_DIRS} )
-link_directories   ( ${Boost_LIBRARY_DIRS} )
+#link_directories   ( ${Boost_LIBRARY_DIRS} )
 
 set( DEPENDENCY_LIST "Boost" )
 
