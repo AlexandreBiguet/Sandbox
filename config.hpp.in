@@ -1,0 +1,17 @@
+//
+//  config.hpp
+//  snmpp
+//
+//  Created on 13/10/2017 at 23:19.
+//  Copyright Alexandre Biguet © 2017. All rights reserved.
+//  Distributed under the MIT Licence
+//
+
+#pragma once
+
+#define PROJECT_NAME "@PROJECT_NAME@"
+#define PROJECT_VERSION "@PROJECT_VERSION@"
+
+
+//
+// config.hpp.in ends here
