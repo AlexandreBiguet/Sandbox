@@ -11,6 +11,60 @@
 ## 
 
 ################################################################################
+## This functions prints information about the current build
+function( PrintBuildInformations )
+
+    message("\n===============================================================")
+    message("Project Name        : ${PROJECT_NAME}")
+    message("Project Version     : ${PROJECT_VERSION}")
+    message("Project Bin dir     : ${PROJECT_BINARY_DIR}")
+    message("Project Source dir  : ${PROJECT_SOURCE_DIR}")
+    message("System Name         : ${CMAKE_SYSTEM_NAME}")
+    message("System Processor    : ${CMAKE_SYSTEM_PROCESSOR}")
+
+    message("-------------------")
+    message("Build Information :")
+    message("-------------------")
+    message("Install Prefix      : ${CMAKE_INSTALL_PREFIX}")
+    message("CC                  : ${CMAKE_C_COMPILER}")
+    message("CXX                 : ${CMAKE_CXX_COMPILER}")
+    message("CXXFLAGS            : ${CMAKE_CXX_FLAGS}")
+    message("CFLAGS              : ${CMAKE_C_FLAGS}")
+    message("LDFLAGS             : ${CMAKE_LIBRARY_PATH}")
+    message("C compiler          : ${CMAKE_C_COMPILER_ID}")
+    message("CXX compiler        : ${CMAKE_CXX_COMPILER_ID}")
+    message("CMake Version       : ${CMAKE_VERSION}")
+    message("CMake Generator     : ${CMAKE_GENERATOR}")
+    message("Shared Linker Flags : ${CMAKE_SHARED_LINKER_FLAGS}")
+
+endfunction()
+
+################################################################################
+## This function prints informations about a list of packages #_list
+function( PrintPackagesInformation _list )
+
+    message("----------------------")
+    message("List of Dependencies :")
+    message("----------------------")
+    foreach( dep ${_list} )
+        message("   * ${dep} : " )
+        message("     Include Dirs    : ${${dep}_INCLUDE_DIRS}")
+        message("     Library Dirs    : ${${dep}_LIBRARY_DIRS}")
+        message("     Librairies      : ${${dep}_LIBRARIES}")
+        message("     LDFLAGS         : ${${dep}_LDFLAGS}")
+        message("     LDFLAGS (Other) : ${${dep}_LDFLAGS_OTHER}")
+        message("     CFLAGS          : ${${dep}_CFLAGS}")
+        message("     CFLAGS  (Other) : ${${dep}_CFLAGS_OTHER}")
+        message("     Version         : ${${dep}_VERSION}")
+        message("     Prefix          : ${${dep}_PREFIX}")
+        message("     IncludeDir      : ${${dep}_INCLUDEDIR}")
+        message("     LibDir          : ${${dep}_LIBDIR}\n")
+    endforeach()
+
+
+endfunction()
+
+################################################################################
 ## This function takes a list in input and removes from the list the
 ## item that match _dir. _verbose can be TRUE or FALSE. If true, then
 ## the function talks
