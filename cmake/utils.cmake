@@ -11,6 +11,29 @@
 ## 
 
 ################################################################################
+## This function creates a list of $<TARGET_OBJECTS:${ojb_i}> from a list of
+## target objects #_inputList
+## The function creates a TARGET_OBJECT_LIST list at parent scope
+function( FillTargetObjectList _inputList )
+
+    foreach( obj ${_inputList})
+        get_target_property(_type "${obj}" TYPE)
+
+        if (_type STREQUAL "OBJECT_LIBRARY")
+            list( APPEND _list "$<TARGET_OBJECTS:${obj}>")
+        else()
+            message(FATAL_ERROR
+                    "Some object in list is not of type OBJECT_LIBRARIES")
+        endif()
+
+    endforeach()
+
+    set ( TARGET_OBJECTS_LIST ${_list} PARENT_SCOPE )
+
+endfunction()
+
+
+################################################################################
 ## This functions prints information about the current build
 function( PrintBuildInformations )
 
