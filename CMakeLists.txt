@@ -17,20 +17,21 @@ project( snmpp  LANGUAGES CXX VERSION 0.0.1 )
 ## Options
 
 option( BUILD_SAMPLES "Build the sample test" ON )
-option( WITH_TESTS "Execution of tests" ON)
+option( WITH_TESTS "Execution of tests" OFF)
 option( ENABLE_SHARED "Building shared library" ON )
 option( NO_WARNINGS "Build without any additional warnings" OFF )
 option( CLANG_WEVERYTHING "Build with -Weverything if compiler accepts it" OFF)
-option( ENABLE_STATIC "Building static library" OFF )
+option( ENABLE_STATIC "Building static library" ON )
 
 ################################################################################
 ## Project related declarations
 set( PROJECT_LIB ${PROJECT_NAME} )
+set( PROJECT_STATIC_LIB "${PROJECT_LIB}-static")
 set( PROJECT_RELEASE_TYPE "dev" )
 set( PROJECT_VERSION "${PROJECT_VERSION}-${PROJECT_RELEASE_TYPE}" )
 set( PROJECT_DESCRIPTION "A simple numerical library in c++" )
 
-set( SOVERSION 0 )
+set( SOVERSION ${PROJECT_VERSION_MAJOR} )
 set( CMAKE_POSITION_INDEPENDENT_CODE ON )
 set( CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake" )
 
@@ -70,7 +71,7 @@ find_package(
         system
         thread
         REQUIRED)
-include_directories( ${Boost_INCLUDE_DIRS} )
+#include_directories( ${Boost_INCLUDE_DIRS} )
 #link_directories   ( ${Boost_LIBRARY_DIRS} )
 
 set( DEPENDENCY_LIST "Boost" )
