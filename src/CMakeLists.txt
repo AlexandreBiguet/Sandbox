@@ -13,9 +13,11 @@
 ################################################################################
 ## List of objects
 set ( FAKE_OBJ "fake")
+set ( MATH_OBJ "math" )
 
 set( OBJECT_LIST
-        ${FAKE_OBJ})
+        ${FAKE_OBJ}
+        ${MATH_OBJ})
 
 
 add_subdirectory( snmpp )

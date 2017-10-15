@@ -13,6 +13,12 @@
 set( FAKE_SOURCES "fake/fake.cpp" "fake/fake.hpp")
 add_library( ${FAKE_OBJ} OBJECT ${FAKE_SOURCES} )
 
+set( MATH_SOURCES
+        "Math/Core/Quantity.hpp"
+        "Math/Core/Variable.hpp"
+        "Math/Core/Variables.hpp"
+        "Math/Core/FuncBase.hpp" )
+add_library( ${MATH_OBJ} OBJECT ${MATH_SOURCES} )
 
 ######################################################################
 ### CMakeLists.txt ends here
