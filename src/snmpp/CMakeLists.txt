@@ -10,7 +10,9 @@
 ## snmpp
 ## 
 
-add_subdirectory( fake )
+set( FAKE_SOURCES "fake/fake.cpp" "fake/fake.hpp")
+add_library( ${FAKE_OBJ} OBJECT ${FAKE_SOURCES} )
+
 
 ######################################################################
 ### CMakeLists.txt ends here

@@ -10,9 +10,13 @@
 // snmpp
 // 
 
+#include <string>
+
 namespace snmpp { namespace fake {
 
 double fake( double x );
+
+std::string getCurrentDate();
 
 }} // namespace snmpp::fake
 

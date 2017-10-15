@@ -17,6 +17,8 @@ int main ( ){
     double x = snmpp::fake::fake(10.0);
     std::cout<<x<<std::endl;
 
+    std::cout<<"Current date : "<<snmpp::fake::getCurrentDate()<<std::endl;
+
     return 0;
 }
 

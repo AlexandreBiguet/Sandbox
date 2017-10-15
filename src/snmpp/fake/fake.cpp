@@ -12,10 +12,28 @@
 
 #include "fake.hpp"
 
+#include <boost/date_time/posix_time/posix_time.hpp>
+namespace pt = boost::posix_time;
+
 namespace snmpp { namespace fake {
 
 double fake( double x ) {
     return x;
+}
+
+
+std::string getCurrentDate(){
+    pt::ptime now = pt::second_clock::local_time();
+
+    std::stringstream ss;
+    ss<<now.date().year()
+      <<"-"<<now.date().month()
+      <<"-"<<now.date().day()
+      <<"-"<<now.time_of_day().hours()
+      <<"-"<<now.time_of_day().minutes()
+      <<"-"<<now.time_of_day().seconds();
+
+    return ss.str();
 }
 
 }} // namespace snmpp::fake
