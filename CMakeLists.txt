@@ -53,6 +53,10 @@ set ( INSTALL_PATH_HEADERS ${CMAKE_INSTALL_INCLUDEDIR}   )
 set ( INSTALL_PATH_CONFIG  ${CMAKE_INSTALL_SYSCONFDIR}   )
 
 ################################################################################
+## rpath stuff
+set( CMAKE_INSTALL_NAME_DIR ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR} )
+
+################################################################################
 ## Flags
 set ( CMAKE_CXX_STANDARD 11)
 SetCompilerFlags()
