@@ -8,15 +8,19 @@
 
 
 add_executable(CoreQuantitySample QuantitySample.cpp)
-#target_include_directories(
-#        fakeSample
-#        PRIVATE
-#        ${CMAKE_SOURCE_DIR}/src/snmpp/fake)
 
 if( ENABLE_SHARED)
     target_link_libraries(CoreQuantitySample ${PROJECT_LIB})
 else()
     target_link_libraries(CoreQuantitySample ${PROJECT_STATIC_LIB})
+endif()
+
+add_executable(CoreVariableSample VariableSample.cpp )
+
+if( ENABLE_SHARED)
+    target_link_libraries(CoreVariableSample ${PROJECT_LIB})
+else()
+    target_link_libraries(CoreVariableSample ${PROJECT_STATIC_LIB})
 endif()
 
 
