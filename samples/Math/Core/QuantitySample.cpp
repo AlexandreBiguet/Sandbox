@@ -10,7 +10,7 @@
 
 #include <snmpp/Math/Core/Quantity.hpp>
 
-int main ( void ){
+int main ( ){
 
     snmpp::math::Quantity<double> Qd;
     std::cout<<"Default constructor : "<<Qd.toString()<<std::endl;
@@ -41,6 +41,8 @@ int main ( void ){
     std::cout<<"Construction with value and interval "
              <<Q2.toString()<<std::endl;
 
+    Q2.setInterval(-10.0, 1.0);
+    std::cout<<"setInterval to -10; 1 : "<<Q2.toString()<<std::endl;
     return 0;
 }
 

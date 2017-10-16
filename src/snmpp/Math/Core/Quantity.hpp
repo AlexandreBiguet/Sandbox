@@ -11,7 +11,8 @@
 /******************************************************************************
  * Description: 
  * ------------
- * This class represents a general quantity
+ * This class represents a general quantity which is determined by its value
+ * and its interval of definition.
  ******************************************************************************/
 
 /******************************************************************************
