@@ -6,16 +6,7 @@
 #  Copyright © 2017 UAVIA. All rights reserved.
 #
 
+add_subdirectory(fake)
+add_subdirectory(Math)
 
-add_executable(fakeSample fake/main.cpp)
-target_include_directories(
-        fakeSample
-        PRIVATE
-            ${CMAKE_SOURCE_DIR}/src/snmpp/fake)
-
-if( ENABLE_SHARED)
-    target_link_libraries(fakeSample ${PROJECT_LIB})
-else()
-    target_link_libraries(fakeSample ${PROJECT_STATIC_LIB})
-endif()
 # CMakeLists.txt ends here

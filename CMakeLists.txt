@@ -21,7 +21,7 @@ option( WITH_TESTS "Execution of tests" OFF)
 option( ENABLE_SHARED "Building shared library" ON )
 option( NO_WARNINGS "Build without any additional warnings" OFF )
 option( CLANG_WEVERYTHING "Build with -Weverything if compiler accepts it" OFF)
-option( ENABLE_STATIC "Building static library" ON )
+option( ENABLE_STATIC "Building static library" OFF )
 
 ################################################################################
 ## Project related declarations

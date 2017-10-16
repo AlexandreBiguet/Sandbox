@@ -41,7 +41,7 @@ if( ENABLE_SHARED )
             PROPERTIES
             VERSION ${PROJECT_VERSION}
             SOVERSION ${SOVERSION} )
-    target_link_libraries( ${PROJECT_LIB} ${Boost_LIBRARIES})
+    #target_link_libraries( ${PROJECT_LIB} ${Boost_LIBRARIES})
     install( TARGETS ${PROJECT_LIB} LIBRARY DESTINATION ${INSTALL_PATH_LIB} )
 
 endif()
