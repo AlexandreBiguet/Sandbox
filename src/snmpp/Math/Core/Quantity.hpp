@@ -50,6 +50,7 @@
  * Possible enhancements:
  * ----------------------
  ******************************************************************************/
+#include <string>
 
 #include <boost/numeric/interval.hpp>
 
@@ -62,7 +63,7 @@ class Quantity {
     template<typename T>
     using IntervalType = boost::numeric::interval<T>;
 
-  private:
+  protected:
     Type _value;
     IntervalType<Type> _interval;
 
@@ -79,7 +80,7 @@ class Quantity {
     Type getLower() const;
     Type getUpper() const;
     IntervalType<Type> getInterval() const;
-    std::string toString()const;
+    virtual std::string toString()const;
 };
 
 
@@ -146,6 +147,6 @@ std::string Quantity<Type>::toString()const{
     return s;
 }
 
-}} // namespace snmpp
+}} // namespace snmpp::math
 
 // Quantity.hpp ends here
