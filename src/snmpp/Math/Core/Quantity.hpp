@@ -54,7 +54,7 @@
 
 #include <boost/numeric/interval.hpp>
 
-namespace  snmpp { namespace math {
+namespace snmpp { namespace math {
 
 template < typename Type >
 class Quantity {
