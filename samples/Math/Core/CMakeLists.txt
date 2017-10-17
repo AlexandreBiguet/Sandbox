@@ -15,12 +15,22 @@ else()
     target_link_libraries(CoreQuantitySample ${PROJECT_STATIC_LIB})
 endif()
 
+
 add_executable(CoreVariableSample VariableSample.cpp )
 
 if( ENABLE_SHARED)
     target_link_libraries(CoreVariableSample ${PROJECT_LIB})
 else()
     target_link_libraries(CoreVariableSample ${PROJECT_STATIC_LIB})
+endif()
+
+
+add_executable(CoreVariablesSample VariablesSample.cpp )
+
+if( ENABLE_SHARED)
+    target_link_libraries(CoreVariablesSample ${PROJECT_LIB})
+else()
+    target_link_libraries(CoreVariablesSample ${PROJECT_STATIC_LIB})
 endif()
 
 
