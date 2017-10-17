@@ -26,6 +26,14 @@ int main ( ) {
     std::cout<<"construction with value and interval(variable type) : "
              <<Var2.toString() <<std::endl;
 
+    Var2.setType(snmpp::math::VariableType::Parameter);
+    auto type = Var2.getType();
+    std::cout<<"new type : "<< static_cast<int>(type)
+             <<" -> "<<Var2.typeToString() <<std::endl;
+
+    std::cout<<"value stay the same : "<<Var2.getValue()<<std::endl;
+    std::cout<<" and interval "<<Var2.getLower()<<","
+             <<Var2.getUpper() <<std::endl;
     return 0;
 }
 
