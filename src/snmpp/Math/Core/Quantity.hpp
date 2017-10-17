@@ -83,6 +83,9 @@ class Quantity {
     virtual std::string toString()const;
 };
 
+/******************************************************************************
+ * Implementation
+ ******************************************************************************/
 
 template< typename Type >
 Quantity<Type>::Quantity() : _value(static_cast<Type>(0)) {
