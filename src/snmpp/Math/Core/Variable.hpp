@@ -66,8 +66,10 @@ class Variable : public snmpp::math::Quantity<ValueType> {
     VariableType _type;
 
   public:
-    template<typename... Args>
-    explicit Variable( VariableType type, Args...args );
+
+    explicit Variable(VariableType type);
+    Variable(double val, VariableType type);
+    Variable(double val,double low, double high, VariableType type);
 
     VariableType getType() const;
     void setType(VariableType type);
@@ -82,10 +84,18 @@ class Variable : public snmpp::math::Quantity<ValueType> {
  * Implementation
  ******************************************************************************/
 
-template <typename ValueType>
-template<typename... Args>
-Variable<ValueType>::Variable( VariableType type, Args... args ) :
-    Quantity<ValueType>(std::forward<Args>(args)...), _type(type) {}
+template<typename ValueType>
+Variable<ValueType>::Variable(VariableType type) :_type(type) {}
+
+template<typename ValueType>
+Variable<ValueType>::Variable(double val, VariableType type)
+    :Quantity<ValueType>(val), _type(type) {}
+
+template<typename ValueType>
+Variable<ValueType>::Variable
+    (double val, double l, double h,VariableType type)
+    :Quantity<ValueType>(val, l, h), _type(type) {}
+
 
 template<typename ValueType>
 VariableType Variable<ValueType>::getType() const {
