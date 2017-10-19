@@ -149,6 +149,12 @@ int main () {
         std::cout<<it.first<<" = "<<s<<std::endl;
     }
 
+    std::cout<<"\nConstructing from map : \n";
+
+    snmpp::math::Variables<std::string, double> Var2(map);
+
+    outputVar(Var2);
+
     return 0;
 }
 
