@@ -12,21 +12,25 @@
  * Description: 
  * ------------
  * This class represents a map of variable
+ * It has the std::container interface.
  ******************************************************************************/
 
 /******************************************************************************
  * Class Attributes:
- * ----------------- 
+ * -----------------
+ * _vars : this is the map of variable
  ******************************************************************************/
 
 /******************************************************************************
  * Public Methods: 
  * ---------------
+ * A lot : see interface
  ******************************************************************************/
 
 /******************************************************************************
  * Private Methods:
  * ----------------
+ * Nono for now
  ******************************************************************************/
 
 /******************************************************************************
@@ -35,8 +39,6 @@
  * 1) Check if it is more appropriate to use map or hash-map. My guess is that
  *    it depends on the number of variables...
  *
- * 2) It could be nice to construct a Variables from a vector of tuple and to
- *    forward the element of the tuples to the constructor of a Variable.
  ******************************************************************************/
 
 #include <map>
