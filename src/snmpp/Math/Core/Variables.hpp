@@ -42,10 +42,8 @@
  ******************************************************************************/
 
 #include <map>
-#include <string>
-#include <tuple>
 #include <vector>
-#include <deque>
+
 
 #include "Variable.hpp"
 
@@ -56,11 +54,12 @@ class Variables{
 
   public:
 
-    using VariablesContainer = std::map<Key, Variable<ValueType> >;
+    using VariablesContainer = std::map<Key, Variable<ValueType>>;
     using iterator = typename VariablesContainer::iterator;
     using const_iterator = typename VariablesContainer::const_iterator;
     using reverse_iterator = typename VariablesContainer::reverse_iterator;
-    using const_reverse_iterator = typename VariablesContainer::const_reverse_iterator;
+    using const_reverse_iterator =
+        typename VariablesContainer::const_reverse_iterator;
 
   private:
 
@@ -69,7 +68,7 @@ class Variables{
 
   public:
 
-
+    Variables();
     explicit Variables(const VariablesContainer &vars);
     explicit Variables(const OtherVarContainer &vars);
 
@@ -78,6 +77,14 @@ class Variables{
 
     VariablesContainer get() const;
     Variable<ValueType> get(const Key &k) const; // may throw
+    std::vector< const_iterator > get( VariableType type) const;
+    std::vector<Key> getKeys (VariableType type)const;
+
+    void set(const Key &k, const ValueType &v);
+    void set(const std::vector<std::pair<Key, ValueType>> &val);
+    void set(std::vector<std::pair<Key, ValueType>> &&val);
+    void setFromVariables(Variables<Key, ValueType> vars);
+    void setFromMap(const std::map<Key,ValueType> &vars);
 
 
     /* std container interface stuff */
@@ -103,13 +110,19 @@ class Variables{
     std::size_t erase(const Key &t);
     void clear();
     std::size_t size();
-
+    std::size_t size( VariableType type);
 
 };
 
 /******************************************************************************
  * Implementation
  ******************************************************************************/
+
+template <typename Key, typename ValueType>
+Variables<Key,ValueType>::Variables() {
+    // Why do I have to write a default constructor which does nothing if I
+    // defined constructors with arguments (which cannot take default value) ?
+}
 
 template <typename Key, typename ValueType>
 Variables<Key,ValueType>::Variables(const VariablesContainer &vars)
@@ -160,6 +173,82 @@ template <typename Key, typename ValueType>
 Variable<ValueType> Variables<Key,ValueType>::get(const Key &k) const {
 
     return _vars.at(k);
+}
+
+template <typename K, typename V>
+std::vector<typename Variables<K,V>::const_iterator>
+Variables<K,V>::get(VariableType type) const {
+
+    std::vector<Variables<K,V>::const_iterator> vec;
+
+    for( auto it = _vars.begin() ; it != _vars.end() ; ++it ){
+        if( it->second.getType() == type ){
+            vec.push_back(it);
+        }
+    }
+
+    return vec;
+}
+
+template <typename K, typename V>
+std::vector<K> Variables<K,V>::getKeys(VariableType type) const {
+    auto vec = get( type );
+    std::vector<K> keys;
+    for( auto &i : vec ){
+        keys.push_back(i->first);
+    }
+    return keys;
+}
+
+template <typename K, typename V>
+void Variables<K,V>::set(const K &k, const V &v) {
+    auto it = _vars.find(k);
+    if( it == _vars.end() ){
+        throw std::runtime_error(" -> trying to set a non-existing variable");
+    }
+    it->second.setValue(v);
+}
+
+template <typename K, typename V>
+void Variables<K,V>::set(std::vector<std::pair<K,V>> &&val) {
+    for( const auto &it : val ){
+        set( it.first, it.second);
+    }
+}
+
+template <typename K, typename V>
+void Variables<K,V>::set(const std::vector<std::pair<K,V>> &val) {
+    for( const auto &it : val ){
+        set( it.first, it.second);
+    }
+}
+
+template <typename K, typename V>
+void Variables<K,V>::setFromVariables(Variables<K,V> vars ){
+    for( const auto &i : vars ){
+        auto iter = _vars.find(i.first);
+        if ( iter == _vars.end()){
+            throw std::runtime_error("Setting variables from a map : "
+                                         "non-existing key");
+        }
+        if ( iter->second.getType() != i.second.getType() ){
+            throw std::runtime_error("Setting variables from a map : "
+                                         "VariableType are different");
+        }
+        iter->second.setValue(i.second.getValue());
+    }
+}
+
+template <typename K, typename V>
+void Variables<K,V>::setFromMap(const std::map<K,V> &vars) {
+    for( const auto &i : vars ){
+        auto iter = _vars.find(i.first) ;
+        if ( iter == _vars.end()){
+            throw std::runtime_error("Setting variables from a map : "
+                                         "non-existing key");
+        }
+        iter->second.setValue(i.second);
+    }
 }
 
 template <typename K, typename V>
@@ -244,6 +333,18 @@ template <typename K, typename V>
 std::size_t Variables<K,V>::size() {
     return _vars.size();
 }
+
+template <typename K, typename V>
+std::size_t Variables<K,V>::size(VariableType type) {
+    std::size_t s(0);
+    for( auto &i : _vars ){
+        if( i.second.getType() == type ){
+            ++s;
+        }
+    }
+    return s;
+}
+
 
 }} // namespace snmpp::math
 
