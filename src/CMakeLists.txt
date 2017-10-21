@@ -12,11 +12,11 @@
 
 ################################################################################
 ## List of objects
-set ( FAKE_OBJ "fake")
+set ( UTILS_OBJ "utils")
 set ( MATH_OBJ "math" )
 
 set( OBJECT_LIST
-        ${FAKE_OBJ}
+        ${UTILS_OBJ}
         ${MATH_OBJ})
 
 
@@ -65,7 +65,7 @@ endif()
 ## Installation of header files
 
 set( HEADERS
-        "snmpp/fake/fake.hpp"
+        "snmpp/Utils/Tools.hpp"
         "snmpp/Math/Core/FuncBase.hpp"
         "snmpp/Math/Core/Quantity.hpp"
         "snmpp/Math/Core/Variable.hpp"

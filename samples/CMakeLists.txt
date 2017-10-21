@@ -6,7 +6,7 @@
 #  Copyright © 2017 UAVIA. All rights reserved.
 #
 
-add_subdirectory(fake)
+add_subdirectory(Utils)
 add_subdirectory(Math)
 
 # CMakeLists.txt ends here

@@ -10,8 +10,10 @@
 ## snmpp
 ## 
 
-set( FAKE_SOURCES "fake/fake.cpp" "fake/fake.hpp")
-add_library( ${FAKE_OBJ} OBJECT ${FAKE_SOURCES} )
+set( UTILS_SOURCES
+        "Utils/Tools.cpp"
+        "Utils/Tools.hpp")
+add_library( ${UTILS_OBJ} OBJECT ${UTILS_SOURCES} )
 
 set( MATH_SOURCES
         "Math/Core/Quantity.hpp"
