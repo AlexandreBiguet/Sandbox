@@ -22,7 +22,8 @@ int main ( ){
 
     snmpp::utils::FormattedOutput c;
 
-    std::cout<<c<<n<<v<<"\n"<<c<<v<<n<<std::endl;
+    std::cout<<c<<n<<c<<v<<c<<v<<"\n";
+    std::cout<<c<<v<<c<<n<<c<<n<<std::endl;
 
 
     return 0;
