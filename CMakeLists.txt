@@ -18,11 +18,15 @@ project( snmpp  LANGUAGES CXX VERSION 0.0.1 )
 
 option( BUILD_SAMPLES "Build the samples" ON )
 option( BUILD_TESTS "Build the tests" ON )
+option( BUILD_SANDBOX "Build the sandbox programs" ON ) ## see comment below
 option( WITH_TESTS "Execution of tests" OFF)
 option( ENABLE_SHARED "Building shared library" ON )
 option( NO_WARNINGS "Build without any additional warnings" OFF )
 option( CLANG_WEVERYTHING "Build with -Weverything if compiler accepts it" OFF)
 option( ENABLE_STATIC "Building static library" OFF )
+
+### BUILD_SANDBOX option is only for small test that I performed. The should
+### be useless for user
 
 ################################################################################
 ## Project related declarations
@@ -106,6 +110,10 @@ endif()
 
 if( BUILD_TESTS )
     add_subdirectory(tests)
+endif()
+
+if( BUILD_SANDBOX )
+    add_subdirectory(sandbox)
 endif()
 
 ################################################################################
