@@ -7,39 +7,39 @@
 #
 
 
-add_executable(CoreQuantitySample QuantitySample.cpp)
+add_executable(SampleCoreQuantity QuantitySample.cpp)
 
 if( ENABLE_SHARED)
-    target_link_libraries(CoreQuantitySample ${PROJECT_LIB})
+    target_link_libraries(SampleCoreQuantity ${PROJECT_LIB})
 else()
-    target_link_libraries(CoreQuantitySample ${PROJECT_STATIC_LIB})
+    target_link_libraries(SampleCoreQuantity ${PROJECT_STATIC_LIB})
 endif()
 
 
-add_executable(CoreVariableSample VariableSample.cpp )
+add_executable(SampleCoreVariable VariableSample.cpp )
 
 if( ENABLE_SHARED)
-    target_link_libraries(CoreVariableSample ${PROJECT_LIB})
+    target_link_libraries(SampleCoreVariable ${PROJECT_LIB})
 else()
-    target_link_libraries(CoreVariableSample ${PROJECT_STATIC_LIB})
+    target_link_libraries(SampleCoreVariable ${PROJECT_STATIC_LIB})
 endif()
 
 
-add_executable(CoreVariablesSample VariablesSample.cpp )
+add_executable(SampleCoreVariables VariablesSample.cpp )
 
 if( ENABLE_SHARED)
-    target_link_libraries(CoreVariablesSample ${PROJECT_LIB})
+    target_link_libraries(SampleCoreVariables ${PROJECT_LIB})
 else()
-    target_link_libraries(CoreVariablesSample ${PROJECT_STATIC_LIB})
+    target_link_libraries(SampleCoreVariables ${PROJECT_STATIC_LIB})
 endif()
 
 
-add_executable(CoreFuncSample FuncSample.cpp )
+add_executable(SampleCoreFunc FuncSample.cpp )
 
 if( ENABLE_SHARED)
-    target_link_libraries(CoreFuncSample ${PROJECT_LIB})
+    target_link_libraries(SampleCoreFunc ${PROJECT_LIB})
 else()
-    target_link_libraries(CoreFuncSample ${PROJECT_STATIC_LIB})
+    target_link_libraries(SampleCoreFunc ${PROJECT_STATIC_LIB})
 endif()
 
 # CMakeLists.txt ends here

@@ -6,12 +6,12 @@
 #  Copyright © 2017 UAVIA. All rights reserved.
 #
 
-add_executable(CoreVariablesTests VariablesTests.cpp )
+add_executable(TestCoreVariables VariablesTests.cpp )
 
 if( ENABLE_SHARED)
-    target_link_libraries(CoreVariablesTests ${PROJECT_LIB})
+    target_link_libraries(TestCoreVariables ${PROJECT_LIB})
 else()
-    target_link_libraries(CoreVariablesTests ${PROJECT_STATIC_LIB})
+    target_link_libraries(TestCoreVariables ${PROJECT_STATIC_LIB})
 endif()
 
 
