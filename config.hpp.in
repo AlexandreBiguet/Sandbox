@@ -11,7 +11,7 @@
 
 #define PROJECT_NAME "@PROJECT_NAME@"
 #define PROJECT_VERSION "@PROJECT_VERSION@"
-
+#define PROJECT_SOURCE_DIRECTORY "@PROJECT_SOURCE_DIR@"
 
 //
 // config.hpp.in ends here
