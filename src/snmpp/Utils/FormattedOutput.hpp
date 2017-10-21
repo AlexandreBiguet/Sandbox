@@ -48,7 +48,7 @@ class FormattedOutput {
 
 
     friend std::ostream& operator<<
-        ( std::ostream& dest, FormattedFormat const& fmt )
+        ( std::ostream& dest, FormattedOutput const& fmt )
     {
         dest.setf( std::ios_base::fixed, std::ios_base::floatfield );
         dest.setf( std::ios_base::left, std::ios_base::adjustfield );
