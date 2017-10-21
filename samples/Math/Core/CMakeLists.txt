@@ -34,4 +34,12 @@ else()
 endif()
 
 
+add_executable(CoreFuncSample FuncSample.cpp )
+
+if( ENABLE_SHARED)
+    target_link_libraries(CoreFuncSample ${PROJECT_LIB})
+else()
+    target_link_libraries(CoreFuncSample ${PROJECT_STATIC_LIB})
+endif()
+
 # CMakeLists.txt ends here

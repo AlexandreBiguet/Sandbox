@@ -11,11 +11,15 @@
 /******************************************************************************
  * Description: 
  * ------------
+ * Virtual class
+ * Represents a function
  ******************************************************************************/
 
 /******************************************************************************
  * Class Attributes:
- * ----------------- 
+ * -----------------
+ * _inputs  : a Variables<K,V> object. Input Variables
+ * _outputs : Output Variables in a map<Key, Value> object
  ******************************************************************************/
 
 /******************************************************************************
@@ -33,10 +37,46 @@
  * ----------------------
  ******************************************************************************/
 
-namespace  snmpp {
+#include "Variables.hpp"
 
+namespace snmpp { namespace math {
 
+template<typename Key, typename ValueType>
+class FuncBase {
 
-} // namespace snmpp 
+  public:
+
+    using ConstructorInputType = Variables<Key, ValueType>;
+    using InputType  = std::map<Key, ValueType>;
+    using OutputType = std::map<Key, ValueType>;
+
+  protected:
+
+    ConstructorInputType _inputs;
+    OutputType _outputs;
+
+  public:
+
+    explicit FuncBase(const ConstructorInputType &vars ) : _inputs(vars) {}
+
+    const OutputType& operator() ( ) {
+        eval();
+        return _outputs;
+    }
+
+    const OutputType& operator() (const InputType &vars ) {
+        _inputs.setFromMap(vars);
+        eval();
+        return _outputs;
+    }
+
+    OutputType getCopy() const {
+        return _outputs;
+    }
+
+    virtual void eval() = 0;
+};
+
+}} // namespace snmpp::math
 
 // FuncBase.hpp ends here
