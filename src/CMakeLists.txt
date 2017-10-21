@@ -12,22 +12,45 @@
 
 ################################################################################
 ## List of objects
-set ( UTILS_OBJ "utils")
-set ( MATH_OBJ "math" )
+set ( UTILS_OBJ "obj_utils")
+set ( MATH_OBJ "obj_math" )
 
 set( OBJECT_LIST
         ${UTILS_OBJ}
         ${MATH_OBJ})
 
+################################################################################
+## Sources corresponding to object libraries
 
-add_subdirectory( snmpp )
+set( UTILS_SOURCES
+        "snmpp/Utils/Tools.cpp"
+        "snmpp/Utils/Tools.hpp")
+add_library( ${UTILS_OBJ} OBJECT ${UTILS_SOURCES} )
 
-FillTargetObjectList("${OBJECT_LIST}" TARGET_OBJECTS_LIST)
+set( MATH_SOURCES
+        "snmpp/Math/Core/FuncBase.hpp"
+        "snmpp/Math/Core/Quantity.hpp"
+        "snmpp/Math/Core/Variable.hpp"
+        "snmpp/Math/Core/Variables.hpp")
 
-message( "DEBUG -- target object list : ${TARGET_OBJECTS_LIST}")
+add_library( ${MATH_OBJ} OBJECT ${MATH_SOURCES} )
+
+
+################################################################################
+## List of headers that will be installed
+
+set( HEADERS
+        "snmpp/Math/Core/FuncBase.hpp"
+        "snmpp/Math/Core/Quantity.hpp"
+        "snmpp/Math/Core/Variable.hpp"
+        "snmpp/Math/Core/Variables.hpp"
+        "snmpp/Utils/Tools.hpp")
+
 
 ################################################################################
 ## Creation of the library
+
+FillTargetObjectList("${OBJECT_LIST}" TARGET_OBJECTS_LIST)
 
 if( ENABLE_SHARED )
 
@@ -63,13 +86,6 @@ endif()
 
 ################################################################################
 ## Installation of header files
-
-set( HEADERS
-        "snmpp/Utils/Tools.hpp"
-        "snmpp/Math/Core/FuncBase.hpp"
-        "snmpp/Math/Core/Quantity.hpp"
-        "snmpp/Math/Core/Variable.hpp"
-        "snmpp/Math/Core/Variables.hpp" )
 
 InstallFilesInList( "${HEADERS}" "${INSTALL_PATH_HEADERS}" true)
 
