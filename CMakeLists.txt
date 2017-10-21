@@ -16,7 +16,8 @@ project( snmpp  LANGUAGES CXX VERSION 0.0.1 )
 ################################################################################
 ## Options
 
-option( BUILD_SAMPLES "Build the sample test" ON )
+option( BUILD_SAMPLES "Build the samples" ON )
+option( BUILD_TESTS "Build the tests" ON )
 option( WITH_TESTS "Execution of tests" OFF)
 option( ENABLE_SHARED "Building shared library" ON )
 option( NO_WARNINGS "Build without any additional warnings" OFF )
@@ -101,6 +102,10 @@ add_subdirectory(src)
 
 if( BUILD_SAMPLES )
     add_subdirectory(samples)
+endif()
+
+if( BUILD_TESTS )
+    add_subdirectory(tests)
 endif()
 
 ################################################################################
