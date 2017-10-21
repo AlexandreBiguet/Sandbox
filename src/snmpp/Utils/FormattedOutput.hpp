@@ -34,6 +34,8 @@
  * ----------------------
  ******************************************************************************/
 
+#include <iomanip>
+
 namespace snmpp { namespace utils {
 
 class FormattedOutput {
@@ -54,7 +56,7 @@ class FormattedOutput {
         dest.setf( std::ios_base::left, std::ios_base::adjustfield );
         dest.precision( fmt._precision );
         dest.width( fmt._width );
-        return dest;
+        return dest<<std::showpos;
     }
 
 };

@@ -13,6 +13,7 @@
 int main ( ){
 
     double v = 5.0;
+    double y = -15.0;
     int n = 10;
 
     std::cout<<"without formatted format : \n";
@@ -22,8 +23,8 @@ int main ( ){
 
     snmpp::utils::FormattedOutput c;
 
-    std::cout<<c<<n<<c<<v<<c<<v<<"\n";
-    std::cout<<c<<v<<c<<n<<c<<n<<std::endl;
+    std::cout<<c<<n<<c<<v<<c<<v<<c<<y<<"\n";
+    std::cout<<c<<v<<c<<y<<c<<n<<c<<n<<std::endl;
 
 
     return 0;
