@@ -14,5 +14,14 @@ else()
     target_link_libraries(GetCurrentDateSample ${PROJECT_STATIC_LIB})
 endif()
 
+add_executable(FormattedOutputSample FormattedOutputSample.cpp)
+
+if( ENABLE_SHARED)
+    target_link_libraries(FormattedOutputSample ${PROJECT_LIB})
+else()
+    target_link_libraries(FormattedOutputSample ${PROJECT_STATIC_LIB})
+endif()
+
+
 
 # CMakeLists.txt ends here
