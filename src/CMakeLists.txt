@@ -87,7 +87,7 @@ endif()
 ################################################################################
 ## Installation of header files
 
-InstallFilesInList( "${HEADERS}" "${INSTALL_PATH_HEADERS}" true)
+InstallFilesInList( "${HEADERS}" "${INSTALL_PATH_HEADERS}" false)
 
 
 
