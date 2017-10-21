@@ -23,6 +23,7 @@ set( OBJECT_LIST
 ## Sources corresponding to object libraries
 
 set( UTILS_SOURCES
+        "snmpp/Utils/FormattedOutput.hpp"
         "snmpp/Utils/Tools.cpp"
         "snmpp/Utils/Tools.hpp")
 add_library( ${UTILS_OBJ} OBJECT ${UTILS_SOURCES} )
@@ -44,6 +45,7 @@ set( HEADERS
         "snmpp/Math/Core/Quantity.hpp"
         "snmpp/Math/Core/Variable.hpp"
         "snmpp/Math/Core/Variables.hpp"
+        "snmpp/Utils/FormattedOutput.hpp"
         "snmpp/Utils/Tools.hpp")
 
 
