@@ -178,60 +178,123 @@ class Quantity {
  * Implementation
  ******************************************************************************/
 
+/**
+ * Default constructor : The value is cast to 0 and interval is set to
+ * ]-inf, +inf[
+ *
+ * */
+
 template< typename Type >
 Quantity<Type>::Quantity() : _value(static_cast<Type>(0)) {
     _interval.set_whole();
 }
+
+/**
+ * Constructs a quantity with value @val and sets the interval of
+ * definition to ]-inf, +inf[
+ *
+ **/
 
 template< typename Type >
 Quantity<Type>::Quantity(const Type &val) : _value(val) {
     _interval.set_whole();
 }
 
+/**
+ * Constructs a quantity with value @val and interval to [@lower, @upper]
+ *
+ * */
+
 template< typename Type >
 Quantity<Type>::Quantity(const Type &val, const Type &lower, const Type &upper)
     : _value(val), _interval(lower, upper)
 {}
+
+/**
+ * Returns a copy of the value
+ *
+ * */
 
 template <typename Type>
 Type Quantity<Type>::getValue() const {
     return _value;
 }
 
+/**
+ * Sets the value with @value
+ *
+ * */
+
 template <typename Type>
 void Quantity<Type>::setValue(const Type &value) {
     _value = value;
 }
+
+/**
+ * Sets the lower bound of the interval to @lower
+ *
+ * */
 
 template <typename Type>
 void Quantity<Type>::setLower(const Type &lower) {
     _interval.assign(lower, _interval.upper() );
 }
 
+/**
+ * Sets the upper bound of the interval to @upper
+ *
+ * */
+
 template <typename Type>
 void Quantity<Type>::setUpper(const Type &upper) {
     _interval.assign(_interval.lower(), upper);
 }
+
+/**
+ * Sets the interval to [@lower, @upper]
+ *
+ * */
 
 template <typename Type>
 void Quantity<Type>::setInterval(const Type &lower, const Type &upper) {
     _interval.assign(lower, upper);
 }
 
+/**
+ * Returns a copy of the lower bound of the interval
+ *
+ * */
+
 template <typename Type>
 Type Quantity<Type>::getLower() const {
     return _interval.lower();
 }
+
+/**
+ * Returns a copy of the upper bound of the interval
+ *
+ * */
 
 template <typename Type>
 Type Quantity<Type>::getUpper() const {
     return _interval.upper();
 }
 
+/**
+ * Returns a copy of the interval in a boost::numeric::interval object
+ *
+ * */
+
 template <typename Type>
 typename Quantity<Type>::IntervalType Quantity<Type>::getInterval() const {
     return _interval;
 }
+
+/**
+ * Puts the quantity into a string
+ * This is mainly for debug purpose
+ *
+ * */
 
 template <typename Type>
 std::string Quantity<Type>::toString()const{

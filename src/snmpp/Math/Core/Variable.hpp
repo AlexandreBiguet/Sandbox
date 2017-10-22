@@ -143,28 +143,59 @@ class Variable : public snmpp::math::Quantity<ValueType> {
  * Implementation
  ******************************************************************************/
 
+/*******************************************************************************
+ * Construction with default value and a given VariableType @type
+ *
+ * */
+
 template<typename ValueType>
 Variable<ValueType>::Variable(VariableType type) :_type(type) {}
+
+/*******************************************************************************
+ * Construction with value @val and VariableType @type
+ *
+ * */
 
 template<typename ValueType>
 Variable<ValueType>::Variable(double val, VariableType type)
     :Quantity<ValueType>(val), _type(type) {}
+
+/*******************************************************************************
+ * Construction with default value @val and definition interval
+ * [@lower,@upper] and a VariableType @type
+ *
+ * */
 
 template<typename ValueType>
 Variable<ValueType>::Variable
     (double val, double lower, double upper,VariableType type)
     :Quantity<ValueType>(val, lower, upper), _type(type) {}
 
+/*******************************************************************************
+ * Returns the type of the Variable
+ *
+ * */
 
 template<typename ValueType>
 VariableType Variable<ValueType>::getType() const {
     return _type;
 }
 
+/*******************************************************************************
+ * Sets the VariableType to @type
+ *
+ * */
+
 template<typename ValueType>
 void Variable<ValueType>::setType(VariableType type) {
     _type = type;
 }
+
+/*******************************************************************************
+ * Puts the VariableType into a string
+ * This is mainly for debug purpose
+ *
+ * */
 
 template<typename ValueType>
 std::string Variable<ValueType>::typeToString() const {
@@ -182,6 +213,12 @@ std::string Variable<ValueType>::typeToString() const {
     }
     return s;
 }
+
+/*******************************************************************************
+ * Puts the quantity into a string
+ * This is mainly for debug purpose
+ *
+ * */
 
 template<typename ValueType>
 std::string Variable<ValueType>::toString() const {
