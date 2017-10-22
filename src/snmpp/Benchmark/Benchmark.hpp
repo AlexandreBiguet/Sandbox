@@ -202,10 +202,9 @@ void Benchmark<T,C,Args...>::execute( Callable func ){
 
     ofs<<"# Function name : "<<_config.getFunctionName()<<"\n";
     ofs<<"# Statistical mean and variance calculated on a "
-       <<_config.getIterationNumber()<<" sample \n#\n";
-    ofs<<"# Bunch Nb     mean      sqrt(variance)  [unit]\n";
-
-    // TODO : print time unit
+       <<_config.getIterationNumber()<<" sample \n";
+     ofs<<"Time unit : "<<utils::getTimeUnit<T>()<<"\n#\n";
+    ofs<<"# Bunch Nb     mean      sqrt(variance)  \n";
 
     std::size_t count(0);
 

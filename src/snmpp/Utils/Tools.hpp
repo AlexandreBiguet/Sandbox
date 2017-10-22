@@ -47,6 +47,36 @@ std::string addTrailingSlash(const std::string &input);
 
 void createDirectory( const std::string &input );
 
+/**
+ * Returns a string containing the human readable time unit
+ *
+ */
+
+template <typename TimeUnit>
+std::string getTimeUnit() {
+    throw std::logic_error("Not implemented");
+}
+
+template <>
+std::string getTimeUnit<std::chrono::seconds>(){
+    return "s";
+}
+
+template <>
+std::string getTimeUnit<std::chrono::milliseconds>() {
+    return "ms";
+}
+
+template <>
+std::string getTimeUnit<std::chrono::microseconds>() {
+    return "us";
+}
+
+template <>
+std::string getTimeUnit<std::chrono::nanoseconds>() {
+    return "ns";
+}
+
 }} // namespace snmpp::utils
 
 // Tools.hpp ends here
