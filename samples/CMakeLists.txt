@@ -7,6 +7,7 @@
 #
 
 add_subdirectory(Utils)
+add_subdirectory(Benchmark)
 add_subdirectory(Math)
 
 # CMakeLists.txt ends here
