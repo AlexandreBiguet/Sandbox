@@ -56,31 +56,90 @@
 
 namespace snmpp { namespace math {
 
+
+/**
+ * A Variable object can be of different type as explained in the class
+ * description.
+ *
+ * */
 enum class VariableType {Running, Fixed, Parameter};
 
+/**
+ * A Variable is a Quantity to which a VariableType is added.
+ *
+ * */
 template <typename ValueType>
 class Variable : public snmpp::math::Quantity<ValueType> {
 
-  private:
 
-    VariableType _type;
+    /***************************************************************************
+     * Interface
+     **************************************************************************/
 
   public:
 
+    /**
+     * Construction with default value and a given VariableType @type
+     *
+     * */
     explicit Variable(VariableType type);
-    Variable(double val, VariableType type);
-    Variable(double val,double low, double high, VariableType type);
 
+    /**
+     * Construction with value @val and VariableType @type
+     *
+     * */
+    Variable(double val, VariableType type);
+
+    /**
+     * Construction with default value @val and definition interval
+     * [@lower,@upper] and a VariableType @type
+     *
+     * */
+    Variable(double val,double lower, double upper, VariableType type);
+
+    /**
+     * Returns the type of the Variable
+     *
+     * */
     VariableType getType() const;
+
+    /**
+     * Sets the VariableType to @type
+     *
+     * */
     void setType(VariableType type);
 
+    /**
+     * Puts the VariableType into a string
+     * This is mainly for debug purpose
+     *
+     * */
     std::string typeToString()const;
+
+    /**
+     * Puts the quantity into a string
+     * This is mainly for debug purpose
+     *
+     * */
     std::string toString() const override ;
+
+
+    /***************************************************************************
+     * Private
+     **************************************************************************/
+
+  private:
+
+    /**
+     * The VariableType
+     *
+     * */
+    VariableType _type;
 
 
 };
 
-/******************************************************************************
+/*******************************************************************************
  * Implementation
  ******************************************************************************/
 
@@ -93,8 +152,8 @@ Variable<ValueType>::Variable(double val, VariableType type)
 
 template<typename ValueType>
 Variable<ValueType>::Variable
-    (double val, double l, double h,VariableType type)
-    :Quantity<ValueType>(val, l, h), _type(type) {}
+    (double val, double lower, double upper,VariableType type)
+    :Quantity<ValueType>(val, lower, upper), _type(type) {}
 
 
 template<typename ValueType>
