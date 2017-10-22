@@ -148,7 +148,8 @@ class Quantity {
     IntervalType getInterval() const;
 
     /**
-     *
+     * Puts the quantity into a string
+     * This is mainly for debug purpose
      *
      * */
     virtual std::string toString()const;
@@ -173,9 +174,9 @@ class Quantity {
 
 };
 
- /******************************************************************************
-  * Implementation
-  *****************************************************************************/
+/*******************************************************************************
+ * Implementation
+ ******************************************************************************/
 
 template< typename Type >
 Quantity<Type>::Quantity() : _value(static_cast<Type>(0)) {
