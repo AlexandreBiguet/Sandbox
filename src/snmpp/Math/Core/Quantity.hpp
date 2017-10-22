@@ -56,29 +56,29 @@
 
 namespace snmpp { namespace math {
 
-template < typename Type >
+template < typename ValueType >
 class Quantity {
 
   public:
 
-    using IntervalType = boost::numeric::interval<Type>;
+    using IntervalType = boost::numeric::interval<ValueType>;
 
   protected:
-    Type _value;
+    ValueType _value;
     IntervalType _interval;
 
   public:
     Quantity();
-    explicit Quantity(const Type &val);
-    Quantity(const Type &val, const Type &lower, const Type &upper);
+    explicit Quantity(const ValueType &val);
+    Quantity(const ValueType &val, const ValueType &lower, const ValueType &upper);
 
-    Type getValue() const;
-    void setValue(const Type &v);
-    void setLower(const Type &v);
-    void setUpper(const Type &v);
-    void setInterval(const Type &lower, const Type &upper);
-    Type getLower() const;
-    Type getUpper() const;
+    ValueType getValue() const;
+    void setValue(const ValueType &v);
+    void setLower(const ValueType &v);
+    void setUpper(const ValueType &v);
+    void setInterval(const ValueType &lower, const ValueType &upper);
+    ValueType getLower() const;
+    ValueType getUpper() const;
     IntervalType getInterval() const;
     virtual std::string toString()const;
 };
