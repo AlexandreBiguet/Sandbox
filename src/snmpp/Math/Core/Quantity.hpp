@@ -60,12 +60,12 @@ template < typename Type >
 class Quantity {
 
   public:
-    template<typename T>
-    using IntervalType = boost::numeric::interval<T>;
+
+    using IntervalType = boost::numeric::interval<Type>;
 
   protected:
     Type _value;
-    IntervalType<Type> _interval;
+    IntervalType _interval;
 
   public:
     Quantity();
@@ -79,7 +79,7 @@ class Quantity {
     void setInterval(const Type &lower, const Type &upper);
     Type getLower() const;
     Type getUpper() const;
-    IntervalType<Type> getInterval() const;
+    IntervalType getInterval() const;
     virtual std::string toString()const;
 };
 
@@ -138,7 +138,7 @@ Type Quantity<Type>::getUpper() const {
 }
 
 template <typename Type>
-Quantity<Type>::IntervalType<Type> Quantity<Type>::getInterval() const {
+typename Quantity<Type>::IntervalType Quantity<Type>::getInterval() const {
     return _interval;
 }
 
