@@ -49,45 +49,155 @@
 
 namespace snmpp { namespace math {
 
+/**
+ * The Variables class is a container of Variables acting like a map with
+ * key @Key and value @ValueType
+ *
+ * It implements iterators and can be used as a std::container
+ *
+ * */
 template <typename Key, typename ValueType>
 class Variables{
 
+  private :
+
+    /**
+     * Private typedef used as an argument in a constructor.
+     *
+     * */
+    using OtherVarContainer = std::vector<std::tuple<Key,ValueType,VariableType>>;
+
+
+    /***************************************************************************
+     * Interface
+     **************************************************************************/
   public:
 
+    /**
+     * The low lying std::container used
+     *
+     * */
     using VariablesContainer = std::map<Key, Variable<ValueType>>;
+
+    /**
+     * Definition of iteretors as the VariablesContainer iterators
+     *
+     * */
     using iterator = typename VariablesContainer::iterator;
     using const_iterator = typename VariablesContainer::const_iterator;
     using reverse_iterator = typename VariablesContainer::reverse_iterator;
     using const_reverse_iterator =
         typename VariablesContainer::const_reverse_iterator;
 
-  private:
-
-    VariablesContainer _vars;
-    using OtherVarContainer = std::vector<std::tuple<Key,ValueType,VariableType>>;
-
-  public:
-
+    /**
+     * Default construction
+     *
+     * */
     Variables();
+
+    /**
+     * Construction from a VariablesContainer
+     *
+     * */
     explicit Variables(const VariablesContainer &vars);
+
+    /**
+     * Construction from a vector of tuple. The tuple contains the key and
+     * (value and VariableType).
+     * OtherVarContainer is private.
+     *
+     * */
     explicit Variables(const OtherVarContainer &vars);
 
-
+    /**
+     * Add a variable @v inside the container with key @k.
+     * Returns an iterator to this newly inserted variable.
+     *
+     * Throws if it was not possible to add this variable with the given key.
+     *
+     * */
     iterator add(const Key &k, const Variable<ValueType> &v);
 
+    /**
+     * Returns a copy of the low lying container
+     *
+     * */
     VariablesContainer get() const;
-    Variable<ValueType> get(const Key &k) const; // may throw
+
+    /**
+     * Returns a copy of the Variable contained in the VariablesContainer at
+     * key @k.
+     *
+     * Throws if no element with key @k was found.
+     *
+     * */
+    Variable<ValueType> get(const Key &k) const;
+
+    /**
+     * Returns a vector of const_iterator pointing to the variables of
+     * VariableType @type in the container.
+     *
+     * Returns an empty vector if no variable of type @type was found.
+     * */
     std::vector< const_iterator > get( VariableType type) const;
+
+    /**
+     * Returns a vector of Key (copied) of the variable of VariableType @type
+     *
+     * */
     std::vector<Key> getKeys (VariableType type)const;
 
+    /**
+     * Sets the value @v of a Variable with key @k
+     *
+     * Throws if the key @k was not found in the container
+     *
+     * */
     void set(const Key &k, const ValueType &v);
+
+    /**
+     * Call the previous set method for each element of the input vector
+     *
+     * Throws if a key was not found in the low-lying container
+     *
+     * */
     void set(const std::vector<std::pair<Key, ValueType>> &val);
+
+    /**
+     * Equivalent to previous set method but for rvalue reference
+     *
+     * */
     void set(std::vector<std::pair<Key, ValueType>> &&val);
+
+    /**
+     * Sets the current Variables object with another Variables object
+     *
+     * Throw if a key of the input object is not already defined in the
+     * current Variables object
+     *
+     * */
     void setFromVariables(Variables<Key, ValueType> vars);
+
+    /**
+     * Sets the current Variables object with a map of Key, value
+     *
+     * Throw if a key of the input object is not already defined in the
+     * current Variables object
+     *
+     * */
     void setFromMap(const std::map<Key,ValueType> &vars);
 
+    /**
+     * Retunrs the number of Variable which have their VariableType equal to
+     * @type.
+     * */
+    std::size_t size( VariableType type);
 
-    /* std container interface stuff */
+
+    /**
+     * std container interface stuff. These are standard
+     *
+     * */
 
     iterator begin();
     iterator end();
@@ -110,7 +220,16 @@ class Variables{
     std::size_t erase(const Key &t);
     void clear();
     std::size_t size();
-    std::size_t size( VariableType type);
+
+
+    /***************************************************************************
+     * Private
+     **************************************************************************/
+
+  private:
+
+    VariablesContainer _vars;
+
 
 };
 
@@ -118,17 +237,33 @@ class Variables{
  * Implementation
  ******************************************************************************/
 
+/*******************************************************************************
+ * Default construction
+ *
+ * */
+
 template <typename Key, typename ValueType>
 Variables<Key,ValueType>::Variables() {
     // Why do I have to write a default constructor which does nothing if I
     // defined constructors with arguments (which cannot take default value) ?
 }
 
+/*******************************************************************************
+ * Construction from a VariablesContainer
+ *
+ * */
+
 template <typename Key, typename ValueType>
 Variables<Key,ValueType>::Variables(const VariablesContainer &vars)
     : _vars(vars)
 {}
 
+/*******************************************************************************
+ * Construction from a vector of tuple. The tuple contains the key and
+ * (value and VariableType).
+ * OtherVarContainer is private.
+ *
+ * */
 
 template <typename Key, typename ValueType>
 Variables<Key,ValueType>::Variables(const OtherVarContainer & vars) {
@@ -146,6 +281,13 @@ Variables<Key,ValueType>::Variables(const OtherVarContainer & vars) {
     }
 }
 
+/*******************************************************************************
+ * Add a variable @v inside the container with key @k.
+ * Returns an iterator to this newly inserted variable.
+ *
+ * Throws if it was not possible to add this variable with the given key.
+ *
+ * */
 
 template <typename Key, typename ValueType>
 typename Variables<Key,ValueType>::iterator Variables<Key,ValueType>::add
@@ -162,6 +304,11 @@ typename Variables<Key,ValueType>::iterator Variables<Key,ValueType>::add
     return p.first;
 }
 
+/*******************************************************************************
+ * Returns a copy of the low lying container
+ *
+ * */
+
 template <typename Key, typename ValueType>
 typename Variables<Key,ValueType>::VariablesContainer
 Variables<Key,ValueType>::get() const {
@@ -169,11 +316,26 @@ Variables<Key,ValueType>::get() const {
     return _vars;
 }
 
+/*******************************************************************************
+ * Returns a copy of the Variable contained in the VariablesContainer at
+ * key @k.
+ *
+ * Throws if no element with key @k was found.
+ *
+ * */
+
 template <typename Key, typename ValueType>
 Variable<ValueType> Variables<Key,ValueType>::get(const Key &k) const {
 
     return _vars.at(k);
 }
+
+/*******************************************************************************
+ * Returns a vector of const_iterator pointing to the variables of
+ * VariableType @type in the container.
+ *
+ * Returns an empty vector if no variable of type @type was found.
+ * */
 
 template <typename K, typename V>
 std::vector<typename Variables<K,V>::const_iterator>
@@ -190,6 +352,11 @@ Variables<K,V>::get(VariableType type) const {
     return vec;
 }
 
+/*******************************************************************************
+ * Returns a vector of Key (copied) of the variable of VariableType @type
+ *
+ * */
+
 template <typename K, typename V>
 std::vector<K> Variables<K,V>::getKeys(VariableType type) const {
     auto vec = get( type );
@@ -200,6 +367,13 @@ std::vector<K> Variables<K,V>::getKeys(VariableType type) const {
     return keys;
 }
 
+/*******************************************************************************
+ * Sets the value @v of a Variable with key @k
+ *
+ * Throws if the key @k was not found in the container
+ *
+ * */
+
 template <typename K, typename V>
 void Variables<K,V>::set(const K &k, const V &v) {
     auto it = _vars.find(k);
@@ -209,6 +383,13 @@ void Variables<K,V>::set(const K &k, const V &v) {
     it->second.setValue(v);
 }
 
+/*******************************************************************************
+ * Call the previous set method for each element of the input vector
+ *
+ * Throws if a key was not found in the low-lying container
+ *
+ * */
+
 template <typename K, typename V>
 void Variables<K,V>::set(std::vector<std::pair<K,V>> &&val) {
     for( const auto &it : val ){
@@ -216,12 +397,25 @@ void Variables<K,V>::set(std::vector<std::pair<K,V>> &&val) {
     }
 }
 
+/*******************************************************************************
+ * Equivalent to previous set method but for rvalue reference
+ *
+ * */
+
 template <typename K, typename V>
 void Variables<K,V>::set(const std::vector<std::pair<K,V>> &val) {
     for( const auto &it : val ){
         set( it.first, it.second);
     }
 }
+
+/*******************************************************************************
+ * Sets the current Variables object with another Variables object
+ *
+ * Throw if a key of the input object is not already defined in the
+ * current Variables object
+ *
+ * */
 
 template <typename K, typename V>
 void Variables<K,V>::setFromVariables(Variables<K,V> vars ){
@@ -239,6 +433,14 @@ void Variables<K,V>::setFromVariables(Variables<K,V> vars ){
     }
 }
 
+/*******************************************************************************
+ * Sets the current Variables object with a map of Key, value
+ *
+ * Throw if a key of the input object is not already defined in the
+ * current Variables object
+ *
+ * */
+
 template <typename K, typename V>
 void Variables<K,V>::setFromMap(const std::map<K,V> &vars) {
     for( const auto &i : vars ){
@@ -251,88 +453,10 @@ void Variables<K,V>::setFromMap(const std::map<K,V> &vars) {
     }
 }
 
-template <typename K, typename V>
-typename Variables<K,V>::iterator Variables<K,V>::begin() {
-    return _vars.begin();
-}
-
-template <typename K, typename V>
-typename Variables<K,V>::iterator Variables<K,V>::end() {
-    return _vars.end();
-}
-
-template <typename K, typename V>
-typename Variables<K,V>::const_iterator Variables<K,V>::begin() const{
-    return _vars.begin();
-}
-
-template <typename K, typename V>
-typename Variables<K,V>::const_iterator Variables<K,V>::end() const{
-    return _vars.end();
-}
-
-
-template <typename K, typename V>
-typename Variables<K,V>::iterator Variables<K,V>::find(const K &k) {
-    return _vars.find(k);
-}
-
-
-template <typename K, typename V>
-typename Variables<K,V>::const_iterator Variables<K,V>::cbegin() const {
-    return _vars.cbegin();
-}
-
-template <typename K, typename V>
-typename Variables<K,V>::const_iterator Variables<K,V>::cend() const {
-    return _vars.cend();
-}
-
-template <typename K, typename V>
-typename Variables<K,V>::reverse_iterator Variables<K,V>::rbegin() {
-    return _vars.rbegin();
-}
-
-template <typename K, typename V>
-typename Variables<K,V>::reverse_iterator Variables<K,V>::rend() {
-    return _vars.rend();
-}
-
-template <typename K, typename V>
-typename Variables<K,V>::const_reverse_iterator Variables<K,V>::crbegin() const {
-    return _vars.crbegin();
-}
-
-template <typename K, typename V>
-typename Variables<K,V>::const_reverse_iterator Variables<K,V>::crend() const {
-    return _vars.crend();
-}
-
-template <typename K, typename V>
-bool Variables<K,V>::empty() const {
-    return _vars.empty();
-}
-
-template <typename K, typename V>
-typename Variables<K,V>::iterator
-Variables<K,V>::erase(typename Variables<K,V>::const_iterator it) {
-    return _vars.erase(it);
-}
-
-template <typename K, typename V>
-std::size_t Variables<K,V>::erase(const K &k){
-    return _vars.erase(k);
-}
-
-template <typename K, typename V>
-void Variables<K,V>::clear() {
-    _vars.clear();
-}
-
-template <typename K, typename V>
-std::size_t Variables<K,V>::size() {
-    return _vars.size();
-}
+/*******************************************************************************
+ * Retunrs the number of Variable which have their VariableType equal to
+ * @type.
+ * */
 
 template <typename K, typename V>
 std::size_t Variables<K,V>::size(VariableType type) {
@@ -344,6 +468,156 @@ std::size_t Variables<K,V>::size(VariableType type) {
     }
     return s;
 }
+
+/*******************************************************************************
+ * std container interface stuff. These are standard
+ *
+ * */
+
+/*******************************************************************************
+ * begin
+ * */
+template <typename K, typename V>
+typename Variables<K,V>::iterator Variables<K,V>::begin() {
+    return _vars.begin();
+}
+
+/*******************************************************************************
+ * end
+ * */
+
+template <typename K, typename V>
+typename Variables<K,V>::iterator Variables<K,V>::end() {
+    return _vars.end();
+}
+
+/*******************************************************************************
+ * begin (const)
+ * */
+
+template <typename K, typename V>
+typename Variables<K,V>::const_iterator Variables<K,V>::begin() const{
+    return _vars.begin();
+}
+
+/*******************************************************************************
+ * end (const)
+ * */
+
+template <typename K, typename V>
+typename Variables<K,V>::const_iterator Variables<K,V>::end() const{
+    return _vars.end();
+}
+
+/*******************************************************************************
+ * find
+ * */
+
+template <typename K, typename V>
+typename Variables<K,V>::iterator Variables<K,V>::find(const K &k) {
+    return _vars.find(k);
+}
+
+/*******************************************************************************
+ * cbegin
+ * */
+
+template <typename K, typename V>
+typename Variables<K,V>::const_iterator Variables<K,V>::cbegin() const {
+    return _vars.cbegin();
+}
+
+/*******************************************************************************
+ * cend
+ * */
+
+template <typename K, typename V>
+typename Variables<K,V>::const_iterator Variables<K,V>::cend() const {
+    return _vars.cend();
+}
+
+/*******************************************************************************
+ * rbegin
+ * */
+
+template <typename K, typename V>
+typename Variables<K,V>::reverse_iterator Variables<K,V>::rbegin() {
+    return _vars.rbegin();
+}
+
+/*******************************************************************************
+ * rend
+ * */
+
+template <typename K, typename V>
+typename Variables<K,V>::reverse_iterator Variables<K,V>::rend() {
+    return _vars.rend();
+}
+
+/*******************************************************************************
+ * crbegin
+ * */
+
+template <typename K, typename V>
+typename Variables<K,V>::const_reverse_iterator Variables<K,V>::crbegin() const {
+    return _vars.crbegin();
+}
+
+/*******************************************************************************
+ * crend
+ * */
+
+template <typename K, typename V>
+typename Variables<K,V>::const_reverse_iterator Variables<K,V>::crend() const {
+    return _vars.crend();
+}
+
+/*******************************************************************************
+ * empty
+ * */
+
+template <typename K, typename V>
+bool Variables<K,V>::empty() const {
+    return _vars.empty();
+}
+
+/*******************************************************************************
+ * erase
+ * */
+
+template <typename K, typename V>
+typename Variables<K,V>::iterator
+Variables<K,V>::erase(typename Variables<K,V>::const_iterator it) {
+    return _vars.erase(it);
+}
+
+/*******************************************************************************
+ * erase
+ * */
+
+template <typename K, typename V>
+std::size_t Variables<K,V>::erase(const K &k){
+    return _vars.erase(k);
+}
+
+/*******************************************************************************
+ * clear
+ * */
+
+template <typename K, typename V>
+void Variables<K,V>::clear() {
+    _vars.clear();
+}
+
+/*******************************************************************************
+ * size
+ * */
+
+template <typename K, typename V>
+std::size_t Variables<K,V>::size() {
+    return _vars.size();
+}
+
 
 
 }} // namespace snmpp::math
