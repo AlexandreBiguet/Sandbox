@@ -178,7 +178,7 @@ class Quantity {
  * Implementation
  ******************************************************************************/
 
-/**
+/*******************************************************************************
  * Default constructor : The value is cast to 0 and interval is set to
  * ]-inf, +inf[
  *
@@ -189,7 +189,7 @@ Quantity<Type>::Quantity() : _value(static_cast<Type>(0)) {
     _interval.set_whole();
 }
 
-/**
+/*******************************************************************************
  * Constructs a quantity with value @val and sets the interval of
  * definition to ]-inf, +inf[
  *
@@ -200,7 +200,7 @@ Quantity<Type>::Quantity(const Type &val) : _value(val) {
     _interval.set_whole();
 }
 
-/**
+/*******************************************************************************
  * Constructs a quantity with value @val and interval to [@lower, @upper]
  *
  * */
@@ -210,7 +210,7 @@ Quantity<Type>::Quantity(const Type &val, const Type &lower, const Type &upper)
     : _value(val), _interval(lower, upper)
 {}
 
-/**
+/*******************************************************************************
  * Returns a copy of the value
  *
  * */
@@ -220,7 +220,7 @@ Type Quantity<Type>::getValue() const {
     return _value;
 }
 
-/**
+/*******************************************************************************
  * Sets the value with @value
  *
  * */
@@ -230,7 +230,7 @@ void Quantity<Type>::setValue(const Type &value) {
     _value = value;
 }
 
-/**
+/*******************************************************************************
  * Sets the lower bound of the interval to @lower
  *
  * */
@@ -240,7 +240,7 @@ void Quantity<Type>::setLower(const Type &lower) {
     _interval.assign(lower, _interval.upper() );
 }
 
-/**
+/*******************************************************************************
  * Sets the upper bound of the interval to @upper
  *
  * */
@@ -250,7 +250,7 @@ void Quantity<Type>::setUpper(const Type &upper) {
     _interval.assign(_interval.lower(), upper);
 }
 
-/**
+/*******************************************************************************
  * Sets the interval to [@lower, @upper]
  *
  * */
@@ -260,7 +260,7 @@ void Quantity<Type>::setInterval(const Type &lower, const Type &upper) {
     _interval.assign(lower, upper);
 }
 
-/**
+/*******************************************************************************
  * Returns a copy of the lower bound of the interval
  *
  * */
@@ -270,7 +270,7 @@ Type Quantity<Type>::getLower() const {
     return _interval.lower();
 }
 
-/**
+/*******************************************************************************
  * Returns a copy of the upper bound of the interval
  *
  * */
@@ -280,7 +280,7 @@ Type Quantity<Type>::getUpper() const {
     return _interval.upper();
 }
 
-/**
+/*******************************************************************************
  * Returns a copy of the interval in a boost::numeric::interval object
  *
  * */
@@ -290,7 +290,7 @@ typename Quantity<Type>::IntervalType Quantity<Type>::getInterval() const {
     return _interval;
 }
 
-/**
+/*******************************************************************************
  * Puts the quantity into a string
  * This is mainly for debug purpose
  *
