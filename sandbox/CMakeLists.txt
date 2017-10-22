@@ -7,6 +7,6 @@
 #
 
 add_executable(SandboxGenericCaller GenericCaller.cpp)
-
+add_executable(SandboxBenchmark Benchmark.cpp)
 
 # CMakeLists.txt ends here
