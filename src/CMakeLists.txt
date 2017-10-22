@@ -13,11 +13,13 @@
 ################################################################################
 ## List of objects
 set ( UTILS_OBJ "obj_utils")
+set ( BENCHMARK_OBJ "obj_benchmark")
 set ( MATH_OBJ "obj_math" )
 
 set( OBJECT_LIST
         ${UTILS_OBJ}
-        ${MATH_OBJ})
+        ${MATH_OBJ}
+        ${BENCHMARK_OBJ})
 
 ################################################################################
 ## Sources corresponding to object libraries
@@ -27,7 +29,20 @@ set( UTILS_SOURCES
         "snmpp/Utils/Sequence.hpp"
         "snmpp/Utils/Tools.cpp"
         "snmpp/Utils/Tools.hpp")
+
 add_library( ${UTILS_OBJ} OBJECT ${UTILS_SOURCES} )
+
+
+set( BENCHMARK_SOURCES
+        "snmpp/Benchmark/BenchmarkConfig.hpp"
+        "snmpp/Benchmark/BenchmarkConfig.cpp"
+        "snmpp/Benchmark/Benchmark.hpp")
+
+add_library( ${BENCHMARK_OBJ} OBJECT ${BENCHMARK_SOURCES})
+set_target_properties( ${BENCHMARK_OBJ}
+        PROPERTIES
+        INCLUDE_DIRECTORIES "${CMAKE_CURRENT_SOURCE_DIR}"
+        INCLUDE_DIRECTORIES "${CONFILEPATH}")
 
 set( MATH_SOURCES
         "snmpp/Math/Core/FuncBase.hpp"
@@ -42,11 +57,14 @@ add_library( ${MATH_OBJ} OBJECT ${MATH_SOURCES} )
 ## List of headers that will be installed
 
 set( HEADERS
+        "snmpp/Benchmark/BenchmarkConfig.hpp"
+        "snmpp/Benchmark/Benchmark.hpp"
         "snmpp/Math/Core/FuncBase.hpp"
         "snmpp/Math/Core/Quantity.hpp"
         "snmpp/Math/Core/Variable.hpp"
         "snmpp/Math/Core/Variables.hpp"
         "snmpp/Utils/FormattedOutput.hpp"
+        "snmpp/Utils/Sequence.hpp"
         "snmpp/Utils/Tools.hpp")
 
 
@@ -67,7 +85,7 @@ if( ENABLE_SHARED )
             PROPERTIES
             VERSION ${PROJECT_VERSION}
             SOVERSION ${SOVERSION} )
-    #target_link_libraries( ${PROJECT_LIB} ${Boost_LIBRARIES})
+    target_link_libraries( ${PROJECT_LIB} Boost::filesystem)
     install( TARGETS ${PROJECT_LIB} LIBRARY DESTINATION ${INSTALL_PATH_LIB} )
 
 endif()
