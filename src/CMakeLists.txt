@@ -24,6 +24,7 @@ set( OBJECT_LIST
 
 set( UTILS_SOURCES
         "snmpp/Utils/FormattedOutput.hpp"
+        "snmpp/Utils/Sequence.hpp"
         "snmpp/Utils/Tools.cpp"
         "snmpp/Utils/Tools.hpp")
 add_library( ${UTILS_OBJ} OBJECT ${UTILS_SOURCES} )
