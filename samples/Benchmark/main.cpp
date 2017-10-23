@@ -8,8 +8,9 @@
 //
 
 #include <iostream>
-#include <random>
 #include <vector>
+#include <random>
+
 
 #include <snmpp/Benchmark/Benchmark.hpp>
 
