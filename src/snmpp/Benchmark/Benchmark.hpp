@@ -36,9 +36,11 @@
 #include <vector>
 
 #include <boost/filesystem.hpp>
+#include <boost/format.hpp>
 
 #include <snmpp/Utils/Sequence.hpp>
 #include <snmpp/Utils/Tools.hpp>
+#include <snmpp/Utils/FormattedOutput.hpp>
 
 #include "BenchmarkConfig.hpp"
 
@@ -204,8 +206,17 @@ void Benchmark<T,C,Args...>::execute( Callable func ){
     ofs<<"# Function name : "<<_config.getFunctionName()<<"\n";
     ofs<<"# Statistical mean and variance calculated on a "
        <<_config.getIterationNumber()<<" sample \n";
-     ofs<<"Time unit : "<<utils::getTimeUnit<T>()<<"\n#\n";
-    ofs<<"# Bunch Nb     mean      sqrt(variance)  \n";
+     ofs<<"# Time unit : "<<utils::getTimeUnit<T>()<<"\n#\n";
+    utils::FormattedOutput col(20,6);
+    utils::FormattedOutput colI(20,0);
+    ofs<<colI<<"# Bunch Nb"<<colI<<"mean"<<colI<<"sqrt(variance)"<<" | ";
+    auto arg_vec = _config.getArgumentNames();
+
+    for( const auto &i : arg_vec ){
+        ofs<<colI<<i;
+    }
+
+    ofs<<"\n";
 
     std::size_t count(0);
 
@@ -224,7 +235,9 @@ void Benchmark<T,C,Args...>::execute( Callable func ){
 
         double mean = mean_impl(results);
         double var = var_impl(results, mean);
-        ofs<<count<<"\t"<<mean<<"\t"<<std::sqrt(var)<<"\n";
+        ofs<<col<<count<<col<<mean<<col<<std::sqrt(var)<<" | ";
+
+        ofs<<"\n";
     }
 
     ofs.close();
