@@ -31,6 +31,7 @@
  *  TODO :  column formatted output
  ******************************************************************************/
 
+#include <cmath>
 #include <tuple>
 #include <vector>
 
