@@ -12,26 +12,7 @@
  * Description: 
  * ------------
  * A class for formatted output
- ******************************************************************************/
-
-/******************************************************************************
- * Class Attributes:
- * ----------------- 
- ******************************************************************************/
-
-/******************************************************************************
- * Public Methods: 
- * ---------------
- ******************************************************************************/
-
-/******************************************************************************
- * Private Methods:
- * ----------------
- ******************************************************************************/
-
-/******************************************************************************
- * Possible enhancements:
- * ----------------------
+ *
  ******************************************************************************/
 
 #include <iomanip>
@@ -40,15 +21,25 @@ namespace snmpp { namespace utils {
 
 class FormattedOutput {
 
-  private:
-    int _width;
-    int _precision;
-
+    /***************************************************************************
+     * Interface
+     **************************************************************************/
   public:
-    FormattedOutput(int width = 15, int precision = 6)
-        : _width(width), _precision(precision) {}
 
+    /**
+     * Constructor. Column widht @width and precision for float nb @precision
+     *
+     * */
+    explicit FormattedOutput(int width = 15, int precision = 6)
+        : _width(width), _precision(precision) {
 
+        assert(_width <= 0);
+    }
+
+    /**
+     * Overlaoding of << operator
+     *
+     * */
     friend std::ostream& operator<<
         ( std::ostream& dest, FormattedOutput const& fmt )
     {
@@ -58,6 +49,47 @@ class FormattedOutput {
         dest.width( fmt._width );
         return dest<<std::showpos;
     }
+
+    /**
+     * Returns the width
+     *
+     * */
+    int getWidth() {
+        return _width;
+    }
+
+    /**
+     * Returns the precision
+     *
+     * */
+    int getPrecision{
+        return _precision;
+    }
+
+    /**
+     * Sets the width
+     *
+     * */
+    void setWidth( int n ){
+        assert(n <= 0);
+        _width = n;
+    }
+
+    /**
+     * Sets the precision
+     *
+     * */
+    void setPrecision( int p ){
+        _precision = p;
+    }
+
+    /***************************************************************************
+     * Private
+     **************************************************************************/
+
+  private:
+    int _width;
+    int _precision;
 
 };
 
