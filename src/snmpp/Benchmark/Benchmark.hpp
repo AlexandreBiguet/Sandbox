@@ -153,7 +153,8 @@ class Benchmark {
         typename TimeUnit::rep measure( Callable func ) {
 
             return measure_impl
-                (func, typename utils::SequenceGenerator<sizeof ...(Args)>::type());
+                (func,
+                 typename utils::SequenceGenerator<sizeof ...(Args)>::type());
         }
 
         /**
@@ -162,7 +163,8 @@ class Benchmark {
          * the function using a sequence.
          * */
         template < typename Callable, std::size_t ... I>
-        typename TimeUnit::rep measure_impl( Callable func, utils::Sequence<I...> ) {
+        typename TimeUnit::rep measure_impl( Callable func,
+                                             utils::Sequence<I...> ) {
             auto s = Clock::now();
             func( std::get<I>(_tupleArgs)...);
             auto e = Clock::now();
@@ -170,6 +172,37 @@ class Benchmark {
             return duration.count();
         }
 
+    };
+
+    template<typename TupleType, typename Callable, std::size_t... I>
+    void for_each_impl(TupleType&& t, Callable f, utils::Sequence<I...> )
+    {
+        auto l = { (f(std::get<I>(t)), 0)... };
+        (void)l; // Ugly -Wunused-parameter
+    }
+
+
+    template<typename Callable >
+    void for_each_in_tuple(std::tuple<Args...> const& t, Callable f)
+    {
+        for_each_impl
+            (t, f,
+             typename utils::SequenceGenerator<sizeof...(Args)>::type());
+    }
+
+    struct FancyPrinter
+    {
+        std::ostream &_os;
+        utils::FormattedOutput &_fmt;
+
+        FancyPrinter( std::ostream &os, utils::FormattedOutput &fmt)
+            : _os(os), _fmt(fmt) {}
+
+        template<typename T>
+        void operator () (T&& t)
+        {
+            _os<<_fmt<<t;
+        }
     };
 
 };
@@ -199,6 +232,13 @@ template <typename T, typename C,typename ...Args>
 template <typename Callable>
 void Benchmark<T,C,Args...>::execute( Callable func ){
 
+    const size_t Nargs = _args.size();
+
+    if( Nargs == 0 ){
+        throw std::logic_error("No arguments provided for the function to "
+                                   "benchmark");
+    }
+    
     boost::filesystem::path data = createDir();
 
     boost::filesystem::ofstream ofs(data);
@@ -222,8 +262,6 @@ void Benchmark<T,C,Args...>::execute( Callable func ){
 
     for( const auto &t : _args ){
 
-        // TODO : print content of t
-
         ++count;
         std::vector<typename T::rep > results;
         const std::size_t iterNumber = _config.getIterationNumber();
@@ -237,6 +275,8 @@ void Benchmark<T,C,Args...>::execute( Callable func ){
         double var = var_impl(results, mean);
         ofs<<col<<count<<col<<mean<<col<<std::sqrt(var)<<" | ";
 
+        FancyPrinter printer(ofs, col);
+        for_each_in_tuple (t, printer );
         ofs<<"\n";
     }
 
