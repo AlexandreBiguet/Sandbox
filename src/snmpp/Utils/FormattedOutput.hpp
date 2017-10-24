@@ -15,7 +15,9 @@
  *
  ******************************************************************************/
 
+
 #include <iomanip>
+#include <cassert>
 
 namespace snmpp { namespace utils {
 
