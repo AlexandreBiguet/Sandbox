@@ -15,7 +15,7 @@
 #include <snmpp/Benchmark/Benchmark.hpp>
 
 
-void function( std::size_t N ){
+void function( std::size_t N, double a __attribute__((unused))){
 
     std::vector<double> vec;
     vec.reserve( N );
@@ -36,15 +36,17 @@ namespace chrono = std::chrono;
 
 int main ( ){
 
-    BenchmarkConfig config("test-function","N",100, "data" );
+    std::vector<std::string> argnames({"N", "a"});
+    BenchmarkConfig config("test-function",argnames, 100, "data" );
 
-    Benchmark<chrono::microseconds, chrono::steady_clock, std::size_t>
-        bench(config);
+    Benchmark<chrono::microseconds,
+              chrono::steady_clock,
+              std::size_t, double> bench(config);
 
-    bench.addArgs(std::make_tuple(10));
-    bench.addArgs(std::make_tuple(100));
-    bench.addArgs(std::make_tuple(1000));
-    bench.addArgs(std::make_tuple(10000));
+    bench.addArgs(std::make_tuple(10   , 1.0));
+    bench.addArgs(std::make_tuple(100  , 2.0));
+    bench.addArgs(std::make_tuple(1000 , 3.0));
+    bench.addArgs(std::make_tuple(10000, 4.0));
 
     bench.execute(&function);
 
