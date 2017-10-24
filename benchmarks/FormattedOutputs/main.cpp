@@ -62,8 +62,8 @@ void printfFormat ( std::size_t N ){
 
     for( std::size_t j = 0 ; j < N ; ++j ) {
 
-        printf( "%-+15.6f %-+15.6f %-+15.6f %-+15.6f %-+15lu "
-                    "%-+15lu %-+15lu \n", a, b, c, d, i, n, m);
+        printf( "%-+15.6f %-+15.6f %-+15.6f %-+15.6f %-15lu "
+                    "%-15lu %-15lu \n", a, b, c, d, i, n, m);
     }
 }
 
