@@ -33,7 +33,7 @@ class FormattedOutput {
     explicit FormattedOutput(int width = 15, int precision = 6)
         : _width(width), _precision(precision) {
 
-        assert(_width <= 0);
+        assert(_width > 0);
     }
 
     /**
@@ -62,7 +62,7 @@ class FormattedOutput {
      * Returns the precision
      *
      * */
-    int getPrecision{
+    int getPrecision() {
         return _precision;
     }
 
@@ -71,7 +71,7 @@ class FormattedOutput {
      *
      * */
     void setWidth( int n ){
-        assert(n <= 0);
+        assert(n > 0);
         _width = n;
     }
 
