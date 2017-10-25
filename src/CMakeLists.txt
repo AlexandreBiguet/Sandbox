@@ -15,14 +15,16 @@
 set ( UTILS_OBJ "obj_utils")
 set ( BENCHMARK_OBJ "obj_benchmark")
 set ( MATH_OBJ "obj_math" )
+set ( PLOT_OBJ "obj_plot")
 
 set( OBJECT_LIST
         ${UTILS_OBJ}
         ${MATH_OBJ}
-        ${BENCHMARK_OBJ})
+        ${BENCHMARK_OBJ}
+        ${PLOT_OBJ})
 
 ################################################################################
-## Sources corresponding to object libraries
+## Sources corresponding to utils object library
 
 set( UTILS_SOURCES
         "snmpp/Utils/FormattedOutput.hpp"
@@ -33,6 +35,8 @@ set( UTILS_SOURCES
 
 add_library( ${UTILS_OBJ} OBJECT ${UTILS_SOURCES} )
 
+################################################################################
+## Sources corresponding to benchmark object library
 
 set( BENCHMARK_SOURCES
         "snmpp/Benchmark/BenchmarkConfig.hpp"
@@ -45,6 +49,9 @@ set_target_properties( ${BENCHMARK_OBJ}
         INCLUDE_DIRECTORIES "${CMAKE_CURRENT_SOURCE_DIR}"
         INCLUDE_DIRECTORIES "${CONFILEPATH}")
 
+################################################################################
+## Sources corresponding to math object library
+
 set( MATH_SOURCES
         "snmpp/Math/Core/FuncBase.hpp"
         "snmpp/Math/Core/Quantity.hpp"
@@ -53,6 +60,14 @@ set( MATH_SOURCES
 
 add_library( ${MATH_OBJ} OBJECT ${MATH_SOURCES} )
 
+################################################################################
+## Sources corresponding to plot object library
+
+set ( PLOT_SOURCES
+        "snmpp/Plot/Config.cpp"
+        "snmpp/Plot/Config.hpp")
+
+add_library( ${PLOT_OBJ} OBJECT ${PLOT_SOURCES})
 
 ################################################################################
 ## List of headers that will be installed
@@ -64,6 +79,7 @@ set( HEADERS
         "snmpp/Math/Core/Quantity.hpp"
         "snmpp/Math/Core/Variable.hpp"
         "snmpp/Math/Core/Variables.hpp"
+        "snmpp/Plot/Config.hpp"
         "snmpp/Utils/FormattedOutput.hpp"
         "snmpp/Utils/Sequence.hpp"
         "snmpp/Utils/Tools.hpp")
