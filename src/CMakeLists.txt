@@ -26,6 +26,7 @@ set( OBJECT_LIST
 
 set( UTILS_SOURCES
         "snmpp/Utils/FormattedOutput.hpp"
+        "snmpp/Utils/FormattedOutput.cpp"
         "snmpp/Utils/Sequence.hpp"
         "snmpp/Utils/Tools.cpp"
         "snmpp/Utils/Tools.hpp")
