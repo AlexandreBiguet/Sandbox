@@ -10,9 +10,11 @@
 
 #include <snmpp/Math/Core/Quantity.hpp>
 
+using namespace snmpp::math;
+
 int main ( ){
 
-    snmpp::math::Quantity<double> Qd;
+    core::Quantity<double> Qd;
     std::cout<<"Default constructor : "<<Qd.toString()<<std::endl;
 
     double val(10.0);
@@ -34,10 +36,10 @@ int main ( ){
              <<Qd.getLower()<<std::endl;
 
 
-    snmpp::math::Quantity<double> Q1(4.0);
+    core::Quantity<double> Q1(4.0);
     std::cout<<"Construction with value "<<Q1.toString()<<std::endl;
 
-    snmpp::math::Quantity<double> Q2(4.0, -1.0, 10.0);
+    core::Quantity<double> Q2(4.0, -1.0, 10.0);
     std::cout<<"Construction with value and interval "
              <<Q2.toString()<<std::endl;
 

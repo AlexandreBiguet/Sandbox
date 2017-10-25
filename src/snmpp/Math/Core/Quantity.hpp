@@ -54,7 +54,7 @@
 
 #include <boost/numeric/interval.hpp>
 
-namespace snmpp { namespace math {
+namespace snmpp { namespace math { namespace core {
 
 /**
  *
@@ -304,6 +304,6 @@ std::string Quantity<Type>::toString()const{
     return s;
 }
 
-}} // namespace snmpp::math
+}}} // namespace snmpp::math::core
 
 // Quantity.hpp ends here

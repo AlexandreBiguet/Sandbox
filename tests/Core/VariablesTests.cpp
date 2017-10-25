@@ -13,7 +13,7 @@
 using namespace snmpp::math;
 
 template <typename Key, typename ValueType>
-void outputVar ( const Variables<Key, ValueType> &vars)
+void outputVar ( const core::Variables<Key, ValueType> &vars)
 {
     for( const auto &it : vars ){
         std::string s( it.second.toString() );
@@ -67,7 +67,7 @@ void testConstruction() {
     std::vector<std::tuple<std::string,double, VariableType>>
         m ({std::make_tuple("x", 1.0, VariableType::Running),
             std::make_tuple("y", 2.0, VariableType::Fixed)});
-    Variables<std::string,double> Var(m);
+    core::Variables<std::string,double> Var(m);
 
     std::cout<<" 1) x and y values : \n";
     outputVar(Var);
@@ -76,7 +76,7 @@ void testConstruction() {
         std::vector<std::tuple<std::string, double, VariableType>>
             m({std::make_tuple("x", 1.0, VariableType::Running),
                std::make_tuple("x", 2.0, VariableType::Fixed)});
-        Variables<std::string, double> test(m);
+        core::Variables<std::string, double> test(m);
     } catch (const std::exception &e) {
         std::cout << "This should throw : " << e.what() << std::endl;
     }
@@ -89,14 +89,14 @@ void testAdd() {
     std::vector<std::tuple<std::string,double, VariableType>>
         m ({std::make_tuple("x", 1.0, VariableType::Running),
             std::make_tuple("y", 2.0, VariableType::Fixed)});
-    Variables<std::string,double> Var(m);
+    core::Variables<std::string,double> Var(m);
 
-    Var.add( "z", Variable<double>(3.0, VariableType::Fixed));
+    Var.add( "z", core::Variable<double>(3.0, VariableType::Fixed));
     std::cout<<"\n 2) adding z value : \n";
     outputVar(Var);
 
     try {
-        Var.add( "z", Variable<double>(3.0, VariableType::Fixed));
+        Var.add( "z", core::Variable<double>(3.0, VariableType::Fixed));
     } catch (const std::exception &e){
         std::cout<<"This should throw : "<<e.what()<<std::endl;
     }
@@ -107,7 +107,7 @@ void testCapacity() {
     std::vector<std::tuple<std::string,double, VariableType>>
         m ({std::make_tuple("x", 1.0, VariableType::Running),
             std::make_tuple("y", 2.0, VariableType::Fixed)});
-    Variables<std::string,double> Var(m);
+    core::Variables<std::string,double> Var(m);
 
     if ( Var.empty() ){
         std::cout<<" empty() method returned true but should be false \n";
@@ -121,9 +121,9 @@ void testCapacity() {
         throw std::logic_error(" clear() method : problem");
     }
 
-    Var.add( "a", Variable<double>(3.0, VariableType::Running) );
-    Var.add( "b", Variable<double>(2.0, VariableType::Running) );
-    Var.add( "c", Variable<double>(1.0, VariableType::Running) );
+    Var.add( "a", core::Variable<double>(3.0, VariableType::Running) );
+    Var.add( "b", core::Variable<double>(2.0, VariableType::Running) );
+    Var.add( "c", core::Variable<double>(1.0, VariableType::Running) );
 
     if( Var.size() != 3 ){
         std::cout<<" size() should returned 3 but returned "
@@ -136,10 +136,10 @@ void testCapacity() {
 
 void testEraseAndFind() {
 
-    Variables<std::string,double> Var;
-    Var.add( "a", Variable<double>(3.0, VariableType::Running) );
-    Var.add( "b", Variable<double>(2.0, VariableType::Running) );
-    Var.add( "c", Variable<double>(1.0, VariableType::Running) );
+    core::Variables<std::string,double> Var;
+    Var.add( "a", core::Variable<double>(3.0, VariableType::Running) );
+    Var.add( "b", core::Variable<double>(2.0, VariableType::Running) );
+    Var.add( "c", core::Variable<double>(1.0, VariableType::Running) );
 
     std::size_t n = Var.erase("b");
 
@@ -174,11 +174,11 @@ void testEraseAndFind() {
 
 void testContainerStuff() {
 
-    Variables<std::string,double> Var;
+    core::Variables<std::string,double> Var;
 
-    Var.add("tata", Variable<double>(1.0, VariableType::Fixed));
-    Var.add("toto", Variable<double>(2.0, VariableType::Fixed));
-    Var.add("prou", Variable<double>(2.0, VariableType::Fixed));
+    Var.add("tata", core::Variable<double>(1.0, VariableType::Fixed));
+    Var.add("toto", core::Variable<double>(2.0, VariableType::Fixed));
+    Var.add("prou", core::Variable<double>(2.0, VariableType::Fixed));
 
     for( auto it = Var.begin() ; it != Var.end() ; ++it ){
         std::cout<<it->first<<" = "<<it->second.toString()<<"\n";
@@ -205,11 +205,11 @@ void testContainerStuff() {
 
 void testGetVariable() {
 
-    Variables<std::string,double> Var;
+    core::Variables<std::string,double> Var;
 
-    Var.add("tata", Variable<double>(1.0, VariableType::Fixed));
-    Var.add("toto", Variable<double>(2.0, VariableType::Fixed));
-    Var.add("prou", Variable<double>(2.0, VariableType::Fixed));
+    Var.add("tata", core::Variable<double>(1.0, VariableType::Fixed));
+    Var.add("toto", core::Variable<double>(2.0, VariableType::Fixed));
+    Var.add("prou", core::Variable<double>(2.0, VariableType::Fixed));
 
     try {
         Var.get("a");
@@ -223,11 +223,11 @@ void testGetVariable() {
 
 void testConstructionFromMap() {
 
-    Variables<std::string,double> Var;
+    core::Variables<std::string,double> Var;
 
-    Var.add("tata", Variable<double>(1.0, VariableType::Fixed));
-    Var.add("toto", Variable<double>(2.0, VariableType::Fixed));
-    Var.add("prou", Variable<double>(2.0, VariableType::Fixed));
+    Var.add("tata", core::Variable<double>(1.0, VariableType::Fixed));
+    Var.add("toto", core::Variable<double>(2.0, VariableType::Fixed));
+    Var.add("prou", core::Variable<double>(2.0, VariableType::Fixed));
 
     auto map = Var.get();
     std::cout<<"\nGetting the map \n";
@@ -238,25 +238,25 @@ void testConstructionFromMap() {
 
     std::cout<<"\nConstructing from map : \n";
 
-    Variables<std::string, double> Var2(map);
+    core::Variables<std::string, double> Var2(map);
 
     outputVar(Var2);
 }
 
 void testGetType() {
 
-    Variables<std::string,double> Var2;
-    Var2.add( "x", Variable<double>(10.0, VariableType::Running));
-    Var2.add( "y", Variable<double>(11.0, VariableType::Running));
-    Var2.add( "z", Variable<double>(12.0, VariableType::Running));
+    core::Variables<std::string,double> Var2;
+    Var2.add( "x", core::Variable<double>(10.0, VariableType::Running));
+    Var2.add( "y", core::Variable<double>(11.0, VariableType::Running));
+    Var2.add( "z", core::Variable<double>(12.0, VariableType::Running));
 
-    Var2.add( "a", Variable<double>(1.0, VariableType::Parameter));
-    Var2.add( "b", Variable<double>(2.0, VariableType::Parameter));
-    Var2.add( "c", Variable<double>(3.0, VariableType::Parameter));
+    Var2.add( "a", core::Variable<double>(1.0, VariableType::Parameter));
+    Var2.add( "b", core::Variable<double>(2.0, VariableType::Parameter));
+    Var2.add( "c", core::Variable<double>(3.0, VariableType::Parameter));
 
-    Var2.add( "x1", Variable<double>(-1.0, VariableType::Fixed));
-    Var2.add( "x2", Variable<double>(-2.0, VariableType::Fixed));
-    Var2.add( "x3", Variable<double>(-3.0, VariableType::Fixed));
+    Var2.add( "x1", core::Variable<double>(-1.0, VariableType::Fixed));
+    Var2.add( "x2", core::Variable<double>(-2.0, VariableType::Fixed));
+    Var2.add( "x3", core::Variable<double>(-3.0, VariableType::Fixed));
 
     auto vrun = Var2.get(VariableType::Running);
     std::cout<<"\nList running variables : should be x, y, z \n";
@@ -282,19 +282,19 @@ void testGetType() {
 
 void testSet() {
 
-    Variables<std::string,double> Var2;
+    core::Variables<std::string,double> Var2;
 
-    Var2.add( "x", Variable<double>(10.0, VariableType::Running));
-    Var2.add( "y", Variable<double>(11.0, VariableType::Running));
-    Var2.add( "z", Variable<double>(12.0, VariableType::Running));
+    Var2.add( "x", core::Variable<double>(10.0, VariableType::Running));
+    Var2.add( "y", core::Variable<double>(11.0, VariableType::Running));
+    Var2.add( "z", core::Variable<double>(12.0, VariableType::Running));
 
-    Var2.add( "a", Variable<double>(1.0, VariableType::Parameter));
-    Var2.add( "b", Variable<double>(2.0, VariableType::Parameter));
-    Var2.add( "c", Variable<double>(3.0, VariableType::Parameter));
+    Var2.add( "a", core::Variable<double>(1.0, VariableType::Parameter));
+    Var2.add( "b", core::Variable<double>(2.0, VariableType::Parameter));
+    Var2.add( "c", core::Variable<double>(3.0, VariableType::Parameter));
 
-    Var2.add( "x1", Variable<double>(-1.0, VariableType::Fixed));
-    Var2.add( "x2", Variable<double>(-2.0, VariableType::Fixed));
-    Var2.add( "x3", Variable<double>(-3.0, VariableType::Fixed));
+    Var2.add( "x1", core::Variable<double>(-1.0, VariableType::Fixed));
+    Var2.add( "x2", core::Variable<double>(-2.0, VariableType::Fixed));
+    Var2.add( "x3", core::Variable<double>(-3.0, VariableType::Fixed));
 
     Var2.set( "x", 100.0 );
     auto vcpy = Var2.get("x");
@@ -325,11 +325,11 @@ void testSet() {
 
 void testSizeType() {
 
-    Variables<std::string,double> Var2;
+    core::Variables<std::string,double> Var2;
 
-    Var2.add( "x", Variable<double>(10.0, VariableType::Running));
-    Var2.add( "a", Variable<double>(1.0, VariableType::Parameter));
-    Var2.add( "x1", Variable<double>(-1.0, VariableType::Fixed));
+    Var2.add( "x", core::Variable<double>(10.0, VariableType::Running));
+    Var2.add( "a", core::Variable<double>(1.0, VariableType::Parameter));
+    Var2.add( "x1", core::Variable<double>(-1.0, VariableType::Fixed));
 
     std::cout<<"Nb of running variable should be 1 and is "
              <<Var2.size(VariableType::Running)<<std::endl;
@@ -343,17 +343,17 @@ void testSizeType() {
 
 void testSetFromVariables() {
 
-    Variables<std::string,double> Var2;
+    core::Variables<std::string,double> Var2;
 
-    Var2.add( "x", Variable<double>(10.0, VariableType::Running));
-    Var2.add( "a", Variable<double>(1.0, VariableType::Parameter));
-    Var2.add( "x1", Variable<double>(-1.0, VariableType::Fixed));
+    Var2.add( "x", core::Variable<double>(10.0, VariableType::Running));
+    Var2.add( "a", core::Variable<double>(1.0, VariableType::Parameter));
+    Var2.add( "x1", core::Variable<double>(-1.0, VariableType::Fixed));
 
-    Variables<std::string,double> Var;
+    core::Variables<std::string,double> Var;
 
-    Var.add( "toto", Variable<double>(10.0, VariableType::Running));
+    Var.add( "toto", core::Variable<double>(10.0, VariableType::Running));
 
-    std::cout<<"\nsetting from another Variables<K,V> object \n";
+    std::cout<<"\nsetting from another core::Variables<K,V> object \n";
     try {
         Var2.setFromVariables(Var);
     } catch(const std::exception &e){
@@ -362,7 +362,7 @@ void testSetFromVariables() {
     }
 
     try{
-        Variables<std::string,double> VarTest(Var2);
+        core::Variables<std::string,double> VarTest(Var2);
         auto it = VarTest.find("x");
         it->second.setType(VariableType::Parameter);
         VarTest.setFromVariables(Var2);
@@ -372,7 +372,7 @@ void testSetFromVariables() {
     }
 
     Var.clear();
-    Var.add("x", Variable<double>(5.0, VariableType::Running));
+    Var.add("x", core::Variable<double>(5.0, VariableType::Running));
     Var2.setFromVariables(Var);
     std::cout<<"\nNew value of 'x' should be 5 \n";
     outputVar(Var2);
@@ -380,9 +380,9 @@ void testSetFromVariables() {
 
 void testSetFromMap() {
 
-    Variables<std::string,double> Var2;
-    Var2.add( "x", Variable<double>(10.0, VariableType::Running));
-    Var2.add( "a", Variable<double>(1.0, VariableType::Parameter));
+    core::Variables<std::string,double> Var2;
+    Var2.add( "x", core::Variable<double>(10.0, VariableType::Running));
+    Var2.add( "a", core::Variable<double>(1.0, VariableType::Parameter));
 
     try {
         Var2.setFromMap({{"x", 12.0}, {"y", 5.0}});
@@ -399,10 +399,10 @@ void testSetFromMap() {
 
 void testGetKeys() {
 
-    Variables<std::string,double> Var2;
-    Var2.add( "x", Variable<double>(10.0, VariableType::Running));
-    Var2.add( "y", Variable<double>(5.0, VariableType::Running));
-    Var2.add( "a", Variable<double>(1.0, VariableType::Parameter));
+    core::Variables<std::string,double> Var2;
+    Var2.add( "x", core::Variable<double>(10.0, VariableType::Running));
+    Var2.add( "y", core::Variable<double>(5.0, VariableType::Running));
+    Var2.add( "a", core::Variable<double>(1.0, VariableType::Parameter));
 
     auto keys = Var2.getKeys(VariableType::Running);
 

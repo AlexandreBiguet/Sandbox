@@ -56,20 +56,21 @@
 
 namespace snmpp { namespace math {
 
-
 /**
  * A Variable object can be of different type as explained in the class
  * description.
  *
  * */
-enum class VariableType {Running, Fixed, Parameter};
+enum class VariableType { Running, Fixed, Parameter };
+
+namespace core {
 
 /**
  * A Variable is a Quantity to which a VariableType is added.
  *
  * */
-template <typename ValueType>
-class Variable : public snmpp::math::Quantity<ValueType> {
+template<typename ValueType>
+class Variable : public snmpp::math::core::Quantity<ValueType> {
 
 
     /***************************************************************************
@@ -95,7 +96,7 @@ class Variable : public snmpp::math::Quantity<ValueType> {
      * [@lower,@upper] and a VariableType @type
      *
      * */
-    Variable(double val,double lower, double upper, VariableType type);
+    Variable(double val, double lower, double upper, VariableType type);
 
     /**
      * Returns the type of the Variable
@@ -114,14 +115,14 @@ class Variable : public snmpp::math::Quantity<ValueType> {
      * This is mainly for debug purpose
      *
      * */
-    std::string typeToString()const;
+    std::string typeToString() const;
 
     /**
      * Puts the quantity into a string
      * This is mainly for debug purpose
      *
      * */
-    std::string toString() const override ;
+    std::string toString() const override;
 
 
     /***************************************************************************
@@ -135,7 +136,6 @@ class Variable : public snmpp::math::Quantity<ValueType> {
      *
      * */
     VariableType _type;
-
 
 };
 
@@ -168,7 +168,7 @@ Variable<ValueType>::Variable(double val, VariableType type)
 
 template<typename ValueType>
 Variable<ValueType>::Variable
-    (double val, double lower, double upper,VariableType type)
+    (double val, double lower, double upper, VariableType type)
     :Quantity<ValueType>(val, lower, upper), _type(type) {}
 
 /*******************************************************************************
@@ -201,14 +201,11 @@ template<typename ValueType>
 std::string Variable<ValueType>::typeToString() const {
     std::string s;
     switch (_type) {
-        case VariableType::Running :
-            s = "Running";
+        case VariableType::Running :s = "Running";
             break;
-        case VariableType::Fixed:
-            s = "Fixed";
+        case VariableType::Fixed:s = "Fixed";
             break;
-        case VariableType::Parameter:
-            s = "Parameter";
+        case VariableType::Parameter:s = "Parameter";
             break;
     }
     return s;
@@ -223,9 +220,13 @@ std::string Variable<ValueType>::typeToString() const {
 template<typename ValueType>
 std::string Variable<ValueType>::toString() const {
     std::string s(Quantity<ValueType>::toString());
-    s+=" type : " + typeToString();
+    s += " type : " + typeToString();
     return s;
 }
+
+} // namespace core
+
+using Variable = core::Variable<double> ;
 
 }} // namespace snmpp::math
 

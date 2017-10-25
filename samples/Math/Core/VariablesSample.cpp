@@ -13,7 +13,7 @@
 using namespace snmpp::math;
 
 template <typename Key, typename ValueType>
-void outputVar ( const Variables<Key, ValueType> &vars)
+void outputVar ( const core::Variables<Key, ValueType> &vars)
 {
     for( const auto &it : vars ){
         std::string s( it.second.toString() );
@@ -29,7 +29,7 @@ int main ( ){
     std::vector<std::tuple<std::string,double, VariableType>>
         vec ({std::make_tuple("x", 1.0, VariableType::Running),
             std::make_tuple("y", 2.0, VariableType::Fixed)});
-    Variables<std::string,double> Var(vec);
+    core::Variables<std::string,double> Var(vec);
 
     std::cout<<"\nVariable constructed from vec of tuples : \n";
     outputVar(Var);
@@ -37,18 +37,18 @@ int main ( ){
 
     std::cout<<"\nConstruction from a map of snmp::math variable object \n";
 
-    std::map<std::string, Variable<double>> map(
-        {{"x", Variable<double>(1.0, VariableType::Running)},
-         {"y", Variable<double>(2.0, VariableType::Fixed)}}
+    std::map<std::string, core::Variable<double>> map(
+        {{"x", core::Variable<double>(1.0, VariableType::Running)},
+         {"y", core::Variable<double>(2.0, VariableType::Fixed)}}
     );
 
-    Variables<std::string, double> Var2(map);
+    core::Variables<std::string, double> Var2(map);
 
     std::cout<<"\nVariable constructed from map of variable objects : \n";
     outputVar(Var2);
 
     std::cout<<"\nadding a parameter 'param' :\n";
-    Var2.add("param", Variable<double>(10.0, VariableType::Parameter));
+    Var2.add("param", core::Variable<double>(10.0, VariableType::Parameter));
     outputVar(Var2);
 
     std::cout<<" See src/Math/Core/Variables \n";

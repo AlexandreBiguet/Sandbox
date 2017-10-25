@@ -39,7 +39,7 @@
 
 #include "Variables.hpp"
 
-namespace snmpp { namespace math {
+namespace snmpp { namespace math { namespace core {
 
 template<typename Key, typename ValueType>
 class FuncBase {
@@ -57,14 +57,14 @@ class FuncBase {
 
   public:
 
-    explicit FuncBase(const ConstructorInputType &vars ) : _inputs(vars) {}
+    explicit FuncBase(const ConstructorInputType &vars) : _inputs(vars) {}
 
-    const OutputType& operator() ( ) {
+    const OutputType &operator()() {
         eval();
         return _outputs;
     }
 
-    const OutputType& operator() (const InputType &vars ) {
+    const OutputType &operator()(const InputType &vars) {
         _inputs.setFromMap(vars);
         eval();
         return _outputs;
@@ -76,6 +76,10 @@ class FuncBase {
 
     virtual void eval() = 0;
 };
+
+} // namespace core
+
+using FuncBase = core::FuncBase<std::string,double>;
 
 }} // namespace snmpp::math
 

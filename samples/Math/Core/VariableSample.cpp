@@ -10,25 +10,25 @@
 
 #include <snmpp/Math/Core/Variable.hpp>
 
-using VarType = snmpp::math::VariableType ;
+using namespace snmpp::math;
 
 int main ( ) {
 
-    snmpp::math::Variable<double> Var(VarType::Running);
+    core::Variable<double> Var(VariableType::Running);
     std::cout<<"Default construction (variable type) : "<<Var.toString()
              <<std::endl;
 
-    snmpp::math::Variable<double>
-        Var1(10.0, VarType::Running);
+    core::Variable<double>
+        Var1(10.0, VariableType::Running);
     std::cout<<"construction with value (variable type) : "<<Var1.toString()
              <<std::endl;
 
-    snmpp::math::Variable<double>
-        Var2(1.0, -10.0, 10.0, VarType::Running);
+    core::Variable<double>
+        Var2(1.0, -10.0, 10.0, VariableType::Running);
     std::cout<<"construction with value and interval(variable type) : "
              <<Var2.toString() <<std::endl;
 
-    Var2.setType(VarType::Parameter);
+    Var2.setType(VariableType::Parameter);
     auto type = Var2.getType();
     std::cout<<"new type : "<< static_cast<int>(type)
              <<" -> "<<Var2.typeToString() <<std::endl;

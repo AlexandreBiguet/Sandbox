@@ -14,14 +14,14 @@
 
 using namespace snmpp::math;
 
-class LinFunc : public FuncBase<std::string,double> {
+class LinFunc : public core::FuncBase<std::string,double> {
 
   public :
 
     LinFunc( ) : FuncBase( FuncBase::ConstructorInputType(
-        {{"x", Variable<double>(0., -5., 5., VariableType::Running)},
-         {"a", Variable<double>(0., -10., 10., VariableType::Parameter)},
-         {"b", Variable<double>(0., -10., 10., VariableType::Parameter)}}))
+        {{"x", core::Variable<double>(0., -5., 5., VariableType::Running)},
+         {"a", core::Variable<double>(0., -10., 10., VariableType::Parameter)},
+         {"b", core::Variable<double>(0., -10., 10., VariableType::Parameter)}}))
         {}
 
 
