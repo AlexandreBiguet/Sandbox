@@ -88,6 +88,50 @@ void createDirectory( const std::string &input ){
     }
 }
 
+/**
+ * Returns a string containing a human readable time unit
+ * Template specification for seconds
+ *
+ */
+
+template <>
+std::string getTimeUnit<std::chrono::seconds>(){
+    return "s";
+}
+
+/**
+ * Returns a string containing a human readable time unit
+ * Template specification for milliseconds
+ *
+ */
+
+template <>
+std::string getTimeUnit<std::chrono::milliseconds>() {
+    return "ms";
+}
+
+/**
+ * Returns a string containing a human readable time unit
+ * Template specification for microseconds
+ *
+ */
+
+template <>
+std::string getTimeUnit<std::chrono::microseconds>() {
+    return "us";
+}
+
+/**
+ * Returns a string containing a human readable time unit
+ * Template specification for nanoseconds
+ *
+ */
+
+template <>
+std::string getTimeUnit<std::chrono::nanoseconds>() {
+    return "ns";
+}
+
 
 }} // namespace snmpp::utils
 
