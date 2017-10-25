@@ -50,6 +50,7 @@ const std::string& Config::getFunctionName() const {
  *  Create the directory tree
  *
  * */
+
 void Config::createDirectoryTree( ) {
 
     if ( _prefixWithDate ){
@@ -69,11 +70,12 @@ void Config::createDirectoryTree( ) {
     toFile(basedir + prefix + "-config.txt");
 }
 
-/**
+/*******************************************************************************
  * private method
  *  Print the configuration to file
  *
  * */
+
 void Config::toFile( const std::string &path)  {
 
     boost::filesystem::ofstream ofs(path);
