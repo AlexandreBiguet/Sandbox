@@ -78,6 +78,15 @@ class FuncBase {
     }
 
     /**
+     * Returns a const reference to its variables
+     *
+     * */
+
+    const ConstructorInputType & getVariables()const {
+        return _inputs;
+    }
+
+    /**
      * Pure virtual eval method
      *
      * */
