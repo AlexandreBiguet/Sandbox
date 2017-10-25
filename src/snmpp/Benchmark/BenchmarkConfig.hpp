@@ -35,17 +35,6 @@
  ******************************************************************************/
 
 /******************************************************************************
- * Public Methods: 
- * ---------------
- * getters and setters
- ******************************************************************************/
-
-/******************************************************************************
- * Private Methods:
- * ----------------
- ******************************************************************************/
-
-/******************************************************************************
  * Possible enhancements:
  * ----------------------
  ******************************************************************************/
@@ -59,14 +48,12 @@ namespace snmpp { namespace benchmark {
 
 class BenchmarkConfig {
 
-  private:
-
-    std::string _functionName;
-    std::vector<std::string> _argumentNames;
-    std::size_t _iterationNumber;
-    std::string _pathToBenchmarkDir;
-
   public:
+
+    /**
+     * Constructors
+     *
+     * */
 
     explicit BenchmarkConfig
         (const std::string &funcName,
@@ -81,6 +68,11 @@ class BenchmarkConfig {
          std::size_t iter = 100,
          const std::string &dir = "benchmarks" );
 
+    /**
+     * Getters and Setters
+     *
+     * */
+
     std::size_t getIterationNumber() const;
     std::string getPathToBenchmarkDir() const;
     std::string getFunctionName() const;
@@ -92,6 +84,12 @@ class BenchmarkConfig {
     void setArgumentNames( const std::vector<std::string> &v );
 
 
+  private:
+
+    std::string _functionName;
+    std::vector<std::string> _argumentNames;
+    std::size_t _iterationNumber;
+    std::string _pathToBenchmarkDir;
 
 };
 
