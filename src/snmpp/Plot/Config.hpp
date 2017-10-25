@@ -11,15 +11,23 @@
 /******************************************************************************
  * Description: 
  * ------------
+ * Configuration for a plot
+ *
+ * The data are written in a directory dir = @_pathToDirPlot/@_functionName
+ *
+ * The data inside dir can be prefixed by the date if @_prefixWithDate is true
  ******************************************************************************/
 
 /******************************************************************************
  * Class Attributes:
  * -----------------
- * _pathToPlotDir : Path to the plot directory
+ * _pathToPlotDir : (string) Path to the plot directory
  *
- * _functionName : Name of the function to be plotted
+ * _functionName  : (string) Name of the function to be plotted
  *
+ * _prefixWithDate : (bool) if true, directories are prefixed with the date
+ *
+ * _date : (string) the current date
  ******************************************************************************/
 
 /******************************************************************************
@@ -38,6 +46,13 @@ class Config {
      **************************************************************************/
 
   public:
+
+    /**
+     * Constructor
+     *
+     * */
+
+    explicit Config(const std::string& dir, const std::string& funcName);
 
     /**
      * Returns the path to the plot directory
@@ -60,6 +75,22 @@ class Config {
 
     std::string _pathToPlotDir;
     std::string _functionName;
+    bool _prefixWithDate;
+    std::string _date;
+
+    /**
+     * private method
+     *  Create the directory tree
+     *
+     * */
+    void createDirectoryTree( );
+
+    /**
+     * private method
+     *  Print the configuration to file
+     *
+     * */
+    void toFile( const std::string &path);
 };
 
 }} // namespace snmpp::plot

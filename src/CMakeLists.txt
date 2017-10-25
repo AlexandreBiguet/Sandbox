@@ -64,10 +64,20 @@ add_library( ${MATH_OBJ} OBJECT ${MATH_SOURCES} )
 ## Sources corresponding to plot object library
 
 set ( PLOT_SOURCES
+        "snmpp/Plot/Formatter/FormatterBase.hpp"
+        "snmpp/Plot/Formatter/PrintfFormatter.hpp"
+        "snmpp/Plot/Formatter/PrintfFormatter.cpp"
+        "snmpp/Plot/Formatter/StandardFormatter.hpp"
+        "snmpp/Plot/Formatter/StandardFormatter.cpp"
         "snmpp/Plot/Config.cpp"
-        "snmpp/Plot/Config.hpp")
+        "snmpp/Plot/Config.hpp"
+        "snmpp/Plot/Formatter.hpp"
+        )
 
 add_library( ${PLOT_OBJ} OBJECT ${PLOT_SOURCES})
+set_target_properties( ${PLOT_OBJ}
+        PROPERTIES
+        INCLUDE_DIRECTORIES "${CMAKE_CURRENT_SOURCE_DIR}" )
 
 ################################################################################
 ## List of headers that will be installed
@@ -79,6 +89,9 @@ set( HEADERS
         "snmpp/Math/Core/Quantity.hpp"
         "snmpp/Math/Core/Variable.hpp"
         "snmpp/Math/Core/Variables.hpp"
+        "snmpp/Plot/Formatter/FormatterBase.hpp"
+        "snmpp/Plot/Formatter/PrintfFormatter.hpp"
+        "snmpp/Plot/Formatter/StandardFormatter.hpp"
         "snmpp/Plot/Config.hpp"
         "snmpp/Utils/FormattedOutput.hpp"
         "snmpp/Utils/Sequence.hpp"
