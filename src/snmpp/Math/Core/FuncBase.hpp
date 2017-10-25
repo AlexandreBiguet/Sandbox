@@ -22,21 +22,6 @@
  * _outputs : Output Variables in a map<Key, Value> object
  ******************************************************************************/
 
-/******************************************************************************
- * Public Methods: 
- * ---------------
- ******************************************************************************/
-
-/******************************************************************************
- * Private Methods:
- * ----------------
- ******************************************************************************/
-
-/******************************************************************************
- * Possible enhancements:
- * ----------------------
- ******************************************************************************/
-
 #include "Variables.hpp"
 
 namespace snmpp { namespace math { namespace core {
@@ -44,25 +29,38 @@ namespace snmpp { namespace math { namespace core {
 template<typename Key, typename ValueType>
 class FuncBase {
 
+
+    /***************************************************************************
+     * Interface
+     **************************************************************************/
+
   public:
 
     using ConstructorInputType = Variables<Key, ValueType>;
     using InputType  = std::map<Key, ValueType>;
     using OutputType = std::map<Key, ValueType>;
 
-  protected:
-
-    ConstructorInputType _inputs;
-    OutputType _outputs;
-
-  public:
+    /**
+     * Constructor from a core::Variables
+     *
+     * */
 
     explicit FuncBase(const ConstructorInputType &vars) : _inputs(vars) {}
+
+    /**
+     * operator() overloading with no argument
+     *
+     * */
 
     const OutputType &operator()() {
         eval();
         return _outputs;
     }
+
+    /**
+     * Operator() overloading with a map<Key, ValueType> argument
+     *
+     * */
 
     const OutputType &operator()(const InputType &vars) {
         _inputs.setFromMap(vars);
@@ -70,11 +68,31 @@ class FuncBase {
         return _outputs;
     }
 
+    /**
+     * Returns a copy of the calculated outputs
+     *
+     * */
+
     OutputType getCopy() const {
         return _outputs;
     }
 
+    /**
+     * Pure virtual eval method
+     *
+     * */
+
     virtual void eval() = 0;
+
+    /***************************************************************************
+     * Protected Attributes
+     **************************************************************************/
+
+  protected:
+
+    ConstructorInputType _inputs;
+    OutputType _outputs;
+
 };
 
 } // namespace core
