@@ -193,7 +193,7 @@ class Variables {
      * Retunrs the number of Variable which have their VariableType equal to
      * @type.
      * */
-    std::size_t size(VariableType type);
+    std::size_t size(VariableType type) const;
 
     /**
      * std container interface stuff. These are standard
@@ -220,7 +220,7 @@ class Variables {
     iterator erase(const_iterator it);
     std::size_t erase(const Key &t);
     void clear();
-    std::size_t size();
+    std::size_t size() const;
 
 
     /***************************************************************************
@@ -459,9 +459,9 @@ void Variables<K, V>::setFromMap(const std::map<K, V> &vars) {
  * */
 
 template<typename K, typename V>
-std::size_t Variables<K, V>::size(VariableType type) {
+std::size_t Variables<K, V>::size(VariableType type) const {
     std::size_t s(0);
-    for (auto &i : _vars) {
+    for (const auto &i : _vars) {
         if (i.second.getType() == type) {
             ++s;
         }
@@ -616,7 +616,7 @@ void Variables<K, V>::clear() {
  * */
 
 template<typename K, typename V>
-std::size_t Variables<K, V>::size() {
+std::size_t Variables<K, V>::size() const{
     return _vars.size();
 }
 
