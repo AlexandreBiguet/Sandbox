@@ -67,6 +67,13 @@ class Config {
      * */
     const std::string& getFunctionName() const;
 
+    /**
+     *  Create the directory tree
+     *
+     * */
+    void createDirectoryTree( );
+
+
     /***************************************************************************
      * Private
      **************************************************************************/
@@ -77,13 +84,6 @@ class Config {
     std::string _functionName;
     bool _prefixWithDate;
     std::string _date;
-
-    /**
-     * private method
-     *  Create the directory tree
-     *
-     * */
-    void createDirectoryTree( );
 
     /**
      * private method

@@ -72,6 +72,7 @@ set ( PLOT_SOURCES
         "snmpp/Plot/Config.cpp"
         "snmpp/Plot/Config.hpp"
         "snmpp/Plot/Formatter.hpp"
+        "snmpp/Plot/Plotter.hpp"
         )
 
 add_library( ${PLOT_OBJ} OBJECT ${PLOT_SOURCES})
@@ -93,6 +94,8 @@ set( HEADERS
         "snmpp/Plot/Formatter/PrintfFormatter.hpp"
         "snmpp/Plot/Formatter/StandardFormatter.hpp"
         "snmpp/Plot/Config.hpp"
+        "snmpp/Plot/Formatter.hpp"
+        "snmpp/Plot/Plotter.hpp"
         "snmpp/Utils/FormattedOutput.hpp"
         "snmpp/Utils/Sequence.hpp"
         "snmpp/Utils/Tools.hpp")

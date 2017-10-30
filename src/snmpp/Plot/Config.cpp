@@ -46,18 +46,18 @@ const std::string& Config::getFunctionName() const {
 }
 
 /*******************************************************************************
- * private method
  *  Create the directory tree
  *
  * */
 
 void Config::createDirectoryTree( ) {
 
+    std::string prefix;
+
     if ( _prefixWithDate ){
         _date = utils::getCurrentDate();
+        prefix = _date + '-';
     }
-
-    std::string prefix(_date);
 
     std::string basedir = utils::addTrailingSlash(_pathToPlotDir);
     basedir += utils::addTrailingSlash(_functionName);
@@ -67,7 +67,7 @@ void Config::createDirectoryTree( ) {
     utils::createDirectory(basedir + "scripts");
     utils::createDirectory(basedir + "plot");
 
-    toFile(basedir + prefix + "-config.txt");
+    toFile(basedir + prefix + "config.txt");
 }
 
 /*******************************************************************************
