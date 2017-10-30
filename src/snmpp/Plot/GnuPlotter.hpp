@@ -33,11 +33,11 @@
 #include <snmpp/Utils/FormattedOutput.hpp>
 
 #include "Formatter.hpp"
-#include "Plotter.hpp"
+#include "PlotterBase.hpp"
 
 namespace snmpp { namespace plot {
 
-class GnuPlotter : public Plotter<StandardFormatter> {
+class GnuPlotter : public PlotterBase<StandardFormatter> {
 
     /***************************************************************************
      * Interface
@@ -48,7 +48,7 @@ class GnuPlotter : public Plotter<StandardFormatter> {
     GnuPlotter(const Config &config,
                const utils::FormattedOutput &fmt,
                const FuncType &func )
-        : Plotter<StandardFormatter>(config,StandardFormatter(fmt),func)
+        : PlotterBase<StandardFormatter>(config,StandardFormatter(fmt),func)
     {}
 
     /**

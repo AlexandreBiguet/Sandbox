@@ -1,5 +1,5 @@
 //
-//  Plotter.hpp 
+//  PlotterBase.hpp
 //  snmpp
 //
 //  Created on 29/10/2017 at 22:06.
@@ -14,10 +14,6 @@
  * Templated class for plotting function
  ******************************************************************************/
 
-/******************************************************************************
- * Class Attributes:
- * ----------------- 
- ******************************************************************************/
 
 /******************************************************************************
  * Possible enhancements:
@@ -38,7 +34,7 @@ namespace snmpp { namespace plot {
 class Config;
 
 template< typename Formatter >
-class Plotter {
+class PlotterBase {
 
     /***************************************************************************
      * Interface
@@ -50,15 +46,12 @@ class Plotter {
      * the config object
      *
      * */
-
     template <typename FuncType>
-    Plotter(const Config &config,
-            const Formatter &fmt,
-            const FuncType &func)
+    PlotterBase
+        (const Config &config,const Formatter &fmt, const FuncType &func)
         : _config(config), _formatter(fmt),
           _func(std::make_shared<FuncType>(func))
     {}
-
 
     /**
      * Writes the data files
@@ -101,6 +94,12 @@ class Plotter {
      * */
     void setFixedValuesNumber(const std::string &var, const std::size_t n);
 
+    /**
+     * Checks if the domain of definition of the running variable is properly
+     * set, i.e. it can't be indefinite or empty
+     * -> will throw if any of the previous case is fullfilled
+     * */
+    void checkDefinitionDomain();
 
     /***************************************************************************
      * Protected
@@ -135,14 +134,6 @@ class Plotter {
      * */
     std::shared_ptr<math::FuncBase> _func;
 
-    /**
-     * Checks if the domain of definition of the running variable is properly
-     * set, i.e. it can't be indefinite or empty
-     * -> will throw if any of the previous case is fullfilled
-     * */
-    void checkDefinitionDomain();
-
-
 };
 
 /******************************************************************************
@@ -155,7 +146,7 @@ class Plotter {
  * -> will throw if any of the previous case is fullfilled
  * */
 template < typename Formatter >
-void Plotter<Formatter>::checkDefinitionDomain() {
+void PlotterBase<Formatter>::checkDefinitionDomain() {
 
     auto rvar_vec = _func->getVariables().get(math::VariableType::Running);
 
@@ -187,7 +178,8 @@ void Plotter<Formatter>::checkDefinitionDomain() {
  * be ignored
  * */
 template < typename Formatter >
-void Plotter<Formatter>::addFixedValue( const std::string &var, double value){
+void PlotterBase<Formatter>::addFixedValue
+    (const std::string &var, double value){
 
     if ( ! _func->hasVariable(var) ){
         throw std::runtime_error(" Variable ["+var+"] does not exist");
@@ -203,7 +195,7 @@ void Plotter<Formatter>::addFixedValue( const std::string &var, double value){
  * be ignored
  * */
 template < typename Formatter >
-void Plotter<Formatter>::addFixedValues
+void PlotterBase<Formatter>::addFixedValues
     ( const std::string &var, const std::vector<double> &vec){
 
     if ( ! _func->hasVariable(var) ){
@@ -223,7 +215,7 @@ void Plotter<Formatter>::addFixedValues
  * be ignored
  * */
 template < typename Formatter >
-void Plotter<Formatter>::addFixedValues
+void PlotterBase<Formatter>::addFixedValues
     (const std::string &var, std::vector<double> &&vec){
 
     if ( ! _func->hasVariable(var) ){
@@ -244,7 +236,7 @@ void Plotter<Formatter>::addFixedValues
  * values
  * */
 template < typename Formatter >
-void Plotter<Formatter>::setFixedValuesNumber
+void PlotterBase<Formatter>::setFixedValuesNumber
     (const std::string &var, const std::size_t n){
 
     if ( ! _func->hasVariable(var) ){
@@ -261,11 +253,6 @@ void Plotter<Formatter>::setFixedValuesNumber
     }
 }
 
-
-
-
-
-
 }} // namespace snmpp::plot
 
-// Plotter.hpp ends here
+// PlotterBase.hpp ends here

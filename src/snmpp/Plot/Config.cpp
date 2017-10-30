@@ -66,8 +66,7 @@ void Config::toFile( const std::string &path)  {
         <<  boost::filesystem::absolute(_pathToPlotDir) << "\n"
         << " function name    : "<<_functionName << "\n\n"
         << " prefixing directories with date : "
-        <<std::boolalpha<<_prefixWithDate<<"\n"
-        << " date : "<<_date<<"\n";
+        <<std::boolalpha<<_prefixWithDate<<"\n";
 
     ofs.close();
 
