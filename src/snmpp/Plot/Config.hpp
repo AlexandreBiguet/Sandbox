@@ -68,11 +68,20 @@ class Config {
     const std::string& getFunctionName() const;
 
     /**
-     *  Create the directory tree
+     * Uses current date as a prefix for directory and config file
+     * */
+    void useCurrentDateAsPrefix();
+
+    /**
+     *  Print the configuration to file
      *
      * */
-    void createDirectoryTree( );
+    void toFile( const std::string &path);
 
+    /**
+     * Returns the prefix
+     * */
+    const std::string& getPrefix() const;
 
     /***************************************************************************
      * Private
@@ -80,17 +89,25 @@ class Config {
 
   private:
 
+    /**
+     * path to the directory where the plot datae are stored
+     * */
     std::string _pathToPlotDir;
-    std::string _functionName;
-    bool _prefixWithDate;
-    std::string _date;
 
     /**
-     * private method
-     *  Print the configuration to file
-     *
+     * Name of the function to be plotted
      * */
-    void toFile( const std::string &path);
+    std::string _functionName;
+
+    /**
+     * if true, the _prefix is set to '[date]-'. Otherwise, _prefix is empty
+     * */
+    bool _prefixWithDate;
+
+
+    std::string _date;
+    std::string _prefix;
+
 };
 
 }} // namespace snmpp::plot

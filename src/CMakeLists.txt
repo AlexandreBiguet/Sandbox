@@ -72,6 +72,8 @@ set ( PLOT_SOURCES
         "snmpp/Plot/Config.cpp"
         "snmpp/Plot/Config.hpp"
         "snmpp/Plot/Formatter.hpp"
+        "snmpp/Plot/GnuPlotter.hpp"
+        "snmpp/Plot/GnuPlotter.cpp"
         "snmpp/Plot/Plotter.hpp"
         )
 
@@ -95,6 +97,7 @@ set( HEADERS
         "snmpp/Plot/Formatter/StandardFormatter.hpp"
         "snmpp/Plot/Config.hpp"
         "snmpp/Plot/Formatter.hpp"
+        "snmpp/Plot/GnuPlotter.hpp"
         "snmpp/Plot/Plotter.hpp"
         "snmpp/Utils/FormattedOutput.hpp"
         "snmpp/Utils/Sequence.hpp"

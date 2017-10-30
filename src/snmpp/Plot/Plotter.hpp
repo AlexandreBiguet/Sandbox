@@ -27,6 +27,9 @@
 #include <map>
 #include <vector>
 
+#include <boost/filesystem.hpp>
+#include <boost/filesystem/fstream.hpp>
+
 #include <snmpp/Math/Core/FuncBase.hpp>
 #include "Config.hpp"
 
@@ -53,18 +56,56 @@ class Plotter {
             const Formatter &fmt,
             const FuncType &func)
         : _config(config), _formatter(fmt),
-          _func(std::make_shared<FuncType>(func)) {}
+          _func(std::make_shared<FuncType>(func))
+    {}
 
 
     /**
-     * Writes the data
+     * Writes the data files
      * */
-    void write( );
+    virtual void writeDataFiles( ) = 0;
+
+    /**
+     * Add a fixed value @value for the variables @var
+     * Throw if this variable is not contained in the Input function variables
+     * If the value added is out of the definition domain, this will silently
+     * be ignored
+     * */
+    void addFixedValue( const std::string &var, double value);
+
+    /**
+     * Add fixed values contained in @vec for the variable @var
+     * Throw if this variable is not contained in the input function variables
+     * If the values added are out of the definition domain, this will silently
+     * be ignored
+     * */
+    void addFixedValues( const std::string &var,
+                         const std::vector<double> &vec);
+
+    /**
+     * Add fixed values contained in @vec for the variable @var
+     * Throw if this variable is not contained in the input function variables
+     * rvalue reference.
+     * If the values added are out of the definition domain, this will silently
+     * be ignored
+     * */
+    void addFixedValues(const std::string &var, std::vector<double> &&vec);
+
+    /**
+     * Sets the number @n of fixed values that should be taken in the
+     * corresponding definition interval for variable @var
+     * Throws if the variable is not contained in the input function variables
+     *
+     * This sets the corresponding vector of fixed value in the map of fixed
+     * values
+     * */
+    void setFixedValuesNumber(const std::string &var, const std::size_t n);
+
 
     /***************************************************************************
-     * Private
+     * Protected
      **************************************************************************/
-  private:
+  protected:
 
     using Key = std::string;
 
@@ -100,6 +141,7 @@ class Plotter {
      * -> will throw if any of the previous case is fullfilled
      * */
     void checkDefinitionDomain();
+
 
 };
 
@@ -138,27 +180,90 @@ void Plotter<Formatter>::checkDefinitionDomain() {
     }
 }
 
-/******************************************************************************
- * Writes the data
+/**
+ * Add a fixed value @value for the variables @var
+ * Throw if this variable is not contained in the Input function variables
+ * If the value added is out of the definition domain, this will silently
+ * be ignored
  * */
 template < typename Formatter >
-void Plotter<Formatter>::write() {
+void Plotter<Formatter>::addFixedValue( const std::string &var, double value){
 
-    // If there is no running variables -> throw
-    const std::size_t NrunVar =
-        _func->getVariables().size(math::VariableType::Running);
-
-    if (  NrunVar == 0 ){
-        throw std::logic_error("Plotter: No running variables in the snmpp "
-                                   "function in argument");
+    if ( ! _func->hasVariable(var) ){
+        throw std::runtime_error(" Variable ["+var+"] does not exist");
     }
 
-    checkDefinitionDomain();
-
-    _config.createDirectoryTree();
-
-
+    _fixedValues[var].push_back(value);
 }
+
+/**
+ * Add fixed values contained in @vec for the variable @var
+ * Throw if this variable is not contained in the input function variables
+ * If the values added are out of the definition domain, this will silently
+ * be ignored
+ * */
+template < typename Formatter >
+void Plotter<Formatter>::addFixedValues
+    ( const std::string &var, const std::vector<double> &vec){
+
+    if ( ! _func->hasVariable(var) ){
+        throw std::runtime_error(" Variable ["+var+"] does not exist");
+    }
+
+    for( const auto &i : vec ) {
+        _fixedValues[var].push_back(i);
+    }
+}
+
+/**
+ * Add fixed values contained in @vec for the variable @var
+ * Throw if this variable is not contained in the input function variables
+ * rvalue reference.
+ * If the values added are out of the definition domain, this will silently
+ * be ignored
+ * */
+template < typename Formatter >
+void Plotter<Formatter>::addFixedValues
+    (const std::string &var, std::vector<double> &&vec){
+
+    if ( ! _func->hasVariable(var) ){
+        throw std::runtime_error(" Variable ["+var+"] does not exist");
+    }
+
+    for( const auto &i : vec ) {
+        _fixedValues[var].emplace_back(i);
+    }
+}
+
+/**
+ * Sets the number @n of fixed values that should be taken in the
+ * corresponding definition interval for variable @var
+ * Throws if the variable is not contained in the input function variables
+ *
+ * This sets the corresponding vector of fixed value in the map of fixed
+ * values
+ * */
+template < typename Formatter >
+void Plotter<Formatter>::setFixedValuesNumber
+    (const std::string &var, const std::size_t n){
+
+    if ( ! _func->hasVariable(var) ){
+        throw std::runtime_error(" Variable ["+var+"] does not exist");
+    }
+
+    _numberOfFixedValues[var] = n;
+    auto interval = _func->getVariables().find(var)->second.getInterval();
+
+    double h = (interval.upper() - interval.lower()) / (double) n;
+
+    for( std::size_t i = 0 ; i < n ; ++i ){
+        _fixedValues[var].push_back( interval.lower() + i * h);
+    }
+}
+
+
+
+
 
 
 }} // namespace snmpp::plot

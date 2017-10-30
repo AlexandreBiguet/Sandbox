@@ -11,7 +11,7 @@
 
 #include <snmpp/Math/Core/FuncBase.hpp>
 #include <snmpp/Plot/Formatter.hpp>
-#include <snmpp/Plot/Plotter.hpp>
+#include <snmpp/Plot/GnuPlotter.hpp>
 
 using namespace snmpp;
 
@@ -35,12 +35,21 @@ class SinFunc : public math::FuncBase {
 int main ( ){
 
     plot::Config config("plot-dir", "sin");
-    SinFunc func;
-    plot::StandardFormatter formatter(utils::FormattedOutput(15,6));
-    plot::Plotter<plot::StandardFormatter> plotter
-        (config,formatter, func);
+    config.useCurrentDateAsPrefix();
 
-    plotter.write();
+    SinFunc func;
+    plot::GnuPlotter plotter(config,utils::FormattedOutput(15,6), func);
+
+    plotter.addFixedValue("a", 10.0);
+    plotter.addFixedValues("a", {1.0, 2.0, 3.0, 15.0, 13.0} );
+
+    std::vector<double> fixed_b_vec({5.0, 12.0, 1.0});
+
+    plotter.addFixedValues("b", fixed_b_vec);
+
+    plotter.setFixedValuesNumber("x", 4);
+
+    plotter.writeDataFiles();
 
     return 0;
 }

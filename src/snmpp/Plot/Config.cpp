@@ -8,7 +8,7 @@
 //
 
 
-#include <boost/filesystem/path.hpp>
+#include <boost/filesystem.hpp>
 #include <boost/filesystem/fstream.hpp>
 
 #include "Config.hpp"
@@ -46,32 +46,6 @@ const std::string& Config::getFunctionName() const {
 }
 
 /*******************************************************************************
- *  Create the directory tree
- *
- * */
-
-void Config::createDirectoryTree( ) {
-
-    std::string prefix;
-
-    if ( _prefixWithDate ){
-        _date = utils::getCurrentDate();
-        prefix = _date + '-';
-    }
-
-    std::string basedir = utils::addTrailingSlash(_pathToPlotDir);
-    basedir += utils::addTrailingSlash(_functionName);
-
-    utils::createDirectory(basedir);
-    utils::createDirectory(basedir + "data");
-    utils::createDirectory(basedir + "scripts");
-    utils::createDirectory(basedir + "plot");
-
-    toFile(basedir + prefix + "config.txt");
-}
-
-/*******************************************************************************
- * private method
  *  Print the configuration to file
  *
  * */
@@ -88,7 +62,8 @@ void Config::toFile( const std::string &path)  {
 
     ofs << _date
         << "\n\n"
-        << " path to plot dir : "<< _pathToPlotDir << "\n"
+        << " path to plot dir : "
+        <<  boost::filesystem::absolute(_pathToPlotDir) << "\n"
         << " function name    : "<<_functionName << "\n\n"
         << " prefixing directories with date : "
         <<std::boolalpha<<_prefixWithDate<<"\n"
@@ -97,6 +72,23 @@ void Config::toFile( const std::string &path)  {
     ofs.close();
 
 }
+
+/*******************************************************************************
+ * Uses current date as a prefix for directory and config file
+ * */
+void Config::useCurrentDateAsPrefix(){
+    _prefixWithDate = true;
+    _date = utils::getCurrentDate();
+    _prefix = _date + '-';
+}
+
+/**
+ * Returns the prefix
+ * */
+const std::string& Config::getPrefix() const{
+    return _prefix;
+}
+
 
 }} // namespace snmpp::plot
 
