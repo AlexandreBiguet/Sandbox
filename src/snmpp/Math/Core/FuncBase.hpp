@@ -87,6 +87,19 @@ class FuncBase {
     }
 
     /**
+     * Returns true if @var is contained in the function variables, false
+     * otherwise.
+     * */
+    bool hasVariable(const Key &var ){
+        auto it = _inputs.find(var);
+        if ( it == _inputs.end() ){
+            return false;
+        }
+        return true;
+    }
+
+
+    /**
      * Pure virtual eval method
      *
      * */
