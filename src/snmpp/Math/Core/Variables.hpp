@@ -203,6 +203,7 @@ class Variables {
     iterator begin();
     iterator end();
     iterator find(const Key &k);
+    const_iterator find (const Key &k) const;
 
     const_iterator begin() const;
     const_iterator end() const;
@@ -515,6 +516,16 @@ typename Variables<K, V>::const_iterator Variables<K, V>::end() const {
 
 template<typename K, typename V>
 typename Variables<K, V>::iterator Variables<K, V>::find(const K &k) {
+    return _vars.find(k);
+}
+
+/*******************************************************************************
+ * find (const)
+ * */
+
+template < typename K, typename V>
+typename Variables<K,V>::const_iterator
+Variables<K,V>::find(const K &k) const {
     return _vars.find(k);
 }
 
