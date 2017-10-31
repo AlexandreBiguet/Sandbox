@@ -14,8 +14,12 @@
  * A standard formatter which uses utils::FormattedOutput to write the data
  ******************************************************************************/
 
-#include "FormatterBase.hpp"
+#include <map>
+#include <vector>
+
 #include <snmpp/Utils/FormattedOutput.hpp>
+
+#include "FormatterBase.hpp"
 
 namespace snmpp { namespace  plot {
 
@@ -23,8 +27,12 @@ class StandardFormatter : public FormatterBase {
 
   public:
     explicit StandardFormatter( const utils::FormattedOutput &col );
+
     void write
         ( std::ostream &os, const std::vector<double> &val) const override ;
+
+    void write(std::ostream &os, const std::map<std::string,double> &in,
+               const std::map<std::string, double> &out);
 
   private :
     utils::FormattedOutput _col;

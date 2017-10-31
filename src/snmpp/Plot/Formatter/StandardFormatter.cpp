@@ -24,6 +24,26 @@ void StandardFormatter::write
     os << '\n';
 }
 
+/**
+ * write to @os from an input map @in (i.e. the input used to call the
+ * function) and an output map @out (i.e. the output of the function's call)
+ * */
+
+void StandardFormatter::write
+    (std::ostream &os, const std::map<std::string,double> &in,
+     const std::map<std::string, double> &out){
+
+    for( const auto &i : in ) {
+        os<< _col << i.second;
+    }
+
+    for( const auto &i : out ) {
+        os<<_col<<i.second;
+    }
+    os<<'\n';
+}
+
+
 }} // namespace snmpp::plot
 
 
