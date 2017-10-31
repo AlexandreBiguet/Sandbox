@@ -44,6 +44,9 @@ class GnuPlotter : public PlotterBase<StandardFormatter> {
      **************************************************************************/
   public:
 
+    /**
+     * Constructor
+     * */
     template < typename FuncType >
     GnuPlotter(const Config &config,
                const utils::FormattedOutput &fmt,
@@ -57,10 +60,21 @@ class GnuPlotter : public PlotterBase<StandardFormatter> {
     void writeDataFiles( ) override;
 
 
+    /**
+     * Sets the number of points to be taken for every running variable
+     * */
+    void setRunningNumberPoints(std::size_t n);
+
     /***************************************************************************
      * Private
      **************************************************************************/
   private:
+
+    /**
+     * Number of points to be taken for the running variables to construct
+     * the data file
+     * */
+    std::size_t _nRunning;
 
     /**
      * path to the data directory
@@ -83,7 +97,26 @@ class GnuPlotter : public PlotterBase<StandardFormatter> {
      * */
     std::string createDirectoryTree( );
 
+    /**
+     * Writes the data files and gnuplot script files. The 1 dimensional
+     * function is plotted against a running variable @run for multiple fixed
+     * values of the the @multi variable.
+     *
+     * @dir   is the name of corresponding directory
+     * @run   is the name of the current running variable
+     * @multi is the name of the fixed variable. Each of the fixed values are
+     * used to write the datae
+     *
+     * Throw if the size of the output of the function is 0
+     * */
+    void write1DFunction(const std::string& name, const std::string& run,
+                         const std::string& multi);
 
+
+    /**
+     * Writes the 1D data by successive call to write1DFunction method
+     * */
+    void write1DDatae();
 };
 
 } } // namespace snmpp::plot

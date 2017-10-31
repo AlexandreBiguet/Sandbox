@@ -49,6 +49,8 @@ int main ( ){
 
     plotter.setFixedValuesNumber("x", 4);
 
+    plotter.setRunningNumberPoints(50);
+
     plotter.writeDataFiles();
 
     return 0;
