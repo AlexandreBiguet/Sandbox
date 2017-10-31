@@ -16,24 +16,6 @@
  ******************************************************************************/
 
 /******************************************************************************
- * Class Attributes:
- * -----------------
- * _vars : this is the map of variable
- ******************************************************************************/
-
-/******************************************************************************
- * Public Methods: 
- * ---------------
- * A lot : see interface
- ******************************************************************************/
-
-/******************************************************************************
- * Private Methods:
- * ----------------
- * Nono for now
- ******************************************************************************/
-
-/******************************************************************************
  * Possible enhancements:
  * ----------------------
  * 1) Check if it is more appropriate to use map or hash-map. My guess is that
@@ -136,6 +118,11 @@ class Variables {
     Variable<ValueType> get(const Key &k) const;
 
     /**
+     * Returns a copy of the value contained in the variable with Key @k
+     * */
+    ValueType getValue(const Key &k) const;
+
+    /**
      * Returns a vector of const_iterator pointing to the variables of
      * VariableType @type in the container.
      *
@@ -148,6 +135,11 @@ class Variables {
      *
      * */
     std::vector<Key> getKeys(VariableType type) const;
+
+    /**
+     * Returns a vector of Key (copied) of all the variables
+     * */
+    std::vector<Key> getKeys() const;
 
     /**
      * Sets the value @v of a Variable with key @k
@@ -230,6 +222,9 @@ class Variables {
 
   private:
 
+    /**
+     * map of variables
+     * */
     VariablesContainer _vars;
 
 };
@@ -332,6 +327,15 @@ Variable<ValueType> Variables<Key, ValueType>::get(const Key &k) const {
 }
 
 /*******************************************************************************
+ * Returns a copy of the value contained in the variable with Key @k
+ * */
+
+template<typename Key, typename ValueType>
+ValueType Variables<Key, ValueType>::getValue(const Key &k) const {
+    return get(k).getValue();
+};
+
+/*******************************************************************************
  * Returns a vector of const_iterator pointing to the variables of
  * VariableType @type in the container.
  *
@@ -367,6 +371,18 @@ std::vector<K> Variables<K, V>::getKeys(VariableType type) const {
     }
     return keys;
 }
+
+/*******************************************************************************
+ * Returns a vector of Key (copied) of all the variables
+ * */
+template<typename K, typename V>
+std::vector<K> Variables<K, V>::getKeys() const{
+    std::vector<K> keys;
+    for(const auto &it : _vars){
+        keys.push_back(it.first);
+    }
+    return keys;
+};
 
 /*******************************************************************************
  * Sets the value @v of a Variable with key @k
