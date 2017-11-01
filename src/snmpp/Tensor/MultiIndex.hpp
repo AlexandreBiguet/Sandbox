@@ -153,20 +153,53 @@ class MultiIndex<T, typename std::enable_if<std::is_integral<T>::value>::type> {
 
 /**
  * Specialization for non integral template parameter.
- * Template parameter must be an iterator
+ * Template parameter must be an iterator or at least a class that has :
+ *      - ++ operator overloaded
+ *      - begin() method
+ *      - end() method
  * */
-template < typename T >
-class MultiIndex<T, typename std::enable_if<!std::is_integral<T>::value>::type> {
 
-    /**
+template < typename T >
+class MultiIndex
+    <T, typename std::enable_if<!std::is_integral<T>::value>::type> {
+
+    /***************************************************************************
      * Interface
-     * */
+     **************************************************************************/
+
   public:
 
     /**
-     * Private
+     * Constructor. @init is a vector of iterator-like element.
      * */
+    explicit MultiIndex(const std::vector<T> &init)
+        : _data(init), _dim(init.size()) {}
+
+    /**
+     * Computes the next possible combination of the element.
+     * Returns true if other combinations can be computed
+     * Returns false if the last combination was computed
+     * */
+
+    // I need to know the iterator's containers or at least where each
+    // iterator begins and ends... Is there another way ? 
+
+    /***************************************************************************
+     * Private
+     ***************************************************************************/
+
   private:
+
+    /**
+     * The current value of each element
+     * */
+    std::vector<T> _data;
+
+    /**
+     * Holds the (constant) size of the input vector
+     * */
+    std::size_t _dim;
+
 
 };
 
