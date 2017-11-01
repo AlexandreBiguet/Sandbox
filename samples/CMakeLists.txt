@@ -9,5 +9,6 @@
 add_subdirectory(Utils)
 add_subdirectory(Benchmark)
 add_subdirectory(Math)
+add_subdirectory(Tensor)
 
 # CMakeLists.txt ends here
