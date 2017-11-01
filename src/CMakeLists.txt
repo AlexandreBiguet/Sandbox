@@ -12,16 +12,18 @@
 
 ################################################################################
 ## List of objects
-set ( UTILS_OBJ "obj_utils")
+set ( UTILS_OBJ     "obj_utils"    )
 set ( BENCHMARK_OBJ "obj_benchmark")
-set ( MATH_OBJ "obj_math" )
-set ( PLOT_OBJ "obj_plot")
+set ( MATH_OBJ      "obj_math"     )
+set ( PLOT_OBJ      "obj_plot"     )
+set ( TENSOR_OBJ    "obj_tensor"   )
 
 set( OBJECT_LIST
         ${UTILS_OBJ}
         ${MATH_OBJ}
         ${BENCHMARK_OBJ}
-        ${PLOT_OBJ})
+        ${PLOT_OBJ}
+        ${TENSOR_OBJ})
 
 ################################################################################
 ## Sources corresponding to utils object library
@@ -83,6 +85,13 @@ set_target_properties( ${PLOT_OBJ}
         INCLUDE_DIRECTORIES "${CMAKE_CURRENT_SOURCE_DIR}" )
 
 ################################################################################
+## Sources corresponding to tensor object library
+set( TENSOR_SOURCES
+        "snmpp/Tensor/MultiIndex.hpp" )
+add_library( ${TENSOR_OBJ} OBJECT ${TENSOR_SOURCES})
+
+
+################################################################################
 ## List of headers that will be installed
 
 set( HEADERS
@@ -99,6 +108,7 @@ set( HEADERS
         "snmpp/Plot/Formatter.hpp"
         "snmpp/Plot/GnuPlotter.hpp"
         "snmpp/Plot/PlotterBase.hpp"
+        "snmpp/Tensor/MultiIndex.hpp"
         "snmpp/Utils/FormattedOutput.hpp"
         "snmpp/Utils/Sequence.hpp"
         "snmpp/Utils/Tools.hpp")
