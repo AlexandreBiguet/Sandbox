@@ -32,10 +32,6 @@
  * ( 0, 0, ..., 0) -> (0, 0, ..., 1) -> ... -> ( 0, 1, ..., 0) -> (0, 1, ..., 1)
  * -> ... -> (1, 1, ..., 1) -> ... -> (N_0-1, N_1 -1, ..., N_[dim-1] - 1)
  *
- * The MultiIndex Class is templated such that it accepts iterator as element
- * of v or integer type.
- *
- * In the case of iterator, N_i = it.end()
  *
  * In the implementation, N is called _Nmax
  *
@@ -44,6 +40,7 @@
 /******************************************************************************
  * Possible enhancements:
  * ----------------------
+ * See TODOs
  ******************************************************************************/
 
 #include <vector>
@@ -51,15 +48,13 @@
 
 namespace snmpp { namespace tensor {
 
-template < typename T, typename Enable = void>
-class MultiIndex {};
-
+// typename std::enable_if<std::is_integral<T>::value>::type
 
 /**
  * Specialization for integer template parameter
  * */
 template < typename T >
-class MultiIndex<T, typename std::enable_if<std::is_integral<T>::value>::type> {
+class MultiIndex{
 
     /***************************************************************************
      * Interface
@@ -69,18 +64,44 @@ class MultiIndex<T, typename std::enable_if<std::is_integral<T>::value>::type> {
 
     /**
      * Constructor
+     * @input is the initial value of each element
+     * @Nmax is their maximum value they can take.
+     * -> If T is an iterator-like object Nmax can be construted using
+     * std::distance
      * */
-    explicit MultiIndex( const std::vector<T> &Nmax )
-        : _Nmax(Nmax), _Ntot(1), _Ncur(0) {
+    MultiIndex(const std::vector<std::size_t>& Nmax,
+               const std::vector<T>&input )
+        : _input(input),
+          _data(input),
+          _Nmax(Nmax),
+          _Ntot(1),
+          _dim(Nmax.size()),
+          _Ncur(0)
+    {
 
-        for( const auto &i : _Nmax ){
-            _Ntot *= i;
+        // sizes of input and Nmax vectors must be equal
+        if( _input.size() != _Nmax.size() ){
+            throw std::logic_error("MultiIndex : Nmax and input vector must "
+                                       "have equal size");
         }
 
-        _dim = _Nmax.size();
-        _data.resize(_dim);
+        for( std::size_t i = 0 ; i < _dim; ++i ){
+            _Ntot *= ( _Nmax[i] - _input[i]);
+        }
 
     }
+
+
+    /**
+     * Constructor
+     * This constructor must not be used if T is an iterator
+     * TODO : disable this constructor for iterator types
+     * */
+    explicit MultiIndex( const std::vector<std::size_t> &Nmax )
+        : MultiIndex(Nmax, std::vector<T>(Nmax.size(),0)) {
+        
+    }
+
 
     /**
      * Computes the next possible combination of indexes.
@@ -89,18 +110,23 @@ class MultiIndex<T, typename std::enable_if<std::is_integral<T>::value>::type> {
      * */
     bool next() {
 
-        if ( _Ncur == _Ntot - 1){
+        if ( _Ncur == _Ntot ){
             return false;
         }
 
-        _data[_dim - 1] += 1;
+        if ( _Ncur == 0 ){
+            ++_Ncur;
+            return true;
+        }
+
+        ++_data[_dim - 1];
 
         std::size_t i = 1;
 
         while ( _data[_dim - i] == _Nmax[ _dim - i ] ){
 
-            _data[ _dim - i     ]  = 0;
-            _data[ _dim - i - 1 ] += 1;
+            _data  [ _dim - i     ]  = _input[ _dim - i ];
+            ++_data[ _dim - i - 1 ];
 
             ++i;
         }
@@ -123,6 +149,11 @@ class MultiIndex<T, typename std::enable_if<std::is_integral<T>::value>::type> {
   private:
 
     /**
+     * This vector holds the input value of each element
+     * */
+    const std::vector<T> _input;
+
+    /**
      * This vector holds the current value of each element of the vector
      * */
     std::vector<T> _data;
@@ -130,7 +161,7 @@ class MultiIndex<T, typename std::enable_if<std::is_integral<T>::value>::type> {
     /**
      * This vector holds the maximum value that each element can reach
      * */
-    std::vector<T> _Nmax;
+    std::vector<std::size_t> _Nmax;
 
     /**
      * This is the number of possible combination of each value. It is
@@ -151,57 +182,6 @@ class MultiIndex<T, typename std::enable_if<std::is_integral<T>::value>::type> {
 };
 
 
-/**
- * Specialization for non integral template parameter.
- * Template parameter must be an iterator or at least a class that has :
- *      - ++ operator overloaded
- *      - begin() method
- *      - end() method
- * */
-
-template < typename T >
-class MultiIndex
-    <T, typename std::enable_if<!std::is_integral<T>::value>::type> {
-
-    /***************************************************************************
-     * Interface
-     **************************************************************************/
-
-  public:
-
-    /**
-     * Constructor. @init is a vector of iterator-like element.
-     * */
-    explicit MultiIndex(const std::vector<T> &init)
-        : _data(init), _dim(init.size()) {}
-
-    /**
-     * Computes the next possible combination of the element.
-     * Returns true if other combinations can be computed
-     * Returns false if the last combination was computed
-     * */
-
-    // I need to know the iterator's containers or at least where each
-    // iterator begins and ends... Is there another way ? 
-
-    /***************************************************************************
-     * Private
-     ***************************************************************************/
-
-  private:
-
-    /**
-     * The current value of each element
-     * */
-    std::vector<T> _data;
-
-    /**
-     * Holds the (constant) size of the input vector
-     * */
-    std::size_t _dim;
-
-
-};
 
 
 }} // namespace snmpp::tensor

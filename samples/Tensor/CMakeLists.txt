@@ -6,12 +6,20 @@
 #  Copyright © 2017 UAVIA. All rights reserved.
 #
 
-add_executable(SampleMultiIndexIntegral MultiIndex/main.cpp)
+add_executable(SampleMultiIndexCompleteInt MultiIndex/ComleteInt.cpp)
 
 if( ENABLE_SHARED)
-    target_link_libraries(SampleMultiIndexIntegral ${PROJECT_LIB})
+    target_link_libraries(SampleMultiIndexCompleteInt ${PROJECT_LIB})
 else()
-    target_link_libraries(SampleMultiIndexIntegral ${PROJECT_STATIC_LIB})
+    target_link_libraries(SampleMultiIndexCompleteInt ${PROJECT_STATIC_LIB})
+endif()
+
+add_executable(SampleMultiIndexPartialInt MultiIndex/PartialInt.cpp)
+
+if( ENABLE_SHARED)
+    target_link_libraries(SampleMultiIndexPartialInt ${PROJECT_LIB})
+else()
+    target_link_libraries(SampleMultiIndexPartialInt ${PROJECT_STATIC_LIB})
 endif()
 
 
