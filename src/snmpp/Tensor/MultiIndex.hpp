@@ -20,7 +20,8 @@
  * Description: 
  * ------------
  * Let's consider a vector of type T of fixed size.
- * Each element of the vector is allowed to run from 'begin' to 'end'.
+ * Each element i of the vector is allowed to run from input[i] to Nmax[i]
+ * Each element has a ++ operator
  *
  * The MultiIndex class allows to get every combination of possible values.
  *
@@ -44,15 +45,13 @@
  ******************************************************************************/
 
 #include <vector>
-#include <type_traits>
+
+// #include <type_traits>
+// typename std::enable_if<std::is_integral<T>::value>::type
 
 namespace snmpp { namespace tensor {
 
-// typename std::enable_if<std::is_integral<T>::value>::type
 
-/**
- * Specialization for integer template parameter
- * */
 template < typename T >
 class MultiIndex{
 
@@ -91,7 +90,6 @@ class MultiIndex{
 
     }
 
-
     /**
      * Constructor
      * This constructor must not be used if T is an iterator
@@ -99,10 +97,9 @@ class MultiIndex{
      * */
     explicit MultiIndex( const std::vector<std::size_t> &Nmax )
         : MultiIndex(Nmax, std::vector<T>(Nmax.size(),0)) {
-        
+
     }
-
-
+    
     /**
      * Computes the next possible combination of indexes.
      * Returns true if other combinations can be computed.
