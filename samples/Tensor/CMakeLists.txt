@@ -3,7 +3,6 @@
 #  snmpp
 #
 #  Created by Alexandre Biguet on 02/11/2017 at 00:17.
-#  Copyright © 2017 UAVIA. All rights reserved.
 #
 
 add_executable(SampleMultiIndexCompleteInt MultiIndex/ComleteInt.cpp)
