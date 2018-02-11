@@ -3,7 +3,6 @@
 #  snmpp
 #
 #  Created by Alexandre Biguet on 16/10/2017 at 22:24.
-#  Copyright © 2017 UAVIA. All rights reserved.
 #
 
 add_executable(SampleGetCurrentDate GetCurrentDateSample.cpp)
