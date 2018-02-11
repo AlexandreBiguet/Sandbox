@@ -1,14 +1,14 @@
-### CMakeLists.txt --- 
-## 
+### CMakeLists.txt ---
+##
 ## Filename: CMakeLists.txt
 ## Author: Alexandre BIGUET
 ## Created: Mer sep 13 20:37:41 2017 (+0200)
 ## Last-Updated: Mer sep 13 21:05:40 2017 (+0200)
 ##           By: Alexandre BIGUET
 ##     Update #: 20
-## 
+##
 ## snmpp
-## 
+##
 
 cmake_minimum_required (VERSION 3.5.1)
 project( snmpp  LANGUAGES CXX VERSION 0.0.1 )
@@ -22,7 +22,7 @@ option( BUILD_SANDBOX "Build the sandbox programs"  ON) ## see comment below
 option( BUILD_BENCHMARKS "Build benchmark programs" ON)
 option( WITH_TESTS "Execution of tests"            OFF) ## Nothing now
 option( ENABLE_SHARED "Building shared library"     ON)
-option( ENABLE_STATIC "Building static library"    OFF)
+option( ENABLE_STATIC "Building static library"    ON)
 option( NO_WARNINGS "Build without any additional warnings" OFF )
 option( CLANG_WEVERYTHING "Build with -Weverything if compiler accepts it" OFF)
 
@@ -46,17 +46,16 @@ set( CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake" )
 include( CheckCXXCompilerFlag)
 include( GNUInstallDirs )
 include( "${CMAKE_MODULE_PATH}/utils.cmake" )
-include( "${CMAKE_MODULE_PATH}/Flags.cmake" )
 
 ################################################################################
 ## Compilation outputs and installation paths
 set ( CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin )
 set ( CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib )
 set ( CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib )
-set ( INSTALL_PATH_LIB     ${CMAKE_INSTALL_LIBDIR}       )
-set ( INSTALL_PATH_BIN     ${CMAKE_INSTALL_BINDIR}       )
-set ( INSTALL_PATH_HEADERS ${CMAKE_INSTALL_INCLUDEDIR}   )
-set ( INSTALL_PATH_CONFIG  ${CMAKE_INSTALL_SYSCONFDIR}   )
+set ( INSTALL_PATH_LIB ${CMAKE_INSTALL_FULL_LIBDIR} )
+set ( INSTALL_PATH_BIN ${CMAKE_INSTALL_FULL_BINDIR} )
+set ( INSTALL_PATH_HEADERS ${CMAKE_INSTALL_FULL_INCLUDEDIR} )
+set ( INSTALL_PATH_CONFIG ${CMAKE_INSTALL_FULL_SYSCONFDIR} )
 
 ################################################################################
 ## rpath stuff
@@ -66,6 +65,8 @@ set( CMAKE_INSTALL_NAME_DIR ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR} )
 ## Flags
 set ( CMAKE_CXX_STANDARD 11)
 SetCompilerFlags()
+
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)
 
 ################################################################################
 ## Finding Package config
@@ -81,8 +82,9 @@ find_package(
         system
         thread
         REQUIRED)
-#include_directories( ${Boost_INCLUDE_DIRS} )
-#link_directories   ( ${Boost_LIBRARY_DIRS} )
+
+include_directories( ${Boost_INCLUDE_DIRS} )
+link_directories   ( ${Boost_LIBRARY_DIRS} )
 
 set( DEPENDENCY_LIST "Boost" )
 

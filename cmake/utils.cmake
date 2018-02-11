@@ -1,14 +1,59 @@
-### utils.cmake --- 
-## 
+### utils.cmake ---
+##
 ## Filename: utils.cmake
 ## Author: Alexandre BIGUET
 ## Created: Mer sep 13 20:44:23 2017 (+0200)
 ## Last-Updated: Mer sep 13 20:44:38 2017 (+0200)
 ##           By: Alexandre BIGUET
 ##     Update #: 4
-## 
+##
 ## snmpp
-## 
+##
+
+################################################################################
+## This functions sets the compiler flags depending on the options given at
+## configuration time.
+
+macro( SetCompilerFlags )
+
+    if( NO_WARNINGS AND CLANG_WEVERYTHING )
+        message(FATAL_ERROR "NO_WARNINGS and CLANG_EVERYTHING options cannot "
+                "be true at the same time")
+    endif()
+
+    if( CLANG_WEVERYTHING )
+
+        CHECK_CXX_COMPILER_FLAG(-Weverything COMPILER_SUPPORTS_EVERYTHING )
+
+        if ( COMPILER_SUPPORTS_EVERYTHING )
+            set ( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Weverything" )
+        endif()
+
+    else()
+
+        if ( NOT NO_WARNINGS )
+
+            CHECK_CXX_COMPILER_FLAG( -W COMPILER_SUPPORTS_W )
+            CHECK_CXX_COMPILER_FLAG( -Wall COMPILER_SUPPORTS_WALL )
+            CHECK_CXX_COMPILER_FLAG( -Wextra COMPILER_SUPPORTS_WEXTRA )
+
+            if( COMPILER_SUPPORTS_W  )
+                set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -W")
+            endif()
+
+            if( COMPILER_SUPPORTS_WALL )
+                set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
+            endif()
+
+            if( COMPILER_SUPPORTS_WEXTRA )
+                set ( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wextra" )
+            endif()
+
+        endif()
+
+    endif()
+
+endmacro()
 
 ################################################################################
 ## This function creates a list of $<TARGET_OBJECTS:${ojb_i}> from a list of
@@ -100,7 +145,7 @@ function ( InstallFilesInList _list _dest _verbose)
   # if ( "${_verbose}" )
   #   message( "last char = '${last_char}'" )
   # endif()
-  
+
   if ( "${last_char}" STREQUAL "/" )
 
     if ( "${_verbose}" )
@@ -109,7 +154,7 @@ function ( InstallFilesInList _list _dest _verbose)
 
     string( SUBSTRING "${_dest}" 0 "${begin}" _dest )
   endif()
-  
+
   foreach( file ${_list} )
     get_filename_component( dir ${file} DIRECTORY )
     string( REPLACE "${CMAKE_SOURCE_DIR}/" "" dir "${dir}" )
