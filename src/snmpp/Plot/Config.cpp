@@ -19,9 +19,9 @@ namespace snmpp { namespace plot {
 /**
  * Constructor
  *
- * */
+ */
 
-Config::Config(const std::string& dir, const std::string& funcName )
+Config::Config(const std::string& dir, const std::string& funcName)
     : _pathToPlotDir(dir), _functionName(funcName){
 
 }
@@ -30,7 +30,7 @@ Config::Config(const std::string& dir, const std::string& funcName )
 /*******************************************************************************
  * Returns the path to the plot directory
  *
- * */
+ */
 
 const std::string& Config::getPathToPlotDir() const {
     return _pathToPlotDir;
@@ -39,7 +39,7 @@ const std::string& Config::getPathToPlotDir() const {
 /*******************************************************************************
  * Returns the name of the function to be plotted
  *
- * */
+ */
 
 const std::string& Config::getFunctionName() const {
     return _functionName;
@@ -48,15 +48,15 @@ const std::string& Config::getFunctionName() const {
 /*******************************************************************************
  *  Print the configuration to file
  *
- * */
+ */
 
-void Config::toFile( const std::string &path)  {
+void Config::toFile(const std::string &path)  {
 
     boost::filesystem::ofstream ofs(path);
 
-    ofs << "Plot config on " ;
+    ofs << "Plot config on ";
 
-    if ( !_prefixWithDate ){
+    if (!_prefixWithDate) {
         _date = utils::getCurrentDate();
     }
 
@@ -74,7 +74,7 @@ void Config::toFile( const std::string &path)  {
 
 /*******************************************************************************
  * Uses current date as a prefix for directory and config file
- * */
+ */
 void Config::useCurrentDateAsPrefix(){
     _prefixWithDate = true;
     _date = utils::getCurrentDate();
@@ -83,7 +83,7 @@ void Config::useCurrentDateAsPrefix(){
 
 /**
  * Returns the prefix
- * */
+ */
 const std::string& Config::getPrefix() const{
     return _prefix;
 }

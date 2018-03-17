@@ -18,14 +18,13 @@ class LinFunc : public core::FuncBase<std::string,double> {
 
   public :
 
-    LinFunc( ) : FuncBase( FuncBase::ConstructorInputType(
-        {{"x", core::Variable<double>(0., -5., 5., VariableType::Running)},
+    LinFunc() : FuncBase(FuncBase::ConstructorInputType (        {{"x", core::Variable<double>(0., -5., 5., VariableType::Running)},
          {"a", core::Variable<double>(0., -10., 10., VariableType::Parameter)},
          {"b", core::Variable<double>(0., -10., 10., VariableType::Parameter)}}))
         {}
 
 
-    void eval ( ) override {
+    void eval () override {
 
         double x = _inputs.get("x").getValue();
         double a = _inputs.get("a").getValue();
@@ -40,20 +39,20 @@ class LinFunc : public core::FuncBase<std::string,double> {
 
 };
 
-int main ( ) {
+int main () {
 
     LinFunc func;
 
     auto vals = func();
 
     std::cout<<"Calculating f1 and f2 with default values of variables : \n";
-    for( const auto &i : vals ){
+    for(const auto &i : vals) {
         std::cout<<i.first<<" = "<<i.second<<"\n";
     }
 
     std::cout<<"Calculating f1 and f2 with user-defined values  : \n";
-    vals = func( {{"a", 1.0},{"b", 2.0}, {"x", 3.0}});
-    for( const auto &i : vals ){
+    vals = func({{"a", 1.0},{"b", 2.0}, {"x", 3.0}});
+    for(const auto &i : vals) {
         std::cout<<i.first<<" = "<<i.second<<"\n";
     }
 

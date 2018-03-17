@@ -15,10 +15,10 @@
 #include <snmpp/Benchmark/Benchmark.hpp>
 
 
-void function( std::size_t N, double a __attribute__((unused))){
+void function(std::size_t N, double a __attribute__((unused))){
 
     std::vector<double> vec;
-    vec.reserve( N );
+    vec.reserve(N);
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_real_distribution<> dis(0.0, 10.0);
@@ -27,17 +27,17 @@ void function( std::size_t N, double a __attribute__((unused))){
         vec.push_back(dis(gen));
     }
 
-    std::sort( vec.begin(), vec.end() );
+    std::sort(vec.begin(), vec.end());
 }
 
 
 using namespace snmpp::benchmark;
 namespace chrono = std::chrono;
 
-int main ( ){
+int main (){
 
     std::vector<std::string> argnames({"N", "a"});
-    BenchmarkConfig config("test-function",argnames, 100, "data" );
+    BenchmarkConfig config("test-function",argnames, 100, "data");
 
     Benchmark<chrono::microseconds,
               chrono::steady_clock,

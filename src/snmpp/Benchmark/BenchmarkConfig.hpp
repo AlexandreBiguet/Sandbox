@@ -53,35 +53,35 @@ class BenchmarkConfig {
     /**
      * Constructors
      *
-     * */
+     */
 
     explicit BenchmarkConfig
         (const std::string &funcName,
          const std::string &argName,
          std::size_t iter = 100,
-         const std::string &dir = "benchmarks" );
+         const std::string &dir = "benchmarks");
 
 
     explicit BenchmarkConfig
         (const std::string &funcName,
          const std::vector<std::string> &argNames,
          std::size_t iter = 100,
-         const std::string &dir = "benchmarks" );
+         const std::string &dir = "benchmarks");
 
     /**
      * Getters and Setters
      *
-     * */
+     */
 
     std::size_t getIterationNumber() const;
     std::string getPathToBenchmarkDir() const;
     std::string getFunctionName() const;
     std::vector<std::string> getArgumentNames() const;
 
-    void setIterationNumber( std::size_t iter );
-    void setPathToBenchmarkDir( const std::string &path);
-    void setFunctionName( const std::string &n );
-    void setArgumentNames( const std::vector<std::string> &v );
+    void setIterationNumber(std::size_t iter);
+    void setPathToBenchmarkDir(const std::string &path);
+    void setFunctionName(const std::string &n);
+    void setArgumentNames(const std::vector<std::string> &v);
 
 
   private:

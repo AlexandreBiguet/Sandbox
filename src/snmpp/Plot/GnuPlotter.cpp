@@ -19,9 +19,9 @@ namespace snmpp { namespace plot {
 /*******************************************************************************
  *  Create the directory tree
  *  Returns the name of the config file
- * */
+ */
 
-std::string GnuPlotter::createDirectoryTree( ) {
+std::string GnuPlotter::createDirectoryTree() {
 
     const std::string& prefix(_config.getPrefix());
 
@@ -43,7 +43,7 @@ std::string GnuPlotter::createDirectoryTree( ) {
 
 /******************************************************************************
  * Writes the config file
- * */
+ */
 
 void GnuPlotter::writeConfigFile() {
 
@@ -51,7 +51,7 @@ void GnuPlotter::writeConfigFile() {
     const std::size_t NrunVar =
         _func->getVariables().size(math::VariableType::Running);
 
-    if (  NrunVar == 0 ){
+    if  (NrunVar == 0) {
         throw std::logic_error("Plotter: No running variables in the snmpp "
                                    "function in argument");
     }
@@ -67,7 +67,7 @@ void GnuPlotter::writeConfigFile() {
 
     utils::FormattedOutput fmt(15,6);
 
-    for( const auto &var : _func->getVariables() ){
+    for(const auto &var : _func->getVariables()) {
 
         auto interval = var.second.getInterval();
         ofs<<fmt<<var.first<<" "<<"["<<fmt<<interval.lower()<<" : "
@@ -82,7 +82,7 @@ void GnuPlotter::writeConfigFile() {
     for(const auto &fixed : _fixedValues) {
 
         ofs<<fmt<<fixed.first<<" = { ";
-        for( const auto &val : fixed.second ){
+        for(const auto &val : fixed.second) {
             ofs<<fmt<<val;
         }
         ofs<<"}\n";
@@ -95,8 +95,8 @@ void GnuPlotter::writeConfigFile() {
 
 /*******************************************************************************
  * Writes the data files
- * */
-void GnuPlotter::writeDataFiles( ){
+ */
+void GnuPlotter::writeDataFiles(){
 
     writeConfigFile();
 
@@ -104,8 +104,8 @@ void GnuPlotter::writeDataFiles( ){
     // user to their default value (i.e. their value in func->variables)
     const math::Variables& variables = _func->getVariables();
 
-    for (const auto &i: variables ){
-        if( _fixedValues[i.first].empty() ){
+    for (const auto &i: variables) {
+        if (_fixedValues[i.first].empty()) {
             _fixedValues[i.first].push_back(variables.getValue(i.first));
         }
     }
@@ -116,18 +116,18 @@ void GnuPlotter::writeDataFiles( ){
 
 /**
  * Writes the 1D data by successive call to write1DFunction method
- * */
+ */
 void GnuPlotter::write1DDatae(){
 
     const math::Variables& variables = _func->getVariables();
 
     auto runv = variables.getKeys(math::VariableType::Running);
 
-    for( const auto &run : runv ){
+    for(const auto &run : runv) {
 
         // run is name of the running variable
 
-        for( const auto &v : variables ){
+        for(const auto &v : variables) {
 
             if (v.first == run) {
                 continue;
@@ -153,7 +153,7 @@ void GnuPlotter::write1DDatae(){
 
 /**
  * Sets the number of points to be taken for every running variable
- * */
+ */
 void GnuPlotter::setRunningNumberPoints(std::size_t n) {
     _nRunning = n;
 }
@@ -169,7 +169,7 @@ void GnuPlotter::setRunningNumberPoints(std::size_t n) {
  * used to write the datae
  *
  * Throw if the size of the output of the function is 0
- * */
+ */
 
 void GnuPlotter::write1DFunction
     (const std::string& dir, const std::string&run,
@@ -183,7 +183,7 @@ void GnuPlotter::write1DFunction
 
     boost::filesystem::ofstream ofs(filename);
 
-    if ( !ofs.is_open() ){
+    if (!ofs.is_open()) {
         throw std::runtime_error("Plot : Output data file is not open");
     }
 
@@ -192,13 +192,13 @@ void GnuPlotter::write1DFunction
     ofs<<"# Config of the current plot \n"
        <<"# Running variable     : "<<run<<'\n'
        <<"# Multi fixed variable : "<<multi<<'\n'
-       <<"#   with values : " ;
-    for( const auto &i : _fixedValues[multi]) {
+       <<"#   with values : ";
+    for(const auto &i : _fixedValues[multi]) {
         ofs<<i<<" ";
     }
     ofs<<"\n#\n#"<<" Other fixed variables [value] \n";
-    for( const auto & i : variables ){
-        if ( !(i.first == run || i.first == multi ) ) {
+    for(const auto & i : variables) {
+        if (!(i.first == run || i.first == multi)) {
             ofs<<"# "<<i.first<<" ["<<i.second.getValue()<<" ] \n";
         }
     }
@@ -216,7 +216,7 @@ void GnuPlotter::write1DFunction
 
     std::map<std::string, double> input;
 
-    for ( const auto & it : _fixedValues.at(multi) ) {
+    for (const auto & it : _fixedValues.at(multi)) {
 
         input[multi] = it;
 
@@ -227,7 +227,7 @@ void GnuPlotter::write1DFunction
             // Ugly...
             auto output = _func->operator()(input);
 
-            if ( output.empty() ) {
+            if (output.empty()) {
 
                 std::stringstream ss;
                 ss<<"Function has empty output for input : (run)"

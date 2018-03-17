@@ -60,7 +60,7 @@ namespace snmpp { namespace math {
  * A Variable object can be of different type as explained in the class
  * description.
  *
- * */
+ */
 enum class VariableType { Running, Fixed, Parameter };
 
 namespace core {
@@ -68,7 +68,7 @@ namespace core {
 /**
  * A Variable is a Quantity to which a VariableType is added.
  *
- * */
+ */
 template<typename ValueType>
 class Variable : public snmpp::math::core::Quantity<ValueType> {
 
@@ -82,46 +82,46 @@ class Variable : public snmpp::math::core::Quantity<ValueType> {
     /**
      * Construction with default value and a given VariableType @type
      *
-     * */
+     */
     explicit Variable(VariableType type);
 
     /**
      * Construction with value @val and VariableType @type
      *
-     * */
+     */
     Variable(double val, VariableType type);
 
     /**
      * Construction with default value @val and definition interval
      * [@lower,@upper] and a VariableType @type
      *
-     * */
+     */
     Variable(double val, double lower, double upper, VariableType type);
 
     /**
      * Returns the type of the Variable
      *
-     * */
+     */
     VariableType getType() const;
 
     /**
      * Sets the VariableType to @type
      *
-     * */
+     */
     void setType(VariableType type);
 
     /**
      * Puts the VariableType into a string
      * This is mainly for debug purpose
      *
-     * */
+     */
     std::string typeToString() const;
 
     /**
      * Puts the quantity into a string
      * This is mainly for debug purpose
      *
-     * */
+     */
     std::string toString() const override;
 
 
@@ -134,7 +134,7 @@ class Variable : public snmpp::math::core::Quantity<ValueType> {
     /**
      * The VariableType
      *
-     * */
+     */
     VariableType _type;
 
 };
@@ -146,7 +146,7 @@ class Variable : public snmpp::math::core::Quantity<ValueType> {
 /*******************************************************************************
  * Construction with default value and a given VariableType @type
  *
- * */
+ */
 
 template<typename ValueType>
 Variable<ValueType>::Variable(VariableType type) :_type(type) {}
@@ -154,7 +154,7 @@ Variable<ValueType>::Variable(VariableType type) :_type(type) {}
 /*******************************************************************************
  * Construction with value @val and VariableType @type
  *
- * */
+ */
 
 template<typename ValueType>
 Variable<ValueType>::Variable(double val, VariableType type)
@@ -164,7 +164,7 @@ Variable<ValueType>::Variable(double val, VariableType type)
  * Construction with default value @val and definition interval
  * [@lower,@upper] and a VariableType @type
  *
- * */
+ */
 
 template<typename ValueType>
 Variable<ValueType>::Variable
@@ -174,7 +174,7 @@ Variable<ValueType>::Variable
 /*******************************************************************************
  * Returns the type of the Variable
  *
- * */
+ */
 
 template<typename ValueType>
 VariableType Variable<ValueType>::getType() const {
@@ -184,7 +184,7 @@ VariableType Variable<ValueType>::getType() const {
 /*******************************************************************************
  * Sets the VariableType to @type
  *
- * */
+ */
 
 template<typename ValueType>
 void Variable<ValueType>::setType(VariableType type) {
@@ -195,7 +195,7 @@ void Variable<ValueType>::setType(VariableType type) {
  * Puts the VariableType into a string
  * This is mainly for debug purpose
  *
- * */
+ */
 
 template<typename ValueType>
 std::string Variable<ValueType>::typeToString() const {
@@ -215,7 +215,7 @@ std::string Variable<ValueType>::typeToString() const {
  * Puts the quantity into a string
  * This is mainly for debug purpose
  *
- * */
+ */
 
 template<typename ValueType>
 std::string Variable<ValueType>::toString() const {
@@ -226,7 +226,7 @@ std::string Variable<ValueType>::toString() const {
 
 } // namespace core
 
-using Variable = core::Variable<double> ;
+using Variable = core::Variable<double>;
 
 }} // namespace snmpp::math
 

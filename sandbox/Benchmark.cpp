@@ -37,7 +37,7 @@ template <typename TimeUnit = std::chrono::nanoseconds>
 struct TimeMeasure {
 
     template < typename T, typename ...Args >
-    typename TimeUnit::rep measure( T func, Args&& ... args) {
+    typename TimeUnit::rep measure(T func, Args&& ... args) {
         auto s = std::chrono::system_clock::now();
         func(std::forward<Args>(args)...);
         auto e = std::chrono::system_clock::now();
@@ -63,19 +63,19 @@ struct SingleMeasure {
     std::tuple<Args...> _args;
 
     /* Should we pass by value and use std::move ? */
-    explicit SingleMeasure( const std::tuple<Args...> &t) : _args(t){}
+    explicit SingleMeasure(const std::tuple<Args...> &t) : _args(t){}
 
     template< typename Callable >
-    typename TimeUnit::rep measure( Callable func ) {
+    typename TimeUnit::rep measure(Callable func) {
 
         return measure_impl
             (func, typename SequenceGenerator<sizeof ...(Args)>::type());
     }
 
     template < typename Callable, std::size_t ... I>
-    typename TimeUnit::rep measure_impl( Callable func, Sequence<I...> ) {
+    typename TimeUnit::rep measure_impl(Callable func, Sequence<I...>) {
         auto s = std::chrono::steady_clock::now();
-        func( std::get<I>(_args)...);
+        func(std::get<I>(_args)...);
         auto e = std::chrono::steady_clock::now();
         auto duration = std::chrono::duration_cast<TimeUnit>(e-s);
         return duration.count();
@@ -83,10 +83,10 @@ struct SingleMeasure {
 
 };
 
-void function( std::size_t N ){
+void function(std::size_t N) {
 
     std::vector<double> vec;
-    vec.reserve( N );
+    vec.reserve(N);
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_real_distribution<> dis(0.0, 10.0);
@@ -95,21 +95,21 @@ void function( std::size_t N ){
         vec.push_back(dis(gen));
     }
 
-    std::sort( vec.begin(), vec.end() );
+    std::sort(vec.begin(), vec.end());
 }
 
 template< typename TimeUnit >
-double mean( const std::vector< typename TimeUnit::rep > &v){
+double mean(const std::vector< typename TimeUnit::rep > &v){
     typename TimeUnit::rep sum(0);
-    for( auto &i : v ){
+    for(auto &i : v) {
         sum+=i;
     }
-    return static_cast<double>( sum / v.size() );
+    return static_cast<double>(sum / v.size());
 }
 
-int main ( ){
+int main (){
 
-    using TimeUnit = std::chrono::microseconds ;
+    using TimeUnit = std::chrono::microseconds;
 
     std::size_t N = 10000;
     std::size_t Niter = 1000;
@@ -117,7 +117,7 @@ int main ( ){
     t1.reserve(Niter);
     t2.reserve(Niter);
 
-    for( std::size_t i = 0 ; i < Niter ; ++i ) {
+    for(std::size_t i = 0 ; i < Niter ; ++i) {
 
         TimeMeasure<TimeUnit> t;
         t1.push_back(t.measure(&function, N));

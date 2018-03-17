@@ -39,12 +39,12 @@ default_release_dir = default_base_dir + "/release"
 
 def do_install(bdir,rdir):
 
-    if( not os.path.isdir(bdir)):
-        os.makedirs( bdir )
+    if (not os.path.isdir(bdir)):
+        os.makedirs (bdir )
 
     os.chdir(bdir)
     Sub.run(["cmake", pwd_full, "-DCMAKE_INSTALL_PREFIX="+rdir])
-    nproc = int( Sub.check_output(["getconf", "_NPROCESSORS_ONLN"]) )
+    nproc = int (Sub.check_output(["getconf", "_NPROCESSORS_ONLN"]) )
     Sub.run(["make", "-j"+str(nproc), "install"])
 
 
@@ -68,15 +68,15 @@ args = parser.parse_args()
 
 print(args)
 
-if( args.clean ) :
-    if( os.path.exists(default_base_dir) ):
+if (args.clean ) :
+    if (os.path.exists(default_base_dir) ):
         print(" {} directory exists".format(default_base_dir))
         Sub.run(["rm", "-rf", default_base_dir ])
     else:
         print(" Build-cmake/ directory does not exist: Nothing to clean ")
     quit()
 
-do_install( args.build_dir, args.release_dir )
+do_install (args.build_dir, args.release_dir )
 
 ######################################################################
 ### build.py ends here

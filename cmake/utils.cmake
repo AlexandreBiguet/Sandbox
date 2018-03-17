@@ -14,39 +14,39 @@
 ## This functions sets the compiler flags depending on the options given at
 ## configuration time.
 
-macro( SetCompilerFlags )
+macro (SetCompilerFlags )
 
-    if( NO_WARNINGS AND CLANG_WEVERYTHING )
+    if (NO_WARNINGS AND CLANG_WEVERYTHING )
         message(FATAL_ERROR "NO_WARNINGS and CLANG_EVERYTHING options cannot "
                 "be true at the same time")
     endif()
 
-    if( CLANG_WEVERYTHING )
+    if (CLANG_WEVERYTHING )
 
         CHECK_CXX_COMPILER_FLAG(-Weverything COMPILER_SUPPORTS_EVERYTHING )
 
-        if ( COMPILER_SUPPORTS_EVERYTHING )
-            set ( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Weverything" )
+        if  (COMPILER_SUPPORTS_EVERYTHING )
+            set  (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Weverything" )
         endif()
 
     else()
 
-        if ( NOT NO_WARNINGS )
+        if  (NOT NO_WARNINGS )
 
-            CHECK_CXX_COMPILER_FLAG( -W COMPILER_SUPPORTS_W )
-            CHECK_CXX_COMPILER_FLAG( -Wall COMPILER_SUPPORTS_WALL )
-            CHECK_CXX_COMPILER_FLAG( -Wextra COMPILER_SUPPORTS_WEXTRA )
+            CHECK_CXX_COMPILER_FLAG (-W COMPILER_SUPPORTS_W )
+            CHECK_CXX_COMPILER_FLAG (-Wall COMPILER_SUPPORTS_WALL )
+            CHECK_CXX_COMPILER_FLAG (-Wextra COMPILER_SUPPORTS_WEXTRA )
 
-            if( COMPILER_SUPPORTS_W  )
-                set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -W")
+            if (COMPILER_SUPPORTS_W  )
+                set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -W")
             endif()
 
-            if( COMPILER_SUPPORTS_WALL )
-                set( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
+            if (COMPILER_SUPPORTS_WALL )
+                set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall")
             endif()
 
-            if( COMPILER_SUPPORTS_WEXTRA )
-                set ( CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wextra" )
+            if (COMPILER_SUPPORTS_WEXTRA )
+                set  (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wextra" )
             endif()
 
         endif()
@@ -59,14 +59,14 @@ endmacro()
 ## This function creates a list of $<TARGET_OBJECTS:${ojb_i}> from a list of
 ## target objects #_inputList
 ## The function creates a TARGET_OBJECT_LIST list at parent scope
-macro( FillTargetObjectList _inputList _outputList)
+macro (FillTargetObjectList _inputList _outputList)
 
-    foreach( obj ${_inputList})
+    foreach (obj ${_inputList})
         get_target_property(_type "${obj}" TYPE)
 
         if (_type STREQUAL "OBJECT_LIBRARY")
-            #list( APPEND _list "$<TARGET_OBJECTS:${obj}>")
-            list( APPEND ${_outputList} "$<TARGET_OBJECTS:${obj}>")
+            #list (APPEND _list "$<TARGET_OBJECTS:${obj}>")
+            list (APPEND ${_outputList} "$<TARGET_OBJECTS:${obj}>")
         else()
             message(FATAL_ERROR
                     "Some object in list is not of type OBJECT_LIBRARIES")
@@ -74,14 +74,14 @@ macro( FillTargetObjectList _inputList _outputList)
 
     endforeach()
 
-    #set ( TARGET_OBJECTS_LIST ${_list} PARENT_SCOPE )
+    #set  (TARGET_OBJECTS_LIST ${_list} PARENT_SCOPE )
 
 endmacro()
 
 
 ################################################################################
 ## This functions prints information about the current build
-function( PrintBuildInformations )
+function (PrintBuildInformations )
 
     message("\n===============================================================")
     message("Project Name        : ${PROJECT_NAME}")
@@ -110,12 +110,12 @@ endfunction()
 
 ################################################################################
 ## This function prints informations about a list of packages #_list
-function( PrintPackagesInformation _list )
+function (PrintPackagesInformation _list )
 
     message("----------------------")
     message("List of Dependencies :")
     message("----------------------")
-    foreach( dep ${_list} )
+    foreach (dep ${_list} )
         message("   * ${dep} : " )
         message("     Include Dirs    : ${${dep}_INCLUDE_DIRS}")
         message("     Library Dirs    : ${${dep}_LIBRARY_DIRS}")
@@ -135,35 +135,35 @@ endfunction()
 
 ################################################################################
 ## This function installs the files in _list into _dest
-function ( InstallFilesInList _list _dest _verbose)
+function  (InstallFilesInList _list _dest _verbose)
 
   ## test if _dest ends with a '/'
-  string( LENGTH "${_dest}" leng )
-  math( EXPR begin "${leng}-1" )
-  string( SUBSTRING "${_dest}" "${begin}" "1" last_char )
+  string (LENGTH "${_dest}" leng )
+  math (EXPR begin "${leng}-1" )
+  string (SUBSTRING "${_dest}" "${begin}" "1" last_char )
 
-  # if ( "${_verbose}" )
-  #   message( "last char = '${last_char}'" )
+  # if  ("${_verbose}" )
+  #   message ("last char = '${last_char}'" )
   # endif()
 
-  if ( "${last_char}" STREQUAL "/" )
+  if  ("${last_char}" STREQUAL "/" )
 
-    if ( "${_verbose}" )
-      message( "in ${_dest} : last char is a '/' " )
+    if  ("${_verbose}" )
+      message ("in ${_dest} : last char is a '/' " )
     endif()
 
-    string( SUBSTRING "${_dest}" 0 "${begin}" _dest )
+    string (SUBSTRING "${_dest}" 0 "${begin}" _dest )
   endif()
 
-  foreach( file ${_list} )
-    get_filename_component( dir ${file} DIRECTORY )
-    string( REPLACE "${CMAKE_SOURCE_DIR}/" "" dir "${dir}" )
+  foreach (file ${_list} )
+    get_filename_component (dir ${file} DIRECTORY )
+    string (REPLACE "${CMAKE_SOURCE_DIR}/" "" dir "${dir}" )
 
-    if ( "${_verbose}" )
-      message( " ${file} will be installed to ${_dest}/${dir}" )
+    if  ("${_verbose}" )
+      message (" ${file} will be installed to ${_dest}/${dir}" )
       message ("" )
     endif()
-    install( FILES ${file} DESTINATION "${_dest}/${dir}" )
+    install (FILES ${file} DESTINATION "${_dest}/${dir}" )
   endforeach()
 endfunction()
 

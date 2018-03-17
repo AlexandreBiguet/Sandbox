@@ -28,10 +28,10 @@ class FormatterBase {
      * Each formatter must implement the write method which takes a vector of
      * value @val and write them to @os
      *
-     * */
+     */
 
     virtual void write
-        ( std::ostream &os, const std::vector<double> &val) const = 0;
+        (std::ostream &os, const std::vector<double> &val) const = 0;
 };
 
 

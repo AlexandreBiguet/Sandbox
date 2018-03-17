@@ -7,7 +7,7 @@
 
 add_executable(SampleBenchmark main.cpp)
 
-if( ENABLE_SHARED)
+if (ENABLE_SHARED)
     target_link_libraries(SampleBenchmark ${PROJECT_LIB})
 else()
     target_link_libraries(SampleBenchmark ${PROJECT_STATIC_LIB})

@@ -12,7 +12,7 @@
 
 using namespace snmpp::math;
 
-int main ( ) {
+int main () {
 
     core::Variable<double> Var(VariableType::Running);
     std::cout<<"Default construction (variable type) : "<<Var.toString()

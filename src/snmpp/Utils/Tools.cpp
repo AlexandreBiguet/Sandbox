@@ -20,7 +20,7 @@ namespace pt = boost::posix_time;
  * Returns a string containing the current date in the form :
  * YYYY-Month-DD-H-M-S
  * where Month is e.g. Nov for November
- * */
+ */
 
 std::string getCurrentDate(){
 
@@ -40,15 +40,15 @@ std::string getCurrentDate(){
 /*******************************************************************************
  * Returns a string containing the input string to which a trailing '/' was
  * added if necessary
- * */
+ */
 
 std::string addTrailingSlash(const std::string &input) {
 
-    if ( input.empty() ){
-        throw std::runtime_error( "addTrailingSlash : empty input string");
+    if (input.empty()) {
+        throw std::runtime_error("addTrailingSlash : empty input string");
     }
 
-    if ( input.back() == '/' ) {
+    if (input.back() == '/') {
         return input;
     }
 
@@ -62,27 +62,27 @@ std::string addTrailingSlash(const std::string &input) {
  * Creates a directory e.g. non/existent/path/to/dir
  *  throw if the path already exists and is not a directory
  *  throw if impossible to create the directory
- * */
+ */
 
-void createDirectory( const std::string &input ){
+void createDirectory(const std::string &input) {
 
     boost::filesystem::path p(input);
 
-    if ( boost::filesystem::exists(p)) {
+    if (boost::filesystem::exists(p)) {
 
-        if( ! boost::filesystem::is_directory(p) ) {
+        if (! boost::filesystem::is_directory(p)) {
             throw std::runtime_error
-                ( "Benchmark : a path with the name '" +input+  "' already "
+                ("Benchmark : a path with the name '" +input+  "' already "
                     "exist and is not a directory");
         }
 
     } else {
 
         boost::system::error_code err;
-        if( !boost::filesystem::create_directories(p, err) ) {
+        if (!boost::filesystem::create_directories(p, err)) {
             std::string reason(err.message());
             throw std::runtime_error
-                ( "Benchmark : Could not create new '" +input + "' directory:"
+                ("Benchmark : Could not create new '" +input + "' directory:"
                     " [" + reason + "]");
         }
     }

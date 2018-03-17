@@ -30,7 +30,7 @@
  * Each element of the vector can run from 0 to N_i - 1, where N_i is the
  * maximum value that the i-th element can reach
  * By successive call of the next() method we get :
- * ( 0, 0, ..., 0) -> (0, 0, ..., 1) -> ... -> ( 0, 1, ..., 0) -> (0, 1, ..., 1)
+ * (0, 0, ..., 0) -> (0, 0, ..., 1) -> ... -> (0, 1, ..., 0) -> (0, 1, ..., 1)
  * -> ... -> (1, 1, ..., 1) -> ... -> (N_0-1, N_1 -1, ..., N_[dim-1] - 1)
  *
  *
@@ -67,9 +67,9 @@ class MultiIndex{
      * @Nmax is their maximum value they can take.
      * -> If T is an iterator-like object Nmax can be construted using
      * std::distance
-     * */
+     */
     MultiIndex(const std::vector<std::size_t>& Nmax,
-               const std::vector<T>&input )
+               const std::vector<T>&input)
         : _input(input),
           _data(input),
           _Nmax(Nmax),
@@ -79,13 +79,13 @@ class MultiIndex{
     {
 
         // sizes of input and Nmax vectors must be equal
-        if( _input.size() != _Nmax.size() ){
+        if (_input.size() != _Nmax.size()) {
             throw std::logic_error("MultiIndex : Nmax and input vector must "
                                        "have equal size");
         }
 
-        for( std::size_t i = 0 ; i < _dim; ++i ){
-            _Ntot *= ( _Nmax[i] - _input[i]);
+        for(std::size_t i = 0 ; i < _dim; ++i) {
+            _Ntot *= (_Nmax[i] - _input[i]);
         }
 
     }
@@ -94,8 +94,8 @@ class MultiIndex{
      * Constructor
      * This constructor must not be used if T is an iterator
      * TODO : disable this constructor for iterator types
-     * */
-    explicit MultiIndex( const std::vector<std::size_t> &Nmax )
+     */
+    explicit MultiIndex(const std::vector<std::size_t> &Nmax)
         : MultiIndex(Nmax, std::vector<T>(Nmax.size(),0)) {
 
     }
@@ -104,14 +104,14 @@ class MultiIndex{
      * Computes the next possible combination of indexes.
      * Returns true if other combinations can be computed.
      * Returns false if the last combination was computed
-     * */
+     */
     bool next() {
 
-        if ( _Ncur == _Ntot ){
+        if (_Ncur == _Ntot) {
             return false;
         }
 
-        if ( _Ncur == 0 ){
+        if (_Ncur == 0) {
             ++_Ncur;
             return true;
         }
@@ -120,7 +120,7 @@ class MultiIndex{
 
         std::size_t i = 1;
 
-        while ( _data[_dim - i] == _Nmax[ _dim - i ] ){
+        while (_data[_dim - i] == _Nmax[ _dim - i ]) {
 
             _data  [ _dim - i     ]  = _input[ _dim - i ];
             ++_data[ _dim - i - 1 ];
@@ -134,8 +134,8 @@ class MultiIndex{
 
     /**
      * Returns a copy of the i-th element of the current combination
-     * */
-    T get( std::size_t i ) const {
+     */
+    T get(std::size_t i) const {
         return _data[i];
     }
 
@@ -147,33 +147,33 @@ class MultiIndex{
 
     /**
      * This vector holds the input value of each element
-     * */
+     */
     const std::vector<T> _input;
 
     /**
      * This vector holds the current value of each element of the vector
-     * */
+     */
     std::vector<T> _data;
 
     /**
      * This vector holds the maximum value that each element can reach
-     * */
+     */
     std::vector<std::size_t> _Nmax;
 
     /**
      * This is the number of possible combination of each value. It is
      * defined by the sum of all _Nmax[i] value
-     * */
+     */
     std::size_t _Ntot;
 
     /**
      * Holds the (constant) size of the input Nmax vector
-     * */
+     */
     std::size_t _dim;
 
     /**
      * Holds the current index (goes from 0 to _dim - 1)
-     * */
+     */
     std::size_t _Ncur;
 
 };

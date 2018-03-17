@@ -46,23 +46,23 @@ class GnuPlotter : public PlotterBase<StandardFormatter> {
 
     /**
      * Constructor
-     * */
+     */
     template < typename FuncType >
     GnuPlotter(const Config &config,
                const utils::FormattedOutput &fmt,
-               const FuncType &func )
+               const FuncType &func)
         : PlotterBase<StandardFormatter>(config,StandardFormatter(fmt),func)
     {}
 
     /**
      * Writes the data files
-     * */
-    void writeDataFiles( ) override;
+     */
+    void writeDataFiles() override;
 
 
     /**
      * Sets the number of points to be taken for every running variable
-     * */
+     */
     void setRunningNumberPoints(std::size_t n);
 
     /***************************************************************************
@@ -73,29 +73,29 @@ class GnuPlotter : public PlotterBase<StandardFormatter> {
     /**
      * Number of points to be taken for the running variables to construct
      * the data file
-     * */
+     */
     std::size_t _nRunning;
 
     /**
      * path to the data directory
-     * */
+     */
     std::string _dataDir;
 
     /**
      * path to gnuplot scripts directory
-     * */
+     */
     std::string _scriptsDir;
 
     /**
      * Writes the config files
-     * */
+     */
     void writeConfigFile();
 
     /**
      *  Creates the directory tree
      *  Returns the name of the config file
-     * */
-    std::string createDirectoryTree( );
+     */
+    std::string createDirectoryTree();
 
     /**
      * Writes the data files and gnuplot script files. The 1 dimensional
@@ -108,14 +108,14 @@ class GnuPlotter : public PlotterBase<StandardFormatter> {
      * used to write the datae
      *
      * Throw if the size of the output of the function is 0
-     * */
+     */
     void write1DFunction(const std::string& name, const std::string& run,
                          const std::string& multi);
 
 
     /**
      * Writes the 1D data by successive call to write1DFunction method
-     * */
+     */
     void write1DDatae();
 };
 

@@ -10,7 +10,7 @@
 #include <iostream>
 #include <snmpp/Utils/FormattedOutput.hpp>
 
-int main ( ){
+int main (){
 
     double v = 5.0;
     double y = -15.0;

@@ -43,14 +43,14 @@ class FuncBase {
     /**
      * Constructor from a core::Variables
      *
-     * */
+     */
 
     explicit FuncBase(const ConstructorInputType &vars) : _inputs(vars) {}
 
     /**
      * operator() overloading with no argument
      *
-     * */
+     */
 
     const OutputType &operator()() {
         eval();
@@ -60,7 +60,7 @@ class FuncBase {
     /**
      * Operator() overloading with a map<Key, ValueType> argument
      *
-     * */
+     */
 
     const OutputType &operator()(const InputType &vars) {
         _inputs.setFromMap(vars);
@@ -71,7 +71,7 @@ class FuncBase {
     /**
      * Returns a copy of the calculated outputs
      *
-     * */
+     */
 
     OutputType getCopy() const {
         return _outputs;
@@ -80,7 +80,7 @@ class FuncBase {
     /**
      * Returns a const reference to its variables
      *
-     * */
+     */
 
     const ConstructorInputType & getVariables()const {
         return _inputs;
@@ -89,10 +89,10 @@ class FuncBase {
     /**
      * Returns true if @var is contained in the function variables, false
      * otherwise.
-     * */
-    bool hasVariable(const Key &var ){
+     */
+    bool hasVariable(const Key &var) {
         auto it = _inputs.find(var);
-        if ( it == _inputs.end() ){
+        if (it == _inputs.end()) {
             return false;
         }
         return true;
@@ -102,7 +102,7 @@ class FuncBase {
     /**
      * Pure virtual eval method
      *
-     * */
+     */
 
     virtual void eval() = 0;
 

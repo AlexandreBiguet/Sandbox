@@ -24,45 +24,45 @@
 
 #include "../BenchmarkConfig.hpp"
 
-void boostFormat ( std::size_t N ){
+void boostFormat (std::size_t N) {
 
     double a(15.0), b(2.0), c(-15.0), d(0.0);
     std::size_t i(12), n(1), m(10000);
 
-    boost::format fmt( "%-+15.6f %-+15.6f %-+15.6f %-+15.6f %-+15lu "
-                           "%-+15lu %-+15lu" );
+    boost::format fmt("%-+15.6f %-+15.6f %-+15.6f %-+15.6f %-+15lu "
+                           "%-+15lu %-+15lu");
 
-    for( std::size_t j = 0 ; j < N ; ++j ) {
+    for(std::size_t j = 0 ; j < N ; ++j) {
 
         std::cout << fmt % a % b % c % d % i % n % m;
         std::cout << "\n";
     }
 }
 
-void formattedOutput( std::size_t N ){
+void formattedOutput(std::size_t N) {
 
     double a(15.0), b(2.0), c(-15.0), d(0.0);
     std::size_t i(12), n(1), m(10000);
     snmpp::utils::FormattedOutput col;
 
-    for( std::size_t j = 0 ; j < N ; ++j ) {
+    for(std::size_t j = 0 ; j < N ; ++j) {
 
-        std::cout<<col<<a<<col<<b<<col<<c<<col<<d ;
+        std::cout<<col<<a<<col<<b<<col<<c<<col<<d;
         std::cout<<col<<i<<col<<n<<col<<m<<"\n";
     }
 }
 
-void printfFormat ( std::size_t N ){
+void printfFormat (std::size_t N) {
 
     double a(15.0), b(2.0), c(-15.0), d(0.0);
     std::size_t i(12), n(1), m(10000);
 
-    boost::format fmt( "%-+15.6f %-+15.6f %-+15.6f %-+15.6f %-+15lu "
-                           "%-+15lu %-+15lu" );
+    boost::format fmt("%-+15.6f %-+15.6f %-+15.6f %-+15.6f %-+15lu "
+                           "%-+15lu %-+15lu");
 
-    for( std::size_t j = 0 ; j < N ; ++j ) {
+    for(std::size_t j = 0 ; j < N ; ++j) {
 
-        printf( "%-+15.6f %-+15.6f %-+15.6f %-+15.6f %-15lu "
+        printf("%-+15.6f %-+15.6f %-+15.6f %-+15.6f %-15lu "
                     "%-15lu %-15lu \n", a, b, c, d, i, n, m);
     }
 }
@@ -72,7 +72,7 @@ using namespace snmpp::benchmark;
 namespace chrono = std::chrono;
 
 
-int main ( ){
+int main (){
 
     const std::string dir(SNMPP_BENCHMARK_DATA_DIR"/FormattedOutputs");
 

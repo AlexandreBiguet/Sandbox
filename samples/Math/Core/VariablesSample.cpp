@@ -13,16 +13,16 @@
 using namespace snmpp::math;
 
 template <typename Key, typename ValueType>
-void outputVar ( const core::Variables<Key, ValueType> &vars)
+void outputVar (const core::Variables<Key, ValueType> &vars)
 {
-    for( const auto &it : vars ){
-        std::string s( it.second.toString() );
+    for(const auto &it : vars) {
+        std::string s(it.second.toString());
         std::cout<<it.first<<" = "<<s<<std::endl;
     }
 }
 
 
-int main ( ){
+int main (){
 
     std::cout<<"Construction from a vector of tuple \n";
 
@@ -37,10 +37,9 @@ int main ( ){
 
     std::cout<<"\nConstruction from a map of snmp::math variable object \n";
 
-    std::map<std::string, core::Variable<double>> map(
-        {{"x", core::Variable<double>(1.0, VariableType::Running)},
+    std::map<std::string, core::Variable<double>> map (        {{"x", core::Variable<double>(1.0, VariableType::Running)},
          {"y", core::Variable<double>(2.0, VariableType::Fixed)}}
-    );
+   );
 
     core::Variables<std::string, double> Var2(map);
 

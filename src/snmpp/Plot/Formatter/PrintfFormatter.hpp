@@ -26,7 +26,7 @@ class PrintfFormatter : public FormatterBase {
   public:
     PrintfFormatter(std::string &&fmt);
     void write
-        ( std::ostream &os, const std::vector<double> &val) const override ;
+        (std::ostream &os, const std::vector<double> &val) const override;
 
   private:
     std::string _fmt;

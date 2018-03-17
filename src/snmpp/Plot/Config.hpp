@@ -50,37 +50,37 @@ class Config {
     /**
      * Constructor
      *
-     * */
+     */
 
     explicit Config(const std::string& dir, const std::string& funcName);
 
     /**
      * Returns the path to the plot directory
      *
-     * */
+     */
 
     const std::string& getPathToPlotDir() const;
 
     /**
      * Returns the name of the function to be plotted
      *
-     * */
+     */
     const std::string& getFunctionName() const;
 
     /**
      * Uses current date as a prefix for directory and config file
-     * */
+     */
     void useCurrentDateAsPrefix();
 
     /**
      *  Print the configuration to file
      *
-     * */
-    void toFile( const std::string &path);
+     */
+    void toFile(const std::string &path);
 
     /**
      * Returns the prefix
-     * */
+     */
     const std::string& getPrefix() const;
 
     /***************************************************************************
@@ -91,17 +91,17 @@ class Config {
 
     /**
      * path to the directory where the plot datae are stored
-     * */
+     */
     std::string _pathToPlotDir;
 
     /**
      * Name of the function to be plotted
-     * */
+     */
     std::string _functionName;
 
     /**
      * if true, the _prefix is set to '[date]-'. Otherwise, _prefix is empty
-     * */
+     */
     bool _prefixWithDate;
 
 

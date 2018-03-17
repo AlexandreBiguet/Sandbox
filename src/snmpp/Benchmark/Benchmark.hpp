@@ -74,18 +74,18 @@ class Benchmark {
     /**
      * Creation of a Benchmark object from a BenchmarkConfig
      **/
-    explicit Benchmark( const BenchmarkConfig &config ) ;
+    explicit Benchmark(const BenchmarkConfig &config);
 
     /**
      * Adding an item in the vector of arguments to be forward to the
      * function to be benchmarked
-     * */
-    void addArgs( const std::tuple< Args...> &t);
+     */
+    void addArgs(const std::tuple< Args...> &t);
 
     /**
      * Execution of the benchmark using the callable object passed in argument
-     * */
-    template < typename Callable > void execute ( Callable func );
+     */
+    template < typename Callable > void execute (Callable func);
 
 
 
@@ -104,26 +104,26 @@ class Benchmark {
      * config file
      *
      * return : a path to the benchmark data file
-     * */
+     */
     boost::filesystem::path createDir ();
 
     /**
      * Compute the mean of a vector
      * -> Will be removed when snmpp has its Statistical Tools available
-     * */
-    double mean_impl( const std::vector < typename TimeUnit::rep > &v );
+     */
+    double mean_impl(const std::vector < typename TimeUnit::rep > &v);
 
     /**
      * Compute the variance of a vector using it previously computed mean.
      * -> Will be removed when snmpp has its Statistical Tools available
-     * */
+     */
     double var_impl
-        ( const std::vector < typename TimeUnit::rep > &v, double mean );
+        (const std::vector < typename TimeUnit::rep > &v, double mean);
 
 
     /**
      * The 'trick' consisting of calling measure_impl in measure function could
-     * be useless if we use C++17 and std::apply( Callable &&f, Tuple &&t )
+     * be useless if we use C++17 and std::apply(Callable &&f, Tuple &&t)
      *
      * -> We could consider implement in Utils an equivalent if we don't want
      * to go to 17 standard.
@@ -131,7 +131,7 @@ class Benchmark {
      *  The SingleMeasure structure is nested private but it could be
      *  non-nested and used directly.
      *
-     * */
+     */
 
     struct SingleMeasure {
 
@@ -142,15 +142,15 @@ class Benchmark {
          *  Construction of a SingleMeasure from a tuple
          *
          * Q : Should we pass by value and use std::move ?
-         * */
-        explicit SingleMeasure( const std::tuple<Args...> &t) : _tupleArgs(t){}
+         */
+        explicit SingleMeasure(const std::tuple<Args...> &t) : _tupleArgs(t){}
 
         /**
          * Measure the execution time of the Callable object passed in
          * argument.
-         * */
+         */
         template< typename Callable >
-        typename TimeUnit::rep measure( Callable func ) {
+        typename TimeUnit::rep measure(Callable func) {
 
             return measure_impl
                 (func,
@@ -161,12 +161,12 @@ class Benchmark {
          * Measure implementation. The arguments needed by the function to be
          * benchmarked are saved in a tuple (_tupleArgs) which are forward to
          * the function using a sequence.
-         * */
+         */
         template < typename Callable, std::size_t ... I>
-        typename TimeUnit::rep measure_impl( Callable func,
-                                             utils::Sequence<I...> ) {
+        typename TimeUnit::rep measure_impl(Callable func,
+                                             utils::Sequence<I...>) {
             auto s = Clock::now();
-            func( std::get<I>(_tupleArgs)...);
+            func(std::get<I>(_tupleArgs)...);
             auto e = Clock::now();
             auto duration = std::chrono::duration_cast<TimeUnit>(e-s);
             return duration.count();
@@ -175,7 +175,7 @@ class Benchmark {
     };
 
     template<typename TupleType, typename Callable, std::size_t... I>
-    void for_each_impl(TupleType&& t, Callable f, utils::Sequence<I...> )
+    void for_each_impl(TupleType&& t, Callable f, utils::Sequence<I...>)
     {
         auto l = { (f(std::get<I>(t)), 0)... };
         (void)l; // Ugly -Wunused-parameter
@@ -195,7 +195,7 @@ class Benchmark {
         std::ostream &_os;
         utils::FormattedOutput &_fmt;
 
-        FancyPrinter( std::ostream &os, utils::FormattedOutput &fmt)
+        FancyPrinter(std::ostream &os, utils::FormattedOutput &fmt)
             : _os(os), _fmt(fmt) {}
 
         template<typename T>
@@ -209,7 +209,7 @@ class Benchmark {
 
 /**
  * Constructor from config
- * */
+ */
 
 template <typename T, typename C,typename ...Args>
 Benchmark<T, C, Args...>::Benchmark(const BenchmarkConfig &config)
@@ -217,7 +217,7 @@ Benchmark<T, C, Args...>::Benchmark(const BenchmarkConfig &config)
 
 /**
  * Adding an argument list
- * */
+ */
 
 template <typename T, typename C,typename ...Args>
 void Benchmark<T, C, Args...>::addArgs(const std::tuple<Args...> &t) {
@@ -226,15 +226,15 @@ void Benchmark<T, C, Args...>::addArgs(const std::tuple<Args...> &t) {
 
 /**
  * Execute the benchmark
- * */
+ */
 
 template <typename T, typename C,typename ...Args>
 template <typename Callable>
-void Benchmark<T,C,Args...>::execute( Callable func ){
+void Benchmark<T,C,Args...>::execute(Callable func) {
 
     const size_t Nargs = _args.size();
 
-    if( Nargs == 0 ){
+    if (Nargs == 0) {
         throw std::logic_error("No arguments provided for the function to "
                                    "benchmark");
     }
@@ -252,7 +252,7 @@ void Benchmark<T,C,Args...>::execute( Callable func ){
     ofs<<colI<<"# Bunch Nb"<<colI<<"mean"<<colI<<"sqrt(variance)"<<" | ";
     auto arg_vec = _config.getArgumentNames();
 
-    for( const auto &i : arg_vec ){
+    for(const auto &i : arg_vec) {
         ofs<<colI<<i;
     }
 
@@ -260,15 +260,15 @@ void Benchmark<T,C,Args...>::execute( Callable func ){
 
     std::size_t count(0);
 
-    for( const auto &t : _args ){
+    for(const auto &t : _args) {
 
         ++count;
         std::vector<typename T::rep > results;
         const std::size_t iterNumber = _config.getIterationNumber();
 
-        for ( std::size_t i = 0 ; i < iterNumber ; ++i ){
-            SingleMeasure  m ( t );
-            results.push_back( m.measure(func) );
+        for (std::size_t i = 0 ; i < iterNumber ; ++i) {
+            SingleMeasure  m (t);
+            results.push_back(m.measure(func));
         }
 
         double mean = mean_impl(results);
@@ -276,7 +276,7 @@ void Benchmark<T,C,Args...>::execute( Callable func ){
         ofs<<col<<count<<col<<mean<<col<<std::sqrt(var)<<" | ";
 
         FancyPrinter printer(ofs, col);
-        for_each_in_tuple (t, printer );
+        for_each_in_tuple (t, printer);
         ofs<<"\n";
     }
 
@@ -285,16 +285,16 @@ void Benchmark<T,C,Args...>::execute( Callable func ){
 
 /**
  * Calculation of mean
- * */
+ */
 
 template <typename T, typename C,typename ...Args>
 double Benchmark<T, C, Args...>::mean_impl
-    ( const std::vector < typename T::rep > &v  ) {
+    (const std::vector < typename T::rep > &v ) {
 
     double mean(0.0);
     std::size_t c (0);
 
-    for( const auto &i : v ){
+    for(const auto &i : v) {
         mean += static_cast<double>((i - mean)) / (c+1);
         ++c;
     }
@@ -303,7 +303,7 @@ double Benchmark<T, C, Args...>::mean_impl
 
 /**
  * Calculation of the variance
- * */
+ */
 
 template <typename T, typename C,typename ...Args>
 double Benchmark<T, C, Args...>::var_impl
@@ -313,7 +313,7 @@ double Benchmark<T, C, Args...>::var_impl
     double d(0.0);
     std::size_t c (0);
 
-    for( const auto &i : v ){
+    for(const auto &i : v) {
         d = static_cast<double>(i) - mean;
         var += (d*d - var) / (c+1);
         ++c;
@@ -327,7 +327,7 @@ double Benchmark<T, C, Args...>::var_impl
  * config file
  *
  * return : a path to the benchmark data file
- * */
+ */
 
 template <typename T, typename C,typename ...Args>
 boost::filesystem::path Benchmark<T, C, Args...>::createDir() {
@@ -339,16 +339,16 @@ boost::filesystem::path Benchmark<T, C, Args...>::createDir() {
 
     utils::createDirectory(dir_path);
 
-    boost::filesystem::path conf_file ( dir_path + "config.txt" );
+    boost::filesystem::path conf_file (dir_path + "config.txt");
 
-    boost::filesystem::ofstream ofs ( conf_file );
+    boost::filesystem::ofstream ofs (conf_file);
 
     ofs<<" Config file \n\n";
     ofs<<" Data : "<<date<<"\n";
     ofs<<" Function name : "<<_config.getFunctionName()<<"\n";
     ofs<<" List of parameter names : \n";
     auto param = _config.getArgumentNames();
-    for( auto &i : param ){
+    for(auto &i : param) {
         ofs<<"\t "<<i<<"\n";
     }
     ofs<<" Number different arguments to be passed  : "<<_args.size()<<"\n";

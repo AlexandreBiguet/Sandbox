@@ -37,7 +37,7 @@
  * snmpp/Utils we will implemented a corresponding tool.
  *
  * If c++ 14 is needed elsewhere, we will go to 14
- * */
+ */
 
 template <std::size_t ... >
 struct Sequence {};
@@ -52,7 +52,7 @@ struct SequenceGenerator<0, I...> {
 
 /**
  * In snmpp/Benchmark
- * */
+ */
 
 struct BenchmarkConfig {
 
@@ -74,30 +74,30 @@ class Benchmark {
 
     /**
      * The 'trick' consisting of calling measure_impl in measure function could
-     * be useless if we use C++17 and std::apply( Callable &&f, Tuple &&t )
+     * be useless if we use C++17 and std::apply(Callable &&f, Tuple &&t)
      *
      * -> We could consider implement in Utils an equivalent if we don't want
      * to go to 17 standard.
      * 
-     * */
+     */
 
     struct SingleMeasure {
         std::tuple<Args...> _tuple_args;
 
         /* Should we pass by value and use std::move ? */
-        explicit SingleMeasure( const std::tuple<Args...> &t) : _tuple_args(t){}
+        explicit SingleMeasure(const std::tuple<Args...> &t) : _tuple_args(t){}
 
         template< typename Callable >
-        typename TimeUnit::rep measure( Callable func ) {
+        typename TimeUnit::rep measure(Callable func) {
 
             return measure_impl
                 (func, typename SequenceGenerator<sizeof ...(Args)>::type());
         }
 
         template < typename Callable, std::size_t ... I>
-        typename TimeUnit::rep measure_impl( Callable func, Sequence<I...> ) {
+        typename TimeUnit::rep measure_impl(Callable func, Sequence<I...>) {
             auto s = Clock::now();
-            func( std::get<I>(_tuple_args)...);
+            func(std::get<I>(_tuple_args)...);
             auto e = Clock::now();
             auto duration = std::chrono::duration_cast<TimeUnit>(e-s);
             return duration.count();
@@ -108,23 +108,23 @@ class Benchmark {
 
 
   public:
-    explicit Benchmark( const BenchmarkConfig &config ) : _config(config){}
+    explicit Benchmark(const BenchmarkConfig &config) : _config(config){}
 
-    void addArgs( const std::tuple< Args...> &t) {
+    void addArgs(const std::tuple< Args...> &t) {
         _args.push_back(t);
     }
 
     template < typename Callable >
-    void execute ( Callable func ){
+    void execute (Callable func) {
 
         std::size_t count(0);
-        for( const auto &t : _args ){
+        for(const auto &t : _args) {
             ++count;
             std::vector<typename TimeUnit::rep > results;
 
-            for ( std::size_t i = 0 ; i < _config._numberOfIterations ; ++i ){
-                SingleMeasure  m ( t );
-                results.push_back( m.measure(func) );
+            for (std::size_t i = 0 ; i < _config._numberOfIterations ; ++i) {
+                SingleMeasure  m (t);
+                results.push_back(m.measure(func));
             }
             double mean = mean_impl(results);
             std::cout<<"Arg List # "<<count<<" mean = "<<mean<<" \n";
@@ -135,12 +135,12 @@ class Benchmark {
 
   private:
 
-    double mean_impl( const std::vector < typename TimeUnit::rep > &v ){
+    double mean_impl(const std::vector < typename TimeUnit::rep > &v) {
         typename TimeUnit::rep sum(0);
-        for( auto &i : v ){
+        for(auto &i : v) {
             sum+=i;
         }
-        return static_cast<double>( sum / v.size() );
+        return static_cast<double>(sum / v.size());
     }
 
 };
@@ -148,12 +148,12 @@ class Benchmark {
 /**
  * A simple test function
  *
- * */
+ */
 
-void function( std::size_t N ){
+void function(std::size_t N) {
 
     std::vector<double> vec;
-    vec.reserve( N );
+    vec.reserve(N);
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_real_distribution<> dis(0.0, 10.0);
@@ -162,12 +162,12 @@ void function( std::size_t N ){
         vec.push_back(dis(gen));
     }
 
-    std::sort( vec.begin(), vec.end() );
+    std::sort(vec.begin(), vec.end());
 }
 
 namespace chrono = std::chrono;
 
-int main ( ){
+int main (){
 
     BenchmarkConfig config;
     config._numberOfIterations = 1000;

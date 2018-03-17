@@ -11,7 +11,7 @@
 
 #include <snmpp/Utils/Tools.hpp>
 
-int main ( ){
+int main (){
 
     std::cout<<"Current date : "<<snmpp::utils::getCurrentDate()<<std::endl;
 

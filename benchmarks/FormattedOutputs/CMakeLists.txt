@@ -7,7 +7,7 @@
 
 add_executable(BenchmarkFormattedOutput main.cpp ../BenchmarkConfig.hpp)
 
-if( ENABLE_SHARED)
+if (ENABLE_SHARED)
     target_link_libraries(BenchmarkFormattedOutput ${PROJECT_LIB})
 else()
     target_link_libraries(BenchmarkFormattedOutput ${PROJECT_STATIC_LIB})

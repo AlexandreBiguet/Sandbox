@@ -10,7 +10,7 @@
 #include <iostream>
 #include <snmpp/Tensor/MultiIndex.hpp>
 
-int main ( ){
+int main (){
 
     /**
      * The Integral type overload of the MultiIndex class allows for example
@@ -18,10 +18,10 @@ int main ( ){
      *
      * Let's consider we want to simulate 3 nested for loops.
      *
-     * for ( i = 0 ; i < Ni ; ++i )
-     *    for ( j = 0 ; j < Nj ; ++j )
-     *       for( k = 0 ; k < Nk ; ++k )
-     * */
+     * for (i = 0 ; i < Ni ; ++i)
+     *    for (j = 0 ; j < Nj ; ++j)
+     *       for(k = 0 ; k < Nk ; ++k)
+     */
 
 
     const std::size_t Nfor(3); // 3 nested for loops
@@ -30,13 +30,13 @@ int main ( ){
     const std::size_t Nj(3);
     const std::size_t Nk(6);
 
-    std::vector<std::size_t> Nmax( {Ni, Nj, Nk} );
+    std::vector<std::size_t> Nmax({Ni, Nj, Nk});
 
     snmpp::tensor::MultiIndex<std::size_t> index(Nmax);
 
-    while ( index.next() ){
+    while (index.next()) {
 
-        for( std::size_t i = 0 ; i < Nfor ; ++i ) {
+        for(std::size_t i = 0 ; i < Nfor ; ++i) {
             std::cout << index.get(i) << "  ";
         }
 

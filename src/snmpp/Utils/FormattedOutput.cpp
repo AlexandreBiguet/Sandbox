@@ -14,7 +14,7 @@ namespace snmpp { namespace utils {
 /*******************************************************************************
  * Constructor. Column widht @width and precision for float nb @precision
  *
- * */
+ */
 
 FormattedOutput::FormattedOutput(int width, int precision)
     : _width(width), _precision(precision){
@@ -25,7 +25,7 @@ FormattedOutput::FormattedOutput(int width, int precision)
 /*******************************************************************************
  * Returns the width
  *
- * */
+ */
 int FormattedOutput::getWidth() {
     return _width;
 }
@@ -33,7 +33,7 @@ int FormattedOutput::getWidth() {
 /*******************************************************************************
  * Returns the precision
  *
- * */
+ */
 int FormattedOutput::getPrecision() {
     return _precision;
 }
@@ -41,8 +41,8 @@ int FormattedOutput::getPrecision() {
 /*******************************************************************************
  * Sets the width
  *
- * */
-void FormattedOutput::setWidth( int n ){
+ */
+void FormattedOutput::setWidth(int n) {
     assert(n > 0);
     _width = n;
 }
@@ -50,8 +50,8 @@ void FormattedOutput::setWidth( int n ){
 /*******************************************************************************
  * Sets the precision
  *
- * */
-void FormattedOutput::setPrecision( int p ){
+ */
+void FormattedOutput::setPrecision(int p) {
     _precision = p;
 }
 

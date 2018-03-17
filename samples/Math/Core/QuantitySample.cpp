@@ -12,7 +12,7 @@
 
 using namespace snmpp::math;
 
-int main ( ){
+int main (){
 
     core::Quantity<double> Qd;
     std::cout<<"Default constructor : "<<Qd.toString()<<std::endl;

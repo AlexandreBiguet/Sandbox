@@ -26,10 +26,10 @@ namespace snmpp { namespace  plot {
 class StandardFormatter : public FormatterBase {
 
   public:
-    explicit StandardFormatter( const utils::FormattedOutput &col );
+    explicit StandardFormatter(const utils::FormattedOutput &col);
 
     void write
-        ( std::ostream &os, const std::vector<double> &val) const override ;
+        (std::ostream &os, const std::vector<double> &val) const override;
 
     void write(std::ostream &os, const std::map<std::string,double> &in,
                const std::map<std::string, double> &out);

@@ -68,7 +68,7 @@ class Quantity {
 
     /**
      * Type of the interval for the quantity
-     * */
+     */
     using IntervalType = boost::numeric::interval<ValueType>;
 
 
@@ -82,7 +82,7 @@ class Quantity {
      * Default constructor : The value is cast to 0 and interval is set to
      * ]-inf, +inf[
      *
-     * */
+     */
     Quantity();
 
     /**
@@ -95,63 +95,63 @@ class Quantity {
     /**
      * Constructs a quantity with value @val and interval to [@lower, @upper]
      *
-     * */
+     */
     Quantity(const ValueType &val, const ValueType &lower,
              const ValueType &upper);
 
     /**
      * Returns a copy of the value
      *
-     * */
+     */
     ValueType getValue() const;
 
     /**
      * Sets the value with @value
      *
-     * */
+     */
     void setValue(const ValueType &value);
 
     /**
      * Sets the lower bound of the interval to @lower
      *
-     * */
+     */
     void setLower(const ValueType &lower);
 
     /**
      * Sets the upper bound of the interval to @upper
      *
-     * */
+     */
     void setUpper(const ValueType &upper);
 
     /**
      * Sets the interval to [@lower, @upper]
      *
-     * */
+     */
     void setInterval(const ValueType &lower, const ValueType &upper);
 
     /**
      * Returns a copy of the lower bound of the interval
      *
-     * */
+     */
     ValueType getLower() const;
 
     /**
      * Returns a copy of the upper bound of the interval
      *
-     * */
+     */
     ValueType getUpper() const;
 
     /**
      * Returns a copy of the interval in a boost::numeric::interval object
      *
-     * */
+     */
     IntervalType getInterval() const;
 
     /**
      * Puts the quantity into a string
      * This is mainly for debug purpose
      *
-     * */
+     */
     virtual std::string toString()const;
 
     /***************************************************************************
@@ -163,13 +163,13 @@ class Quantity {
     /**
      * The value hold by the Quantity object
      *
-     * */
+     */
     ValueType _value;
 
     /**
      * The interval of definition of the value
      *
-     * */
+     */
     IntervalType _interval;
 
 };
@@ -182,7 +182,7 @@ class Quantity {
  * Default constructor : The value is cast to 0 and interval is set to
  * ]-inf, +inf[
  *
- * */
+ */
 
 template< typename Type >
 Quantity<Type>::Quantity() : _value(static_cast<Type>(0)) {
@@ -203,7 +203,7 @@ Quantity<Type>::Quantity(const Type &val) : _value(val) {
 /*******************************************************************************
  * Constructs a quantity with value @val and interval to [@lower, @upper]
  *
- * */
+ */
 
 template< typename Type >
 Quantity<Type>::Quantity(const Type &val, const Type &lower, const Type &upper)
@@ -213,7 +213,7 @@ Quantity<Type>::Quantity(const Type &val, const Type &lower, const Type &upper)
 /*******************************************************************************
  * Returns a copy of the value
  *
- * */
+ */
 
 template <typename Type>
 Type Quantity<Type>::getValue() const {
@@ -223,7 +223,7 @@ Type Quantity<Type>::getValue() const {
 /*******************************************************************************
  * Sets the value with @value
  *
- * */
+ */
 
 template <typename Type>
 void Quantity<Type>::setValue(const Type &value) {
@@ -233,17 +233,17 @@ void Quantity<Type>::setValue(const Type &value) {
 /*******************************************************************************
  * Sets the lower bound of the interval to @lower
  *
- * */
+ */
 
 template <typename Type>
 void Quantity<Type>::setLower(const Type &lower) {
-    _interval.assign(lower, _interval.upper() );
+    _interval.assign(lower, _interval.upper());
 }
 
 /*******************************************************************************
  * Sets the upper bound of the interval to @upper
  *
- * */
+ */
 
 template <typename Type>
 void Quantity<Type>::setUpper(const Type &upper) {
@@ -253,7 +253,7 @@ void Quantity<Type>::setUpper(const Type &upper) {
 /*******************************************************************************
  * Sets the interval to [@lower, @upper]
  *
- * */
+ */
 
 template <typename Type>
 void Quantity<Type>::setInterval(const Type &lower, const Type &upper) {
@@ -263,7 +263,7 @@ void Quantity<Type>::setInterval(const Type &lower, const Type &upper) {
 /*******************************************************************************
  * Returns a copy of the lower bound of the interval
  *
- * */
+ */
 
 template <typename Type>
 Type Quantity<Type>::getLower() const {
@@ -273,7 +273,7 @@ Type Quantity<Type>::getLower() const {
 /*******************************************************************************
  * Returns a copy of the upper bound of the interval
  *
- * */
+ */
 
 template <typename Type>
 Type Quantity<Type>::getUpper() const {
@@ -283,7 +283,7 @@ Type Quantity<Type>::getUpper() const {
 /*******************************************************************************
  * Returns a copy of the interval in a boost::numeric::interval object
  *
- * */
+ */
 
 template <typename Type>
 typename Quantity<Type>::IntervalType Quantity<Type>::getInterval() const {
@@ -294,7 +294,7 @@ typename Quantity<Type>::IntervalType Quantity<Type>::getInterval() const {
  * Puts the quantity into a string
  * This is mainly for debug purpose
  *
- * */
+ */
 
 template <typename Type>
 std::string Quantity<Type>::toString()const{

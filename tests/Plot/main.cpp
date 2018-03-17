@@ -17,8 +17,7 @@ using namespace snmpp;
 
 class SinFunc : public math::FuncBase {
   public:
-    SinFunc(): math::FuncBase ( math::FuncBase::ConstructorInputType(
-        {{"x", math::Variable(0., -5., 5., math::VariableType::Running)},
+    SinFunc(): math::FuncBase (math::FuncBase::ConstructorInputType (        {{"x", math::Variable(0., -5., 5., math::VariableType::Running)},
          {"a", math::Variable(0., -10., 10., math::VariableType::Parameter)},
          {"b", math::Variable(0., -10., 10., math::VariableType::Parameter)
          }}))
@@ -28,11 +27,11 @@ class SinFunc : public math::FuncBase {
         double x = _inputs.get("x").getValue();
         double a = _inputs.get("a").getValue();
         double b = _inputs.get("b").getValue();
-        _outputs["f"] = a * std::sin( b*x );
+        _outputs["f"] = a * std::sin(b*x);
     }
 };
 
-int main ( ){
+int main (){
 
     plot::Config config("plot-dir", "sin");
     config.useCurrentDateAsPrefix();
@@ -41,7 +40,7 @@ int main ( ){
     plot::GnuPlotter plotter(config,utils::FormattedOutput(15,6), func);
 
     plotter.addFixedValue("a", 10.0);
-    plotter.addFixedValues("a", {1.0, 2.0, 3.0, 15.0, 13.0} );
+    plotter.addFixedValues("a", {1.0, 2.0, 3.0, 15.0, 13.0});
 
     std::vector<double> fixed_b_vec({5.0, 12.0, 1.0});
 

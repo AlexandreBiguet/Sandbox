@@ -15,19 +15,19 @@ namespace snmpp { namespace plot {
 /**
  * Constructor
  *
- * */
+ */
 PrintfFormatter::PrintfFormatter(std::string &&fmt) : _fmt(std::move(fmt)) {}
 
 /**
  * write method override
  *
- * */
+ */
 
 void PrintfFormatter::write
     (std::ostream &os, const std::vector<double> &val) const {
 
-    for( const auto &i : val ){
-        os << boost::format( _fmt ) % i ;
+    for(const auto &i : val) {
+        os << boost::format(_fmt) % i;
     }
 
     os << '\n';

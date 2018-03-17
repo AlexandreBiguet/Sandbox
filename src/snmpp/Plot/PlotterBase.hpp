@@ -45,7 +45,7 @@ class PlotterBase {
      * Construction from a config, a snmpp::function. The function name is in
      * the config object
      *
-     * */
+     */
     template <typename FuncType>
     PlotterBase
         (const Config &config,const Formatter &fmt, const FuncType &func)
@@ -55,24 +55,24 @@ class PlotterBase {
 
     /**
      * Writes the data files
-     * */
-    virtual void writeDataFiles( ) = 0;
+     */
+    virtual void writeDataFiles() = 0;
 
     /**
      * Add a fixed value @value for the variables @var
      * Throw if this variable is not contained in the Input function variables
      * If the value added is out of the definition domain, this will silently
      * be ignored
-     * */
-    void addFixedValue( const std::string &var, double value);
+     */
+    void addFixedValue(const std::string &var, double value);
 
     /**
      * Add fixed values contained in @vec for the variable @var
      * Throw if this variable is not contained in the input function variables
      * If the values added are out of the definition domain, this will silently
      * be ignored
-     * */
-    void addFixedValues( const std::string &var,
+     */
+    void addFixedValues(const std::string &var,
                          const std::vector<double> &vec);
 
     /**
@@ -81,7 +81,7 @@ class PlotterBase {
      * rvalue reference.
      * If the values added are out of the definition domain, this will silently
      * be ignored
-     * */
+     */
     void addFixedValues(const std::string &var, std::vector<double> &&vec);
 
     /**
@@ -91,14 +91,14 @@ class PlotterBase {
      *
      * This sets the corresponding vector of fixed value in the map of fixed
      * values
-     * */
+     */
     void setFixedValuesNumber(const std::string &var, const std::size_t n);
 
     /**
      * Checks if the domain of definition of the running variable is properly
      * set, i.e. it can't be indefinite or empty
      * -> will throw if any of the previous case is fullfilled
-     * */
+     */
     void checkDefinitionDomain();
 
     /***************************************************************************
@@ -110,28 +110,28 @@ class PlotterBase {
 
     /**
      * Config
-     * */
+     */
 
     Config _config;
 
     /**
      * The output formatter used when writing to file
-     * */
+     */
     Formatter _formatter;
 
     /**
      * map of fixed values for each variables
-     * */
+     */
     std::map<Key,std::vector<double>> _fixedValues;
 
     /**
      * Number of fixed variables for each of the variables
-     * */
+     */
     std::map<Key, std::size_t > _numberOfFixedValues;
 
     /**
      * A copy of the function to be plotted
-     * */
+     */
     std::shared_ptr<math::FuncBase> _func;
 
 };
@@ -144,7 +144,7 @@ class PlotterBase {
  * Checks if the domain of definition of the running variable is properly
  * set, i.e. it can't be indefinite or empty
  * -> will throw if any of the previous case is fullfilled
- * */
+ */
 template < typename Formatter >
 void PlotterBase<Formatter>::checkDefinitionDomain() {
 
@@ -153,20 +153,19 @@ void PlotterBase<Formatter>::checkDefinitionDomain() {
     std::exception_ptr errptr(nullptr);
 
 
-    for ( const auto &i : rvar_vec ){
+    for (const auto &i : rvar_vec) {
 
         auto domain = i->second.getInterval();
 
-        if ( std::isinf(domain.upper()) || std::isinf(domain.lower())) {
-            errptr = std::make_exception_ptr(
-                std::logic_error("Interval of var ["+i->first+"] is not "
-                    "finite") );
+        if (std::isinf(domain.upper()) || std::isinf(domain.lower())) {
+            errptr = std::make_exception_ptr (                std::logic_error("Interval of var ["+i->first+"] is not "
+                    "finite"));
             break;
         }
 
     }
 
-    if ( errptr ){
+    if (errptr) {
         std::rethrow_exception(errptr);
     }
 }
@@ -176,12 +175,12 @@ void PlotterBase<Formatter>::checkDefinitionDomain() {
  * Throw if this variable is not contained in the Input function variables
  * If the value added is out of the definition domain, this will silently
  * be ignored
- * */
+ */
 template < typename Formatter >
 void PlotterBase<Formatter>::addFixedValue
     (const std::string &var, double value){
 
-    if ( ! _func->hasVariable(var) ){
+    if (! _func->hasVariable(var)) {
         throw std::runtime_error(" Variable ["+var+"] does not exist");
     }
 
@@ -193,16 +192,16 @@ void PlotterBase<Formatter>::addFixedValue
  * Throw if this variable is not contained in the input function variables
  * If the values added are out of the definition domain, this will silently
  * be ignored
- * */
+ */
 template < typename Formatter >
 void PlotterBase<Formatter>::addFixedValues
-    ( const std::string &var, const std::vector<double> &vec){
+    (const std::string &var, const std::vector<double> &vec){
 
-    if ( ! _func->hasVariable(var) ){
+    if (! _func->hasVariable(var)) {
         throw std::runtime_error(" Variable ["+var+"] does not exist");
     }
 
-    for( const auto &i : vec ) {
+    for(const auto &i : vec) {
         _fixedValues[var].push_back(i);
     }
 }
@@ -213,16 +212,16 @@ void PlotterBase<Formatter>::addFixedValues
  * rvalue reference.
  * If the values added are out of the definition domain, this will silently
  * be ignored
- * */
+ */
 template < typename Formatter >
 void PlotterBase<Formatter>::addFixedValues
     (const std::string &var, std::vector<double> &&vec){
 
-    if ( ! _func->hasVariable(var) ){
+    if (! _func->hasVariable(var)) {
         throw std::runtime_error(" Variable ["+var+"] does not exist");
     }
 
-    for( const auto &i : vec ) {
+    for(const auto &i : vec) {
         _fixedValues[var].emplace_back(i);
     }
 }
@@ -234,12 +233,12 @@ void PlotterBase<Formatter>::addFixedValues
  *
  * This sets the corresponding vector of fixed value in the map of fixed
  * values
- * */
+ */
 template < typename Formatter >
 void PlotterBase<Formatter>::setFixedValuesNumber
     (const std::string &var, const std::size_t n){
 
-    if ( ! _func->hasVariable(var) ){
+    if (! _func->hasVariable(var)) {
         throw std::runtime_error(" Variable ["+var+"] does not exist");
     }
 
@@ -248,8 +247,8 @@ void PlotterBase<Formatter>::setFixedValuesNumber
 
     double h = (interval.upper() - interval.lower()) / (double) n;
 
-    for( std::size_t i = 0 ; i < n ; ++i ){
-        _fixedValues[var].push_back( interval.lower() + i * h);
+    for(std::size_t i = 0 ; i < n ; ++i) {
+        _fixedValues[var].push_back(interval.lower() + i * h);
     }
 }
 
