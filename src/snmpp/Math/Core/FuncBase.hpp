@@ -29,11 +29,6 @@ namespace snmpp { namespace math { namespace core {
 template<typename Key, typename ValueType>
 class FuncBase {
 
-
-    /***************************************************************************
-     * Interface
-     **************************************************************************/
-
   public:
 
     using ConstructorInputType = Variables<Key, ValueType>;
@@ -42,16 +37,14 @@ class FuncBase {
 
     /**
      * Constructor from a core::Variables
-     *
+     * @param vars
      */
-
     explicit FuncBase(const ConstructorInputType &vars) : _inputs(vars) {}
 
     /**
      * operator() overloading with no argument
-     *
+     * @return
      */
-
     const OutputType &operator()() {
         eval();
         return _outputs;
@@ -59,9 +52,9 @@ class FuncBase {
 
     /**
      * Operator() overloading with a map<Key, ValueType> argument
-     *
+     * @param vars
+     * @return
      */
-
     const OutputType &operator()(const InputType &vars) {
         _inputs.setFromMap(vars);
         eval();
@@ -69,46 +62,34 @@ class FuncBase {
     }
 
     /**
-     * Returns a copy of the calculated outputs
-     *
+     * @return a copy of the calculated outputs
      */
-
     OutputType getCopy() const {
         return _outputs;
     }
 
     /**
-     * Returns a const reference to its variables
-     *
+     * @return a const reference to its variables
      */
-
     const ConstructorInputType & getVariables()const {
         return _inputs;
     }
 
-    /**
-     * Returns true if @var is contained in the function variables, false
-     * otherwise.
-     */
+     /**
+      *
+      * @param var
+      * @return true if @param var is contained in the function variables, false
+      * otherwise.
+      */
     bool hasVariable(const Key &var) {
         auto it = _inputs.find(var);
-        if (it == _inputs.end()) {
-            return false;
-        }
-        return true;
+        return !(it == _inputs.end());
     }
-
 
     /**
      * Pure virtual eval method
-     *
      */
-
     virtual void eval() = 0;
-
-    /***************************************************************************
-     * Protected Attributes
-     **************************************************************************/
 
   protected:
 

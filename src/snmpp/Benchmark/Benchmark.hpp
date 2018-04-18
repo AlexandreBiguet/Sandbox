@@ -56,7 +56,6 @@ namespace snmpp { namespace benchmark {
  * @tparam Args     : The type of each argument that will be forward to the
  *                    function you want to benchmark
  */
-
 template <
     typename TimeUnit,
     typename Clock,
@@ -64,39 +63,39 @@ template <
 >
 class Benchmark {
 
-
-    /***************************************************************************
-     * Interface
-     **************************************************************************/
-
   public:
 
     /**
      * Creation of a Benchmark object from a BenchmarkConfig
-     **/
+     * @param config
+     */
     explicit Benchmark(const BenchmarkConfig &config);
 
     /**
      * Adding an item in the vector of arguments to be forward to the
      * function to be benchmarked
+     * @param t
      */
     void addArgs(const std::tuple< Args...> &t);
 
-    /**
-     * Execution of the benchmark using the callable object passed in argument
-     */
+     /**
+      * Execution of the benchmark using the callable object passed in argument
+      *
+      * @tparam Callable
+      * @param func
+      */
     template < typename Callable > void execute (Callable func);
-
-
-
-
-    /***************************************************************************
-     * Private
-     **************************************************************************/
 
   private:
 
+    /**
+     * A config instance
+     */
     BenchmarkConfig _config;
+
+    /**
+     * List of arguments
+     */
     std::vector< std::tuple< Args ... >> _args;
 
     /**
@@ -108,15 +107,22 @@ class Benchmark {
     boost::filesystem::path createDir ();
 
     /**
-     * Compute the mean of a vector
-     * -> Will be removed when snmpp has its Statistical Tools available
-     */
+      * Compute the mean of a vector
+      * -> Will be removed when snmpp has its Statistical Tools available
+      *
+      * @param v
+      * @return
+      */
     double mean_impl(const std::vector < typename TimeUnit::rep > &v);
 
-    /**
-     * Compute the variance of a vector using it previously computed mean.
-     * -> Will be removed when snmpp has its Statistical Tools available
-     */
+     /**
+      * Compute the variance of a vector using it previously computed mean.
+      * -> Will be removed when snmpp has its Statistical Tools available
+      *
+      * @param v
+      * @param mean
+      * @return
+      */
     double var_impl
         (const std::vector < typename TimeUnit::rep > &v, double mean);
 
@@ -132,16 +138,12 @@ class Benchmark {
      *  non-nested and used directly.
      *
      */
-
     struct SingleMeasure {
 
         std::tuple<Args...> _tupleArgs;
 
-
         /**
          *  Construction of a SingleMeasure from a tuple
-         *
-         * Q : Should we pass by value and use std::move ?
          */
         explicit SingleMeasure(const std::tuple<Args...> &t) : _tupleArgs(t){}
 

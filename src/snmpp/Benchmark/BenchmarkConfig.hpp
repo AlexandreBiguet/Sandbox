@@ -51,17 +51,26 @@ class BenchmarkConfig {
   public:
 
     /**
-     * Constructors
+     * Constructor
      *
+     * @param funcName
+     * @param argName
+     * @param iter
+     * @param dir
      */
-
     explicit BenchmarkConfig
         (const std::string &funcName,
          const std::string &argName,
          std::size_t iter = 100,
          const std::string &dir = "benchmarks");
 
-
+    /**
+     * Constructors
+     * @param funcName
+     * @param argNames
+     * @param iter
+     * @param dir
+     */
     explicit BenchmarkConfig
         (const std::string &funcName,
          const std::vector<std::string> &argNames,
@@ -69,26 +78,70 @@ class BenchmarkConfig {
          const std::string &dir = "benchmarks");
 
     /**
-     * Getters and Setters
-     *
+     * @return number of iterations
      */
-
     std::size_t getIterationNumber() const;
+
+    /**
+     * @return the path to the benchmark directory
+     */
     std::string getPathToBenchmarkDir() const;
+
+    /**
+     * @return  the function name
+     */
     std::string getFunctionName() const;
+
+    /**
+     * copy of the arguments name
+     */
     std::vector<std::string> getArgumentNames() const;
 
+    /**
+     *  Sets the number of iteration
+     * @param iter
+     */
     void setIterationNumber(std::size_t iter);
+
+    /**
+     * Sets the benchmark directory
+     * @param path
+     */
     void setPathToBenchmarkDir(const std::string &path);
+
+    /**
+     * Sets the function name
+     * @param n
+     */
     void setFunctionName(const std::string &n);
+
+    /**
+     *  Sets the arguments name
+     * @param v
+     */
     void setArgumentNames(const std::vector<std::string> &v);
 
 
   private:
 
+    /**
+     * The function name
+     */
     std::string _functionName;
+
+    /**
+     * List of arguments
+     */
     std::vector<std::string> _argumentNames;
+
+    /**
+     * Number of iterations
+     */
     std::size_t _iterationNumber;
+
+    /**
+     * path to the benchmark directory
+     */
     std::string _pathToBenchmarkDir;
 
 };
