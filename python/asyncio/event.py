@@ -1,8 +1,5 @@
 """
 Testing asyncio Event loop stuff
-
-https://docs.python.org/3/library/asyncio-eventloop.html
-
 """
 
 import asyncio
@@ -10,6 +7,9 @@ import datetime
 import logging
 import sys
 import time
+import functools
+import os
+import signal
 
 
 log_format = "[%(asctime)s.%(msecs)03d] [%(name)s] %(levelname)s : %(message)s"
@@ -109,7 +109,7 @@ def custom1():
 
 # -----------------------------------------------------------------------------
 # custom 2 : trying to understand the custom 1 / question
-def custom2():
+def custom2(sleeping_time=0.0, do_sleep=False):
     """
     I'm new python and asyncio and python debugger stuff.
     I just want to try to call a custom1.good_bye and 1 second after call a
@@ -117,6 +117,11 @@ def custom2():
 
     Note : Well, once the blocking wait is ended, the last task is performed.
     Depending on the time waiting, we may say other task to be performed
+
+    :param sleeping_time : time in second to sleep (only active if
+    do_sleep is True)
+
+    :param do_sleep : If True, then blocking sleep for sleeping_time seconds
 
     :return: None
     """
@@ -138,7 +143,8 @@ def custom2():
 
         if should_wait:
             _logger.info("blocking wait : started [only one time]")
-            time.sleep(15.0)
+            if do_sleep:
+                time.sleep(sleeping_time)
             _logger.info("blocking wait : ended [only one time]")
 
         loop.call_later(1.0, hello, False, False)
@@ -162,11 +168,17 @@ def main():
 
 if __name__ == "__main__":
 
-    try:
-        main()
-    except KeyboardInterrupt as e:
-        print("Catch ^C ")
-        loop = asyncio.get_event_loop()
+    def on_exit(sig_name):
+        print("got signal %s: exit" % sig_name)
         loop.stop()
+
+    loop = asyncio.get_event_loop()
+    for sig_name in ('SIGINT', 'SIGTERM'):
+        loop.add_signal_handler(getattr(signal, sig_name),
+                                functools.partial(on_exit, sig_name))
+
+    try:
+        # loop.run_forever()
+        main()
+    finally:
         loop.close()
-        quit()
