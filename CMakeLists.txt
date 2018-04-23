@@ -26,11 +26,17 @@ if(BUILD_WITH_CCACHE)
 
 endif()
 
+set ( CMAKE_CXX_STANDARD 14)
+
+add_definitions(-DBOOST_LOG_DYN_LINK)
+
 find_package(
         Boost 1.64
         COMPONENTS
-        thread
         coroutine
+        log
+        system
+        thread
         REQUIRED)
 
 set ( RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin )
