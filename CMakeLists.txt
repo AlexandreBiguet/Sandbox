@@ -34,6 +34,7 @@ find_package(
         Boost 1.64
         COMPONENTS
         coroutine
+        graph
         log
         system
         thread
@@ -41,14 +42,7 @@ find_package(
 
 set ( RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin )
 
-###############################################################################
+add_subdirectory(cpp)
 
-add_executable(cpp_boost_asio_task cpp/boost/asio/task.cpp)
-set_target_properties(
-        cpp_boost_asio_task
-        PROPERTIES
-        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/cpp/boost/asio )
-target_link_libraries(cpp_boost_asio_task ${Boost_LIBRARIES})
 
-###############################################################################
 
