@@ -3,7 +3,7 @@
 //  Sandbox
 //
 //  Created by Alexandre Biguet on 23/04/2018 at 11:09.
-//  Copyright © 2018 UAVIA. All rights reserved.
+//  Copyright © 2018 All rights reserved.
 //
 
 #include <iostream>

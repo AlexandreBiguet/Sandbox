@@ -25,3 +25,13 @@ set_target_properties(
         PROPERTIES
         RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/ )
 target_link_libraries(graph_tuto_read ${Boost_LIBRARIES})
+
+###############################################################################
+
+add_executable(concept_test concept/main.cpp)
+set_target_properties(
+        concept_test
+        PROPERTIES
+        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/ )
+target_link_libraries(concept_test ${Boost_LIBRARIES})
+
