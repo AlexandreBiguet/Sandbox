@@ -35,3 +35,11 @@ set_target_properties(
         RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/ )
 target_link_libraries(concept_test ${Boost_LIBRARIES})
 
+###############################################################################
+
+add_executable(optional_test optional/main.cpp)
+set_target_properties(
+        optional_test
+        PROPERTIES
+        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/ )
+target_link_libraries(optional_test ${Boost_LIBRARIES})
