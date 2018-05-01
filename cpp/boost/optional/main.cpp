@@ -111,6 +111,8 @@ int main () {
     holder.clear();
     holder.set(10,20);
     holder.print();
+    holder.set(15, 25);
+    holder.print();
   }
 
 
