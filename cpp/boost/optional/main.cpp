@@ -7,33 +7,112 @@
 //  
 //
 
-/// how to init an optionnal class member ?
+/// 1) how to init an optional class member ?
+/// 2) how to clear and re-init an optional class member
 
 #include <iostream>
-
+#include <utility>
 #include <boost/optional.hpp>
 
+///
+/// \tparam T
 template < typename T >
 struct Object {
-  explicit Object(const T& data) : _data(data) { }
+
+  /// Constructor
+  /// \param data
+  explicit Object(const T& data)
+      : _data(data)
+  { }
+
+  /// Print
+  void print() const {
+    std::cout << _data << std::endl;
+  }
+
   T _data;
 };
 
-template <typename T>
-struct ObjectHolder {
-  explicit ObjectHolder(const T& data) : _object(data) { }
+///
+/// \tparam T
+template < typename T >
+struct Object2 {
 
-  const Object<T>& object() const {
+  /// Constructor
+  /// \param one
+  /// \param two
+  explicit Object2(const T& one, const T& two )
+      : _one(one), _two(two)
+  { }
+
+  /// Print
+  void print() const {
+    std::cout << _one << "  " << _two << std::endl;
+  }
+
+  T _one;
+  T _two;
+};
+
+
+///
+/// \tparam Obj
+/// \tparam T
+template <template<typename> class Obj, typename T>
+struct ObjectHolder {
+
+  /// Constructor
+  /// \param data
+  template <typename... Args>
+  explicit ObjectHolder(Args&&... args)
+      : _object(Obj<T>(std::forward<Args>(args)...))
+  { }
+
+  /// Getter
+  /// \return
+  const Obj<T> & object() const {
     return _object.get();
   }
 
-  boost::optional<Object<T>> _object;
+  /// Clear
+  void clear() {
+    _object = boost::none;//boost::optional<Object<T>>();
+  }
+
+  /// Sets
+  /// \param data
+  template<typename... Args>
+  void set(Args&&... args) {
+    _object.emplace(std::forward<Args>(args)...);
+  }
+
+  /// Print
+  void print() const {
+    _object->print();
+  }
+
+  boost::optional< Obj<T> > _object;
 };
 
 int main () {
 
-  ObjectHolder<double> holder(2.0);
-  std::cout << holder.object()._data << std::endl;
+  {
+    ObjectHolder<Object, double> holder(2.0);
+    holder.print();
+
+    holder.clear();
+    holder.set(10.0);
+    holder.print();
+  }
+
+  {
+    ObjectHolder<Object2, int > holder(1, 2);
+    holder.print();
+    holder.clear();
+    holder.set(10,20);
+    holder.print();
+  }
+
 
   return 0;
 }
