@@ -8,7 +8,7 @@
 //
 
 /// 1) how to init an optional class member ?
-/// 2) how to clear and re-init an optional class member
+/// 2) how to clear and re-init an optional class member ?
 
 #include <iostream>
 #include <utility>
