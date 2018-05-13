@@ -1,0 +1,28 @@
+\documentclass{article}
+
+\usepackage[english]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{hyperref}
+\usepackage{feynmf}
+
+
+\unitlength=1mm
+
+\begin{document}
+
+\begin{fmffile}{fmftempl}
+\begin{fmfchar*}(40,25)
+  \fmfleft{em,ep} \fmflabel{$e^+$}{ep} \fmflabel{$e^-$}{em}
+  \fmf{fermion}{em,Zee,ep}
+  \fmf{photon,label=$\gamma,,Z$}{Zee,Zff}
+  \fmf{fermion}{fb,Zff,f}
+  \fmfright{fb,f} \fmflabel{$\bar f'$}{fb} \fmflabel{$f$}{f}
+  \fmfdot{Zee,Zff}
+\end{fmfchar*}
+\end{fmffile}
+
+
+
+\end{document}
+

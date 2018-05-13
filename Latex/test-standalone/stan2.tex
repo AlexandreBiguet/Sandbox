@@ -1,0 +1,32 @@
+\documentclass[beamer]{standalone}
+
+\usepackage[beamer]{these-pkg}
+
+\begin{document}
+\begin{frame}
+  \' Etude
+  \begin{itemize}
+    \only<1->{
+    \item TOTO2 (1)}
+    \only<2>
+    {
+      \addtocounter{framenumber}{1}
+    \item TOTO2 (2)
+    }
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \only<1>{
+    \newcommand{\tintin}{tintin}
+  }
+  \only <2>{
+    \newcommand{\tintin}{TINTIN}
+    }
+    \begin{itemize}
+    \only <1> { \item \tintin }
+    \only <2> {\item \tintin }
+    \end{itemize}
+\end{frame}
+
+\end{document}

@@ -1,0 +1,192 @@
+\documentclass{these}
+
+%\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\usepackage{tikz}
+\usepackage[babel=true,kerning=true]{microtype}
+
+\usetikzlibrary{shapes}
+
+
+\newcommand{\Tpict}[1]{%
+  \begin{tikzpicture}
+  #1
+\end{tikzpicture}
+}
+
+\begin{document}
+
+% \begin{tikzpicture}
+% \draw (0,0) circle (1) ;
+% \end{tikzpicture}
+
+% \Tpict{
+%   \draw (0,0) -- (1,0) ;
+%   \draw (0,0) -- (0,1) ;
+%   \draw (0,0) circle (1) ;
+%   \draw (-1,1) rectangle (1,-1) ;
+% }
+
+% \begin{center}
+% \Tpict{
+% \draw[->] (0,0) -- (5,0);
+% \draw (5,0) node[right] {Quantités} ;
+% \draw[->](0,0) -- (0,5) ;
+% \draw (0,5) node[above] {Prédictions};
+% \draw [domain=0:5]plot (\x, \x^2/4) ; 
+% }
+% \end{center}
+
+
+% Test
+
+% \Tpict{
+%   \node[draw,text width=3cm,%
+%   text centered,minimum width=5cm,minimum height=4cm] % 
+%   (p) at (0,0) {kldjfh qsldkfjh qsldkfjh qsldkfjh } ;
+%   \node[draw,text width=3cm,%
+%   text centered,minimum width=5cm,minimum height=4cm] % 
+%   (e) at (10,0) {TOTO } ;
+%   \draw[->] (p) -- (e) ;
+% }
+
+
+% \newpage
+
+% \Tpict{
+%   \node[draw,text width=3cm,%
+%   text centered,minimum width=5cm,minimum height=4cm] % 
+%   (p) at (0,0) {
+%   \[
+%   \begin{array}{ccc}
+%     \hline
+%     a & n & k \\
+%     g & k& k \\
+%     \hline
+%     \end{array}
+%   \]} ;
+%   \node[draw,text width=3cm,%
+%   text centered,minimum width=5cm,minimum height=4cm] % 
+%   (e) at (10,0) {TOTO } ;
+%   \draw[->] (p) -- (e) ;
+% }
+
+% \newpage
+
+\begin{center}
+  \Tpict{
+    \node[draw,text width=5cm,text centered] (param) at (0,0)
+    {
+      \[
+      \begin{array}{|ccc||cccc|}
+        \hline
+        \multicolumn{7}{|c|}{\textrm{Paramètres}} \\
+        \hline
+        \Lambda & \pm & \delta & \Lambda & = & 650 & \textrm{MeV} \\
+        m_0 & \pm & \delta & m_0 & = & 5.2 & \textrm{MeV} \\
+        G\Lambda^2 & \pm & \delta & G\Lambda^2 & = & 2.14 & \\
+        \hline
+      \end{array}
+      \]
+    } ;
+    \node[draw,text width=5cm,text centered] (dirpredict) at (3,-10)
+    {
+      \[
+      \begin{array}{|cccc|}
+        \hline
+        \multicolumn{4}{|c|}{\textrm{Prédictions internes (MeV)}} \\
+        \hline
+        m_\pi & = & 140 & \pm \delta \\
+        f_\pi   & = & 92 & \pm \delta \\
+        c & = & 316 & \pm \delta \\
+        \hline
+        \hline
+        \multicolumn{4}{|c|}{\textrm{Prédictions externes (MeV)}} \\
+        \hline
+        T_c & = & 50 & \pm \delta \\
+        \mu_c & = & 333 & \pm \delta \\
+        \hline
+      \end{array}
+      \]
+    } ;
+    \draw[->] (param) -- (dirpredict) ;
+  }
+\end{center}
+
+\newpage
+
+\begin{center}
+  \Tpict{
+    \node[draw,text width=6cm,text centered] (param) at (0,-5) 
+    {
+      \[
+      \begin{array}{|ccc|}
+        \hline
+        a & a & a \\
+        a & a & a \\
+        a & a & a \\
+        \hline
+      \end{array}
+      \]
+    } ;
+    \node[draw] (intpred) at (5,4)
+    {
+      % \[
+      % \begin{array}{|ccc|}
+      %   \hline
+      %   a & a & a \\
+      %   a & a & a \\
+      %   a & a & a \\
+      %   \hline
+      % \end{array}
+      % \]
+    } ;
+    \node[draw] (extpred) at (5,-4)
+    {
+      % \[
+      % \begin{array}{|ccc|}
+      %   \hline
+      %   a & a & a \\
+      %   a & a & a \\
+      %   a & a & a \\
+      %   \hline
+      % \end{array}
+      % \]
+    } ;
+    \draw[->] (param) -- (intpred) ;
+    \draw[->] (param) -- (extpred) ;
+}
+\end{center}
+
+\newpage
+
+\definecolor{toto}{rgb}{0.36, 0.54, 0.66}
+
+\tikzstyle{Rect}=[draw,rectangle, rounded corners=5pt,fill=toto,text=black]
+\tikzset{Rect/.style={draw,rectangle, rounded corners=5pt,fill=toto,text=black}}
+
+\begin{center}
+\Tpict{
+  \node[Rect] (param) at (0,-2) {Paramètres} ;
+  \node[Rect] (intpred) at (5,0) {Prédictions dans un domaine connu} ;
+  \node[Rect] (extpred) at (5,-4) {Prédiction dans un domaine inconnu};
+  \node[Rect] (data) at (-5,0) {Données connues};
+  \node[Rect] (extpredt) at (0,-5) {Prédiction externes} ;
+  \draw[->,color=red] (param.east) -- (intpred.west) ;
+  \draw[->,color=red] (param.east) -- (extpred.west) ;
+  \draw[->,color=blue] (data.south) -- (param.north) ;
+  \draw[->,color=blue] (param.south) -- (extpredt) ;
+}
+\end{center}
+
+
+\newpage
+
+\begin{center}
+\Tpict{
+  
+}
+
+
+
+\end{document}
+

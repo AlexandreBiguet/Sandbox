@@ -1,0 +1,25 @@
+\documentclass{beamer}
+
+\usepackage[beamer]{these-pkg}
+
+\usepackage{cancel}
+
+\begin{document}
+
+\begin{frame}
+\[
+\dd f(x)= tintin + \cancel{\dr} + \slashed{\dr} + \cancel{\mathrm{D}} + \slashed{\dd}
+\]
+\end{frame}
+
+
+\begin{frame}
+  \begin{tikzpicture}
+    \draw (current page.south west) to[grid with coordinates] (current page.north east);
+  \end{tikzpicture}
+\end{frame}  
+
+
+
+\end{document}
+

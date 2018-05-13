@@ -1,0 +1,209 @@
+\documentclass[a4paper]{report}
+
+
+
+
+
+%=========
+%=========
+%=========
+% PACKAGES
+%=========
+%=========
+%=========
+\usepackage[applemac]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[english,francais]{babel}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathrsfs}
+%\usepackage{amsthm}		 pour les théoremes.
+\usepackage{ dsfont }
+\usepackage{url}
+\usepackage{graphicx}
+\graphicspath{{images/}}
+\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+\usepackage[pdftex=true,
+                        colorlinks=true,
+		     linkcolor=black,
+		     citecolor=black,
+		     filecolor=black,
+                       urlcolor=black]{hyperref}
+\usepackage{titlesec}
+%% http://www.cnam.fr/maths/Membres/ghorbanzadeh/
+\usepackage{listings}
+%%configuration de listings
+\lstset{
+language=c++,
+basicstyle=\ttfamily\small, %
+identifierstyle=\color{red}, %
+keywordstyle=\color{blue}, %
+stringstyle=\color{black!60}, %
+commentstyle=\it\color{green!95!yellow!1}, %
+columns=flexible, %
+tabsize=2, %
+extendedchars=true, %
+showspaces=false, %
+showstringspaces=false, %
+numbers=left, %
+numberstyle=\tiny, %
+breaklines=true, %
+breakautoindent=true, %
+captionpos=b
+}
+\usepackage{xcolor}
+\definecolor{Zgris}{rgb}{0.87,0.85,0.85}
+
+
+\newsavebox{\BBbox}
+\newenvironment{DDbox}[1]{
+\begin{lrbox}{\BBbox}\begin{minipage}{\linewidth}}
+{\end{minipage}\end{lrbox}\noindent\colorbox{Zgris}{\usebox{\BBbox}} \\
+[.5cm]}
+
+
+
+\titleformat{\chapter}[display]
+ {\normalfont\Large\filcenter\bfseries}
+ {\titlerule[1pt]%
+  \vspace{1pt}%
+  \titlerule
+  \vspace{1pc}%
+  \LARGE\MakeUppercase{\chaptertitlename} \thechapter}
+ {1pc}
+ {\titlerule
+  \vspace{1pc}%
+  \Huge}
+
+
+
+
+%=========
+%=========
+%=========
+% NEW COMMANDS
+%=========
+%=========
+%=========
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% EQUATIONS 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\newcommand{\ben}{\begin{equation}}
+\newcommand{\een}{\end{equation}}
+
+%\newcommand{\bea}{\begin{align}}
+%\newcommand{\eea}{\end{align}}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%    SHORT-CUT
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand\ds{\displaystyle}
+\newcommand\sty{\scriptstyle}
+\newcommand\ts{\textstyle}
+
+\newcommand{\bm}[1]{\boldsymbol{#1}} %DR as recommended by amsmath better than \mathbf
+
+\newcommand{\mrm}[1]{\mathrm{#1}}
+
+\newcommand\vep{\varepsilon} 
+\newcommand\vph{\varphi} 
+
+%------------------------------------------------
+% derivations et element differentiels
+%------------------------------------------------
+\newcommand{\DD}{\dd x_1 \dd x_2 \dd x'_1 \dd x'_2 \; } % differential elements shortcut 
+\newcommand{\Dd}{\dd x \, \dd x' \;} % idem
+\newcommand\dd{\mathrm{d}} %DR the differential d
+\newcommand{\dr}{\partial}	% partial derivative
+
+%------------------------------------------------
+% opérateurs
+%------------------------------------------------
+\newcommand\ap{{\hat{a}}^{\,+}} %DR
+\newcommand\am{{\hat{a}}^{\, }} %DR
+\newcommand{\mO}{\hat{\mathcal{O}}}
+\newcommand{\T}{\hat{T}}
+\newcommand{\V}{\hat{V}}
+\renewcommand{\H}{\hat{H}}
+\renewcommand{\t}{\hat{t}}
+\renewcommand{\v}{\hat{v}}
+
+
+%------------------------------------------------
+% notations de Dirac
+%------------------------------------------------
+\newcommand{\bra}[1]{\left\langle #1 \right|} %DR
+\newcommand{\ket}[1]{\left| #1 \right\rangle}
+\newcommand{\keta}[1]{\widetilde{\left| #1 \right\rangle }}
+\newcommand{\scap}[2]{\left\langle #1 \right|\left. \! #2 \right\rangle} % scalar product < i | j > 
+\newcommand{\rmeB}[3]{\bra{#1}#2\ket{#3}}
+\newcommand{\rmeBa}[3]{\bra{#1}#2\keta{#3}}
+
+
+
+
+
+
+
+\begin{document}
+
+%=========
+%=========
+%=========
+% TITLE PAGE
+%=========
+%=========
+%=========
+\begin{titlepage}
+
+\begin{minipage}[c]{.3\linewidth}
+	\begin{flushleft}
+		\includegraphics[width=3cm]{lyon1.pdf}
+	\end{flushleft}
+\end{minipage}
+\begin{minipage}[c]{.3\linewidth}
+	\begin{center}
+ 		\includegraphics[width=3cm]{cnrs.pdf}
+	\end{center}
+\end{minipage}
+\begin{minipage}[c]{.3\linewidth} \hfill
+	\begin{flushright}
+		\includegraphics[width=3cm]{ipnl.eps}
+	\end{flushright}
+\end{minipage}
+\begin{minipage}{1.\linewidth}
+
+\end{minipage}
+\vspace{10cm}
+\begin{center}
+\huge {Notes travail de thèse} \\ 
+\vspace{4cm}
+\large Alexandre Biguet{\footnote{Institut de Physique Nucléaire de Lyon, Groupe Théorie, Bâtiment Dirac, 4 Rue Enrico Fermi, \url{a.biguet@ipnl.in2p3.fr}}} \\
+\vspace{5cm}
+-- Version 1.0 --
+
+\end{center}
+
+\end{titlepage}
+
+
+\tableofcontents
+
+
+
+
+\end{document}
+
+
+
+
+
+
+

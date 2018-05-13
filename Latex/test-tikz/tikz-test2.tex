@@ -1,0 +1,25 @@
+\documentclass[10pt, fleqn]{article}
+
+\usepackage{tikz}
+\usetikzlibrary{automata, arrows, positioning, fit, petri}
+
+\begin{document}
+
+\begin{tikzpicture}[ultra thick, scale = 2]
+
+    %% Define y-axis nodes for rotational reference frames
+    \foreach \nodename / \axislength / \axislabel in { {yaxis}/3/{y}, {yaxis}/4/{q}, {yaxis}/4/{q'} }
+    \node (\nodename) at (0, \axislength) [above] {\axislabel};
+
+    %% Define x-axis nodes for rotational reference frames
+    \foreach \nodename / \axislength / \axislabel in { {xaxis}/4/{x}, {xaxis}/1.5/{d}, {xaxis}/1.5/{d'} }
+    \node (\nodename) at (\axislength, 0) [right] {\axislabel};
+
+    %% Connect nodes to form rotational reference frames
+    \foreach \tilt / \nodenamey / \nodenamex in { 0/{yaxis}/{xaxis}, -45/{yaxis}/{xaxis}, -60/{yaxis}/{xaxis} }
+    \draw [<->, rotate=\tilt] (\nodenamey) |- (\nodenamex);
+
+\end{tikzpicture}
+
+
+\end{document}

@@ -1,0 +1,58 @@
+\documentclass{report}
+
+\usepackage[text]{these-pkg}
+
+
+
+\begin{document}
+
+\selectlanguage{francais}
+
+In List. \ref{toto1} on voit que 
+
+\begin{lstlisting}[style=CPP,caption=Un exemple C++,label=toto1]
+#include <iostream>
+// kikoo
+int main()
+{
+  return 0 ;
+}
+\end{lstlisting}
+
+mais dans \ref{toto2} on voit que
+
+\begin{lstlisting}[style=C,caption=Un exemple C,label=toto2]
+#include <iostream>
+// kikoo
+int main()
+{
+  return 0 ;
+}
+\end{lstlisting}
+
+\begin{lstlisting}[style=bash]
+  echo "tintin"
+  tintin
+\end{lstlisting}
+
+\begin{lstlisting}[style=bash]
+#!/bin/bash
+toto="black"
+if test -e tintint.tex ; then
+      toto=\$toto".flask"
+fi
+\end{lstlisting}
+
+\lstinputlisting[style=CPP]{cpp-test.cpp}
+
+
+Si on fait des maths alors ca donne : 
+\[
+\frac{\dd d}{\dd x} \;,
+\]
+
+
+\chapter{chap 1}
+
+
+\end{document}

@@ -1,0 +1,26 @@
+\documentclass{report}
+
+\usepackage{tikz}
+
+
+\begin{document}
+
+
+\begin{tikzpicture}
+
+\begin{scope}[shift={(1,1)}]
+  \node[rectangle, draw=black,thin,anchor=east] (a) at (0,0) {Node a} ;
+\end{scope}
+\begin{scope}[shift = {(a.east)}]
+  \node[rectangle,draw=black,thin,anchor=west] (b) at (0,0) {Node b} ;
+\end{scope}
+\end{tikzpicture}
+
+
+
+\end{document}
+
+
+
+
+

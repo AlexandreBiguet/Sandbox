@@ -1,0 +1,133 @@
+\NeedsTeXFormat{LaTeX2e}[1994/06/01]
+\ProvidesPackage{toto}
+  [2014/11/03 Package for the thesis]
+
+
+\newif\iftext
+\newif\ifbeamer
+\DeclareOption{text}{\texttrue}
+\DeclareOption{beamer}{\beamertrue}
+\ProcessOptions\relax
+
+\iftext
+\typeout{text option}
+\else
+\typeout{NO text option}
+\fi
+\ifbeamer
+\typeout{beamer option}
+\else
+\typeout{NO beamer option}
+\fi
+
+
+\typeout{checking for incompatible option}
+\iftext
+\ifbeamer
+\PackageError{toto}{text and beamer option incompatible}
+\fi
+\else
+\ifbeamer
+\else
+\typeout{default option if none given}
+\texttrue
+%\ExecuteOptions{text}
+%\ProcessOptions\relax
+\fi
+\fi
+
+\iftext
+\newcommand{\text}{only in text option}
+\fi
+\ifbeamer
+\newcommand{\beamer}{only in beamer option}
+\fi
+
+\RequirePackage{amsfonts , amssymb , amsmath}
+\RequirePackage[francais,english]{babel}
+\RequirePackage{array,multirow,makecell,tabularx}
+\RequirePackage{tikz,graphicx}
+\RequirePackage[babel=true,kerning=true]{microtype}
+\usetikzlibrary{shapes,snakes,decorations.text,calc}
+\RequirePackage{listings}
+\RequirePackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+% \RequirePackage{color}
+\RequirePackage{xcolor}
+\RequirePackage[%
+pdftex=true,colorlinks=true,linkcolor=blue,citecolor=red,
+filecolor=green,urlcolor=yellow]{hyperref}
+\RequirePackage{subfig}
+\RequirePackage{wrapfig}
+\RequirePackage{lineno}
+\RequirePackage{enumerate}
+\RequirePackage{appendix}
+\RequirePackage{perpage} %the perpage package
+\MakePerPage{footnote} % ==> permet de ré-initialiser le conteur des footnotes a chaque page
+
+\definecolor{Zgris}{rgb}{0.87,0.85,0.85}
+
+\lstdefinestyle{number}{numbers=left, stepnumber=1, numberstyle=\tiny, numbersep=10pt}
+
+\lstdefinestyle{CPP}{%
+  language=C++,
+  style=number,
+  backgroundcolor=\color{Zgris},
+  basicstyle=\ttfamily\small, %
+  identifierstyle=\color{red}, %
+  keywordstyle=\color{blue}, %
+  stringstyle=\color{black!60}, %
+  commentstyle=\it\color{green}, %
+  columns=flexible, %
+  tabsize=2, %
+  extendedchars=true, %
+  showspaces=false, %
+  showstringspaces=false, %
+  numbers=left, %
+  numberstyle=\tiny, %
+  breaklines=true, %
+  breakautoindent=true, %
+  captionpos=b
+}
+
+\lstdefinestyle{C}{%
+  language=C,
+  style=number,
+  backgroundcolor=\color{Zgris},
+  basicstyle=\ttfamily\small, %
+  identifierstyle=\color{red}, %
+  keywordstyle=\color{blue}, %
+  stringstyle=\color{black!60}, %
+  commentstyle=\it\color{green}, %
+  columns=flexible, %
+  tabsize=2, %
+  extendedchars=true, %
+  showspaces=false, %
+  showstringspaces=false, %
+  numbers=left, %
+  numberstyle=\tiny, %
+  breaklines=true, %
+  breakautoindent=true, %
+  captionpos=b
+}
+
+\lstdefinestyle{bash}{%
+  language=bash,
+  style=number,
+  backgroundcolor=\color{Zgris},
+  basicstyle=\ttfamily\small, %
+  identifierstyle=\color{red}, %
+  keywordstyle=\color{blue}, %
+  stringstyle=\color{black!60}, %
+  commentstyle=\it\color{green}, %
+  columns=flexible, %
+  tabsize=2, %
+  extendedchars=true, %
+  showspaces=false, %
+  showstringspaces=false, %
+  numbers=left, %
+  numberstyle=\tiny, %
+  breaklines=true, %
+  breakautoindent=true, %
+  captionpos=b
+}
+

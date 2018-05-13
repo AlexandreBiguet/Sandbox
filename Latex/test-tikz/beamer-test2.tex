@@ -1,0 +1,122 @@
+\documentclass[10pt,xcolor=table]{beamer}
+
+\usetheme{Boadilla}
+\usecolortheme{default}
+
+\setbeamerfont{title}{series=\bfseries,parent=structure}
+\setbeamerfont{frametitle}{series=\bfseries,parent=structure}
+
+
+\usepackage[francais]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{array,multirow,makecell,tabularx}
+\graphicspath{{../images/}}
+\usepackage{comment}
+\usepackage{tikz}
+\usepackage[beamer,customcolors]{hf-tikz}
+\usepackage[babel=true,kerning=true]{microtype}
+
+\usetikzlibrary{shapes,snakes,decorations.text}
+
+
+
+\makeatletter
+\def\grd@save@target#1{%
+  \def\grd@target{#1}}
+\def\grd@save@start#1{%
+  \def\grd@start{#1}}
+\tikzset{
+  grid with coordinates/.style={
+    to path={%
+      \pgfextra{%
+        \edef\grd@@target{(\tikztotarget)}%
+        \tikz@scan@one@point\grd@save@target\grd@@target\relax
+        \edef\grd@@start{(\tikztostart)}%
+        \tikz@scan@one@point\grd@save@start\grd@@start\relax
+        \draw[minor help lines] (\tikztostart) grid (\tikztotarget);
+        \draw[major help lines] (\tikztostart) grid (\tikztotarget);
+        \grd@start
+        \pgfmathsetmacro{\grd@xa}{\the\pgf@x/1cm}
+        \pgfmathsetmacro{\grd@ya}{\the\pgf@y/1cm}
+        \grd@target
+        \pgfmathsetmacro{\grd@xb}{\the\pgf@x/1cm}
+        \pgfmathsetmacro{\grd@yb}{\the\pgf@y/1cm}
+        \pgfmathsetmacro{\grd@xc}{\grd@xa + \pgfkeysvalueof{/tikz/grid with coordinates/major step}}
+        \pgfmathsetmacro{\grd@yc}{\grd@ya + \pgfkeysvalueof{/tikz/grid with coordinates/major step}}
+        \foreach \x in {\grd@xa,\grd@xc,...,\grd@xb}
+        \node[anchor=north] at (\x,\grd@ya) {\pgfmathprintnumber{\x}};
+        \foreach \y in {\grd@ya,\grd@yc,...,\grd@yb}
+        \node[anchor=east] at (\grd@xa,\y) {\pgfmathprintnumber{\y}};
+      }
+    }
+  },
+  minor help lines/.style={
+    help lines,
+    step=\pgfkeysvalueof{/tikz/grid with coordinates/minor step}
+  },
+  major help lines/.style={
+    help lines,
+    line width=\pgfkeysvalueof{/tikz/grid with coordinates/major line width},
+    step=\pgfkeysvalueof{/tikz/grid with coordinates/major step}
+  },
+  grid with coordinates/.cd,
+  minor step/.initial=.2,
+  major step/.initial=1,
+  major line width/.initial=2pt,
+}
+\makeatother
+
+\begin{document}
+
+\begin{frame}
+\begin{tikzpicture}[overlay]
+   \node[rectangle,very thick,anchor=south west,align=left] 
+  at (2,2) {Test positionnnement \\ d'un node dans une \\ frame} ;
+  \draw[help lines,step=.2] (-2,-2) grid (7,4);
+  \draw[help lines,line width=.6pt,step=1] (-2,-2) grid (7,4);
+  \foreach \x in {-2,-1,0,1,2,3,4,5,6,7}
+  \node[anchor=north] at (\x,-2) {\x};
+  \foreach \y in {-2,-1,0,1,2,3,4}
+  \node[anchor=east] at (-2,\y) {\y};
+\end{tikzpicture}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Titre de la frame}
+\begin{tikzpicture}
+  %\draw (-2,-2) to[grid with coordinates] (7,4);
+  \draw (current page.south west) to[grid with coordinates] (current page.north east);
+\node[rectangle,very thick,anchor=south west,align=left,draw=red] 
+  at (2,2) {Test positionnnement \\ d'un node dans une \\ frame} ;
+\node[rectangle,very thick,anchor=north west,align=left,draw=red] 
+  at (0,9) 
+  {
+    \begin{minipage}{7cm}
+      \[
+      \Sigma(X) =
+    \frac{\sigma_X}{\bar{X}}\frac{1}{\sigma_{\textrm{rel}}^I}
+    \left\{
+      \begin{array}{@{}c@{}cc@{}}
+        \Sigma & \le 1 & 
+        \begin{array}{@{}l@{}}
+          \textrm{Prédiction peu sensible}\\
+          \textrm{à la valeur précise des} \\ 
+          \textrm{inputs }\{m_\pi^*\,,f_\pi^*\,,c^*\}
+        \end{array} \\ 
+        && \\
+        \Sigma & \gg 1 & 
+        \begin{array}{@{}l@{}}
+          \textrm{Prédiction très sensible}\\
+          \textrm{à la valeur précise des }\\ 
+          \textrm{inputs } \{m_\pi^*\,,f_\pi^*\,,c^*\}
+        \end{array}\\ 
+      \end{array}
+    \right.
+      \]
+    \end{minipage}
+  };
+\end{tikzpicture}
+\end{frame}
+
+\end{document}

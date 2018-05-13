@@ -1,0 +1,156 @@
+%% Exemple de CV en LaTeX. 
+%% Émilia Robin (Emilia.Robin@ens.fr)
+%% janvier 2000
+
+\documentclass[a4paper,11pt]{article} % fonte 11 points, papier a4
+
+\usepackage[francais]{babel}    % faire du français
+\usepackage[applemac]{inputenc}   % accents dans le source
+\usepackage[T1]{fontenc}        % accents dans le DVI
+\usepackage{url}                % citer des adresses électroniques et des URL
+
+% La page
+%#########
+\pagestyle{empty}               % On ne numérote pas les pages
+\usepackage{vmargin}            % redéfinir les marges
+\setmarginsrb{3cm}{3cm}{3cm}{3cm}{0cm}{0cm}{0cm}{0cm}
+
+% Marge gauche, haute, droite, basse; espace entre la marge et le texte à
+% gauche, en  haut, à droite, en bas
+
+% Je redéfinis le comportement des guillemets
+%#############################################
+\catcode`\«=\active             
+\catcode`\»=\active
+\def«{\og\ignorespaces}
+\def»{{\fg}}
+
+% Diverses nouvelles commandes
+%#############################
+
+% Pour laisser de l'espace entre les lignes du tableau
+\newcommand\espace{\vrule height 20pt width 0pt}
+
+% Pour mes grands titres
+\newcommand{\titre}[1]{%
+	\begin{center}
+	\bigskip
+	\rule{\textwidth}{1pt}
+	\par\vspace{0.1cm}
+        \textbf{\large #1}
+	\par\rule{\textwidth}{1pt}
+	\end{center}
+	\bigskip
+	}
+
+% Début du document
+%###################
+\begin{document}
+%###################
+
+\begin{center}
+\par\textbf{\huge Curriculum Vitae}
+\end{center}
+
+\vspace{1.5cm}
+
+\begin{flushleft}
+Émilia Robin \\
+6, rue Henri Duchêne\\
+75\,015 Paris \\
+
+\medskip
+Tél.: 01 45 77 98 19
+
+E-mail: \url{Emilia.Robin@ens.fr}
+
+
+\end{flushleft}
+
+\begin{flushleft}
+Nationalité française \\
+Née le 20 août 1975 à Vesoul (Haute-Saône).
+\end{flushleft}
+
+
+\titre{Études}
+%#############
+
+\begin{tabular}{c@{ :  }p{0.8\textwidth}}
+
+
+\textbf{1998--1999} & Agrégation d'histoire (reçue 13\ieme) \\
+
+\espace
+\textbf{1997--1998} & DEA d'histoire contemporaine à l'Université de
+Paris~IV-Sorbonne, sous la direction de M.G.-H.Soutou: «L'URSS et la
+construction européenne de l'annonce du Plan Shuman à la signature du traité
+de Rome: l'exemple allemand et les notes de la RDA en 1950--1951», mention
+très bien. \\
+
+\espace
+\textbf{1996--1997} & Maîtrise d'histoire contemporaine à Paris~IV sous la
+direction de M. F.-G.  Dreyfus: «le discours officiel du Kominform face à la
+construction européenne entre 1947 et 1952», mention bien. 
+
+En parallèle, première année de russe  (DULCO) à l'Institut des Langues
+Orientales  (INALCO). \\
+
+\espace
+\textbf{1995--1996} & Première année à l'École Normale Supérieure, licence
+d'histoire à l'université de Paris~IV-Sorbonne. \\
+
+\espace
+\textbf{1992--1995} & Classes préparatoires à Paris au Lycée Condorcet puis au
+Lycée Fénelon. En 1995, licence d'espagnol à l'université Paris~IV. \\
+
+\espace
+\textbf{1992} & Baccalauréat (série A2, lettres et langues) à Vesoul
+(Haute-Saône).  \\
+
+\end{tabular}
+
+
+\titre{Langues pratiquées}
+%#########################
+
+
+\begin{itemize} 
+
+\item \textbf{Espagnol}, couramment (cours d'été du Colegio de España à
+Salamanque en 1993, licence d'espagnol en 1995, DELE en 1996)
+
+\medskip
+\item \textbf{Anglais}  (séjours réguliers en Angleterre  pendant cinq ans)
+
+\medskip
+\item \textbf{Allemand}, lu
+
+\medskip
+\item \textbf{Notions de russe} (cours de l'INALCO, cours d'été de
+l'Université d'État de Saint-Pétersbourg en 1997)
+
+\end{itemize}
+
+\titre{Expériences}
+%###################
+
+\begin{itemize}
+
+\item \textbf{Informatique}: j'ai créé un système de tutorat informatique dans
+le cadre de l'ENS, pour aider les élèves débutants (organisation de stages,
+rédaction d'un mensuel, entretien d'un site Web: 
+\url{http://www.eleves.ens.fr/tuteurs/}
+
+Je travaille sous Solaris ou Linux, et utilise couramment LaTeX et le langage
+HTML. Dans le cadre des stages, j'ai assuré environ 150~heures d'enseignement.
+
+\item \textbf{Chantiers de jeunes} avec l'association «Jeunesse et
+Reconstruction» (1994, 1995, animatrice en 1996, 1998 et 1999).  Dans ce
+cadre, j'ai eu en charge  des groupes de 10 à 15 personnes de nationalités et
+de langues différentes, pendant trois semaines, ainsi que la gestion des
+rapports entre l'association et la commune dans le cadre du chantier.
+
+\end{itemize}
+
+\end{document}

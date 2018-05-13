@@ -1,0 +1,139 @@
+\documentclass{these}
+
+%\usepackage[usenames,dvipsnames,svgnames,table]{xcolor}
+\usepackage{tikz}
+\usepackage[babel=true,kerning=true]{microtype}
+
+\usetikzlibrary{shapes,snakes}
+
+\newcommand{\Tcep}{T_{\textrm{cep}}}
+\newcommand{\mucep}{\mu_{\textrm{cep}}}
+
+\newcommand{\Tpict}[1]{%
+  \begin{tikzpicture}
+  #1
+\end{tikzpicture}
+}
+
+
+\newcommand{\tabparampd}{%
+  \begin{array}{c@{\,}c@{\,}c@{\,}c}
+    %\hline
+    %\multicolumn{4}{|c|}{\textrm{Paramètres}} \\
+    %\hline
+    \Lambda      & = & 650 & \textrm{MeV} \\
+    m_0            & = & 5.2  & \textrm{MeV} \\
+    G\Lambda^2 & = & 2.14 & \\ 
+    %\hline
+  \end{array}
+}
+
+\newcommand{\tabparampi}{%
+ \begin{array}{|c|}
+  % \hline
+   \Lambda \\
+   m_0 \\
+   G\Lambda^2 \\
+   %\hline
+ \end{array}
+}
+
+\newcommand{\tabpredictint}{%
+  \begin{array}{c@{\,}c@{\,}c@{\,}c}
+  %  \hline
+    %\multicolumn{4}{|c|}{\textrm{Prédictions (MeV)}}\\
+    %\multicolumn{4}{|c|}{\textrm{domaine connu}} \\
+    %\hline
+    m_\pi & = & 140 & (\pm \delta) \\
+    f_\pi & = & 92 & (\pm \delta) \\
+    c & = & 316 & (\pm \delta) \\
+ %   \hline
+    \end{array}
+}
+\newcommand{\tabpredictext}{%
+    \begin{array}{c@{\,}c@{\,}c@{\,}c}
+   % \hline
+   % \multicolumn{4}{|c|}{\textrm{Prédiction (MeV)}} \\
+   % \multicolumn{4}{|c|}{\textrm{domaine inconnu}} \\
+   % \hline
+    \Tcep & = & 50 & (\pm \delta) \\
+    \mucep & = & 333 & (\pm \delta) \\
+    %\hline
+  \end{array}
+}
+
+\begin{document}
+
+\Tpict{
+
+  \draw[draw=blue] plot[mark=+] file {data.txt} ;
+
+}
+
+Test si les tableaux sont ok :
+
+\[
+\tabparampd
+\]
+
+\[
+\tabparampi
+\]
+
+\[
+\tabpredictint
+\]
+
+\[
+\tabpredictext
+\]
+
+\definecolor{sweetred}{HTML}{F7819F}
+\tikzstyle{pbdirectbox}=[draw=blue,fill=sweetred,very thick,rectangle,%
+                       rounded corners]
+\tikzstyle{pbinversebox}=[draw=red,fill=blue!20,very thick,rectangle,%
+                       rounded corners]
+\tikzstyle{pbdtitle}=[fill=blue,text=white,align=center,anchor=east]
+\tikzstyle{pbititle}=[fill=red,text=white]
+
+\Tpict{
+  % Direct problem param box
+  \node[pbdirectbox] (pbdparbox) at (0,-2) { %
+    \begin{minipage}{2.7cm}
+      \[ \tabparampd \]
+    \end{minipage}
+  }; 
+  % Direct problem param box title
+  \node[pbdtitle] (pbdparamtit) at (pbdparbox.north east) {Paramètres} ;
+  % Direct problem intern predictions
+  \node[pbdirectbox] (pbdpredint) at (6,0){ %
+    \begin{minipage}{3cm}
+      \[ \tabpredictint \]
+    \end{minipage}
+  } ;
+  %Direct problem inter prediction title
+  \node[pbdtitle] (pbdpredinttit) at (pbdpredint.north east) {Prédiction dans \\ domaine connu} ;
+  %Direct problem extern predictions 
+  \node[pbdirectbox] (pbdpredext) at (6,-4) { %
+    \begin{minipage}{3cm}
+     \[\tabpredictext \]
+    \end{minipage}
+  };
+  % Direct problem extern prediction title
+  \node [pbdtitle] (pbdpredexttit) at (pbdpredext.north east) {Prédiction dans \\ domaine inconnu} ;
+  %  
+  % Approximation node
+  \node[rectangle,draw=blue,dashed,fill=white,align=center,very thick] (approx) at (4,-2) 
+  {QCD $\sim$ NJL \\ Champ--Moyen \\ Ring} ;
+  % Approxiamtion title
+  %\node[pbdtitle] (approxtitle) at (approx.north east) {Approximation} ;
+  % Links between boxes
+  \draw [->,thick,draw=blue] (pbdparbox.east) to [out=0,in=180] (pbdpredint) ;
+   \draw [->,thick,draw=blue] (pbdparbox.east) to [out=0,in=180] (pbdpredext) ;
+}
+
+
+
+\end{document}
+
+

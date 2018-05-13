@@ -1,0 +1,17 @@
+\contentsline {section}{\numberline {1}QED}{1}{section.1}
+\contentsline {section}{\numberline {2}QED+$\mu $}{2}{section.2}
+\contentsline {section}{\numberline {3}QED+$Z$+$\mu $}{3}{section.3}
+\contentsline {section}{\numberline {4}Blob diagrams}{3}{section.4}
+\contentsline {section}{\numberline {5}Coleman Weinberg}{3}{section.5}
+\contentsline {section}{\numberline {6}'t Hooft operator}{4}{section.6}
+\contentsline {section}{\numberline {7}Anomaly}{4}{section.7}
+\contentsline {section}{\numberline {8}SUSY Cascade}{5}{section.8}
+\contentsline {section}{\numberline {9}Hadronic interactions}{5}{section.9}
+\contentsline {section}{\numberline {10}Flavor (box and penguins)}{6}{section.10}
+\contentsline {section}{\numberline {11}Multiloop}{6}{section.11}
+\contentsline {section}{\numberline {12}Renormalization}{6}{section.12}
+\contentsline {section}{\numberline {13}Cross section}{6}{section.13}
+\contentsline {section}{\numberline {14}$Z$ boson}{7}{section.14}
+\contentsline {section}{\numberline {15}$W$ boson}{7}{section.15}
+\contentsline {section}{\numberline {16}Dark Matter}{8}{section.16}
+\contentsline {section}{\numberline {17}Coleman Weinberg}{8}{section.17}

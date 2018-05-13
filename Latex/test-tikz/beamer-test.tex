@@ -1,0 +1,147 @@
+\documentclass[10pt,xcolor=table]{beamer}
+
+\usetheme{Boadilla}
+\usecolortheme{default}
+
+\setbeamerfont{title}{series=\bfseries,parent=structure}
+\setbeamerfont{frametitle}{series=\bfseries,parent=structure}
+
+
+\usepackage[francais]{babel}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{array,multirow,makecell,tabularx}
+\graphicspath{{../images/}}
+\usepackage{comment}
+\usepackage{tikz}
+\usepackage[beamer,customcolors]{hf-tikz}
+\usepackage[babel=true,kerning=true]{microtype}
+
+\usetikzlibrary{shapes,snakes,decorations.text}
+
+\setcellgapes{1pt}
+\makegapedcells
+\newcolumntype{R}[1]{>{\raggedleft\arraybackslash }b{#1}}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash }b{#1}}
+\newcolumntype{C}[1]{>{\centering\arraybackslash }b{#1}}
+
+\newcommand{\sensibilite}[1]
+{
+  \begin{minipage}{#1}
+    \[
+    \Sigma(X) =
+    \frac{\sigma_X}{\bar{X}}\frac{1}{\sigma_{\mrm{rel}}^I}
+    \left\{
+      \begin{array}{@{}c@{}cc@{}}
+        \Sigma & \le 1 & 
+        \begin{array}{@{}l@{}}
+          \textrm{Prédiction peu sensible}\\
+          \textrm{à la valeur précise des} \\ 
+          \textrm{inputs }\{m_\pi^*\,,f_\pi^*\,,c^*\}
+        \end{array} \\ 
+        && \\
+        \Sigma & \gg 1 & 
+        \begin{array}{@{}l@{}}
+          \textrm{Prédiction très sensible}\\
+          \textrm{à la valeur précise des }\\ 
+          \textrm{inputs } \{m_\pi^*\,,f_\pi^*\,,c^*\}
+        \end{array}\\ 
+      \end{array}
+    \right.
+    \]
+  \end{minipage}
+}
+
+\newcommand{\dispersion}[1]
+{
+  \begin{minipage}{#1}
+    \[
+    \sigma_{\mrm{rel}}^I = \frac{1}{3}\left[ 
+      \frac{\sigma(m_\pi)}{\bar{m_\pi}} + 
+      \frac{\sigma(f_\pi)}{\bar{f_\pi}} + 
+      \frac{\sigma(c)}{\bar{c}} \right] \;
+    \]
+  \end{minipage}
+}
+
+\newcommand{\FTitle}{ \frametitle{Titre de la frame}}
+
+\begin{document}
+
+\begin{frame}
+  \frametitle{Titre de la frame}
+  \begin{tikzpicture}
+    \begin{scope}[shift={(current page.south west)}]
+      \draw[gray!50] (0,0) grid[step=2mm] (current page.north east);
+      \draw[red!50] (0,0) grid[step=1cm] (current page.north east);
+      \draw (0.2,1) node {1};
+      \draw (0.2,2) node {2};
+      \draw (0.2,3) node {3};
+      \draw (0.2,4) node {4};
+      \draw (0.2,5) node {5};
+      \draw (0.2,6) node {6};
+      \draw (0.2,7) node {7};
+      \draw (0.2,8) node {8};
+      \draw (0.2,9) node {9};
+      \draw (1,0.5) node {1};
+      \draw (2,0.5) node {2};
+      \draw (3,0.5) node {3};
+      \draw (4,0.5) node {4};
+      \draw (5,0.5) node {5};
+      \draw (6,0.5) node {6};
+      \draw (7,0.5) node {7};
+      \draw (8,0.5) node {8};
+      \draw (9,0.5) node {9};
+      \draw (10,0.5) node {10};
+      \draw (11,0.5) node {11};
+      \draw (12,0.5) node {12};
+    \end{scope}
+    \node[rectangle,very thick,anchor=south west,align=left,draw=red] 
+  at (2,2) {Test positionnnement \\ d'un node dans une \\ frame} ;
+\node[rectangle,very thick,anchor=north west,align=left,draw=red] 
+  at (0,9) 
+  {
+    \begin{minipage}{7cm}
+      \[
+      \Sigma(X) =
+    \frac{\sigma_X}{\bar{X}}\frac{1}{\sigma_{\textrm{rel}}^I}
+    \left\{
+      \begin{array}{@{}c@{}cc@{}}
+        \Sigma & \le 1 & 
+        \begin{array}{@{}l@{}}
+          \textrm{Prédiction peu sensible}\\
+          \textrm{à la valeur précise des} \\ 
+          \textrm{inputs }\{m_\pi^*\,,f_\pi^*\,,c^*\}
+        \end{array} \\ 
+        && \\
+        \Sigma & \gg 1 & 
+        \begin{array}{@{}l@{}}
+          \textrm{Prédiction très sensible}\\
+          \textrm{à la valeur précise des }\\ 
+          \textrm{inputs } \{m_\pi^*\,,f_\pi^*\,,c^*\}
+        \end{array}\\ 
+      \end{array}
+    \right.
+      \]
+    \end{minipage}
+  };
+  \end{tikzpicture}
+\end{frame}
+
+\begin{frame}
+  \begin{center}
+    \begin{tikzpicture}
+      \draw[help lines,xstep=.2,ystep=.2] (current page.south west) grid (current page.north east) ;
+      %\foreach \x in {0,1,...,9} {\node [anchor=north] at (\x) {\x} ;}
+       %\foreach \x in {0,1,2,3,4,5,6,7,8,9} { \node [anchor=north] at (\x/10,0) {0.\x}; }
+       %\foreach \y in {0,1,2,3,4,5,6,7,8,9} { \node [anchor=east] at
+        % (0,\y/10) {0.\y}; }
+      %\foreach \x in {0,1,2,3,4,5,6,7,8,9} { \node [anchor=north] at (\x,0) {\x}; }
+       %\foreach \y in {0,1,2,3,4,5,6,7,8,9} { \node [anchor=east] at (0,\y) {\y}; }
+    \end{tikzpicture}
+  \end{center}
+\end{frame}
+
+
+\end{document}
+
