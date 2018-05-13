@@ -1,0 +1,23 @@
+define fact_rec (n) {
+  if (n < 0) {
+    print "oops";
+    halt;
+  }
+  if (n < 2) return 1;
+  return n*fact_rec(n-1);
+}
+
+define combin(n,m)
+{
+	if(n<=0)
+	{ 
+		print "wrong value for n";
+		halt;
+	}
+	if(n<m)
+	{
+		print "n must be > m";
+		halt;
+	}
+	return fact_rec(n)/ (fact_rec(n-m)*fact_rec(m)) ;
+}
