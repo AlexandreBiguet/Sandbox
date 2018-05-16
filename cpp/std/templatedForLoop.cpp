@@ -6,10 +6,13 @@
 //  Copyright © 2018 All rights reserved.
 //
 
+/**
+ * test : inversed templated while loop
+ */
+
 #include <array>
 #include <iostream>
 #include <string>
-
 
 template <size_t Dim, size_t N>
 class Looper {

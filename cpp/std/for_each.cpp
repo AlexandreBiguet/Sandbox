@@ -7,6 +7,10 @@
 //  
 //
 
+/**
+ * testing std::for_each
+ */
+
 #include <algorithm>
 #include <iostream>
 #include <vector>
