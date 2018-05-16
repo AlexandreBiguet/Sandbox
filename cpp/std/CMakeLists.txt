@@ -13,3 +13,13 @@ set_target_properties(
         std_for_each
         PROPERTIES
         RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/ )
+
+###############################################################################
+
+add_executable(std_inheritance inheritance.cpp)
+set_target_properties(
+        std_inheritance
+        PROPERTIES
+        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/ )
+
+###############################################################################
