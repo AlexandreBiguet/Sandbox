@@ -3,7 +3,7 @@
 #  Sandbox
 #
 #  Created by Alexandre Biguet on 17/05/2018 at 16:57.
-#  Copyright © 2018 UAVIA. All rights reserved.
+#  Copyright © 2018 . All rights reserved.
 #
 
 find_package ( PkgConfig REQUIRED )
