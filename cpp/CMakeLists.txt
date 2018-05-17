@@ -46,5 +46,5 @@ set ( RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin )
 add_subdirectory(std)
 add_subdirectory(boost)
 add_subdirectory(plugins)
-
+add_subdirectory(geographiclib)
 
