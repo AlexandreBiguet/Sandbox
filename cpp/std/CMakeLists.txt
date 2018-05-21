@@ -23,3 +23,12 @@ set_target_properties(
         RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/ )
 
 ###############################################################################
+
+add_executable(std_inheritance2 inheritance2.cpp)
+set_target_properties(
+        std_inheritance2
+        PROPERTIES
+        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/ )
+
+
+###############################################################################
