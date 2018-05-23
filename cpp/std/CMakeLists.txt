@@ -30,5 +30,13 @@ set_target_properties(
         PROPERTIES
         RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/ )
 
+###############################################################################
+
+add_executable(std_conversion conversion.cpp)
+set_target_properties(
+        std_conversion
+        PROPERTIES
+        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/ )
+
 
 ###############################################################################
