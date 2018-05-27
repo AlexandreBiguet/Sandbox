@@ -1,5 +1,5 @@
 //
-//  plugs.hpp 
+//  plugs.hpp
 //  Sandbox
 //
 //  Created by Alexandre Biguet on 17/05/2018 at 08:12.
@@ -22,7 +22,7 @@ class Plugin1 : public Plugins::Interface {
 
   std::string name() const override;
 
-  double calc (double x) const override;
+  double calc(double x) const override;
 
   ~Plugin1() override;
 
@@ -32,7 +32,6 @@ class Plugin1 : public Plugins::Interface {
 
 class Plugin2 : public Plugins::Interface {
  public:
-
   Plugin2();
 
   std::string name() const override;
@@ -45,8 +44,7 @@ class Plugin2 : public Plugins::Interface {
   std::string _name;
 };
 
-
-}
-} // namespace Sandbox 
+}  // namespace myPlug
+}  // namespace Sandbox
 
 // plugs.hpp ends here

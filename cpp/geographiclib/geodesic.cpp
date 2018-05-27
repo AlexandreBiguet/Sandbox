@@ -1,5 +1,5 @@
 //
-//  geodesic.cpp 
+//  geodesic.cpp
 //  Sandbox
 //
 //  Created by Alexandre Biguet on 17/05/2018 at 16:59.
@@ -15,7 +15,7 @@ static double earthRadius_m = 6371000.0;
 static double degToRad = M_PI / 180.0;
 
 struct Point {
-  Point(double lat, double lon) : _lat(lat), _lon(lon) { }
+  Point(double lat, double lon) : _lat(lat), _lon(lon) {}
   double latitude() const { return _lat; }
   double longitude() const { return _lon; }
 
@@ -45,7 +45,7 @@ double haversine(const Point& p1, const Point& p2) {
   return 2.0 * earthRadius_m * asin(temp);
 }
 
-double geodesic (const Point& p1, const Point& p2) {
+double geodesic(const Point& p1, const Point& p2) {
   GeographicLib::Geodesic geod(GeographicLib::Constants::WGS84_a(),
                                GeographicLib::Constants::WGS84_f());
   double len;
@@ -54,10 +54,9 @@ double geodesic (const Point& p1, const Point& p2) {
   return len;
 }
 
-int main () {
-
+int main() {
   Point newyork(40.730610, -73.935242);
-  Point paris (48.864716, 2.349014);
+  Point paris(48.864716, 2.349014);
 
   double l1 = haversine(paris, newyork);
   double l2 = geodesic(paris, newyork);

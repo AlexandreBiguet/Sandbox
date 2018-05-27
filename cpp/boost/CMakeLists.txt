@@ -52,4 +52,3 @@ set_target_properties(
         PROPERTIES
         RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/ )
 target_link_libraries(optional_test ${Boost_LIBRARIES})
-

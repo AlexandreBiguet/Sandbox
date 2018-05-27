@@ -9,8 +9,15 @@
 #include <iostream>
 
 namespace project { namespace Demo {
-    void demo2() {
-        std::cout << " Demo 2 \n";
-    }
+
+  static double aVeryLongFunctionNameWithALotOfParameters(int first, int second, int third) {
+    return 0.0;
+  }
+
+  void demo2() {
+    std::cout << " Demo 2 \n";
+  }
+
+
 }
 }

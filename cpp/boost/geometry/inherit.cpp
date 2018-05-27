@@ -1,5 +1,5 @@
 //
-//  inherit.cpp 
+//  inherit.cpp
 //  Sandbox
 //
 //  Created by Alexandre Biguet on 26/04/2018 at 09:33.
@@ -24,31 +24,24 @@ using BPoint = boost::geometry::model::point<double, Dim, BCartesian>;
 template <typename PointType>
 using BRing = boost::geometry::model::ring<PointType, true>;
 
-template<typename Point>
+template <typename Point>
 class Ring : public BRing<Point> {
-
  public:
-
   Ring() = default;
 
-  template < typename Iter >
-  Ring(Iter begin, Iter end)
-      : BRing<Point>(begin, end)
-  { }
-
+  template <typename Iter>
+  Ring(Iter begin, Iter end) : BRing<Point>(begin, end) {}
 };
 
-} // namespace Test
+}  // namespace Test
 
-template < typename Point >
+template <typename Point>
 void print(const Point& p) {
-  std::cout
-      << "[ " << boost::geometry::get<0>(p) << " ; "
-      << boost::geometry::get<1>(p)<< " ] \n";
+  std::cout << "[ " << boost::geometry::get<0>(p) << " ; "
+            << boost::geometry::get<1>(p) << " ] \n";
 }
 
-int main () {
-
+int main() {
   Test::Ring<Test::BPoint<2>> ring;
   ring.push_back({0.0, 0.0});
   ring.push_back({1.0, 0.0});
@@ -56,21 +49,20 @@ int main () {
   ring.push_back({0.0, 1.0});
   ring.push_back({0.0, 0.0});
 
-  for (const auto & elem : ring) {
+  for (const auto& elem : ring) {
     print(elem);
   }
 
   std::cout << "\n";
 
-  Test::BRing < Test::BPoint<2> > ring1;
+  Test::BRing<Test::BPoint<2>> ring1;
   ring1.push_back({0.0, 0.0});
   ring1.push_back({1.0, 0.0});
   ring1.push_back({0.0, 0.0});
 
-  for (const auto & elem : ring1) {
+  for (const auto& elem : ring1) {
     print(elem);
   }
-
 
   return 0;
 }
