@@ -5,13 +5,13 @@ line_width = 80
 tab_size = 2
 
 # If arglists are longer than this, break them always
-max_subargs_per_line = 3
+max_subargs_per_line = 1
 
 # If true, separate flow control names from their parentheses with a space
 separate_ctrl_name_with_space = False
 
 # If true, separate function names from parentheses with a space
-separate_fn_name_with_space = False
+separate_fn_name_with_space = True
 
 # If a statement is wrapped to more than one line, than dangle the closing
 # parenthesis on it's own line
@@ -29,18 +29,3 @@ line_ending = u'unix'
 # Format command names with this case. Options are "lower", "upper",
 # "unchanged"
 command_case = u'lower'
-
-# Specify structure for custom cmake functions
-additional_commands = {
-  "foo": {
-    "flags": [
-      "BAR",
-      "BAZ"
-    ],
-    "kwargs": {
-      "HEADERS": "*",
-      "DEPENDS": "*",
-      "SOURCES": "*"
-    }
-  }
-}
