@@ -1,0 +1,3 @@
+# Config file for HelloProject package
+
+include("${CMAKE_CURRENT_LIST_DIR}/@PROJECT_LIB_TARGET@.cmake")
