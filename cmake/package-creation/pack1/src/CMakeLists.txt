@@ -62,7 +62,7 @@ install_files_in_list("${HEADERS}" "${INSTALL_PATH_HEADERS}" false)
 
 write_basic_package_version_file(
   "${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_LIB}/${PROJECT_LIB}ConfigVersion.cmake"
-  VERSION ${Upstream_VERSION}
+  VERSION ${PROJECT_VERSION}
   COMPATIBILITY AnyNewerVersion
 )
 
