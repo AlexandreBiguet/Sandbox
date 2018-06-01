@@ -111,7 +111,7 @@ def custom1():
 # custom 2 : trying to understand the custom 1 / question
 def custom2(sleeping_time=0.0, do_sleep=False):
     """
-    I'm new python and asyncio and python debugger stuff.
+    I'm new to python and asyncio and python debugger stuff.
     I just want to try to call a custom1.good_bye and 1 second after call a
     blocking sleeping function
 
