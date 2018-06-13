@@ -28,15 +28,6 @@ target_link_libraries(graph_tuto_read ${Boost_LIBRARIES})
 
 ###############################################################################
 
-add_executable(geo_inherit geometry/inherit.cpp)
-set_target_properties(
-        geo_inherit
-        PROPERTIES
-        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/ )
-target_link_libraries(geo_inherit ${Boost_LIBRARIES})
-
-###############################################################################
-
 add_executable(concept_test concept/main.cpp)
 set_target_properties(
         concept_test
@@ -52,3 +43,17 @@ set_target_properties(
         PROPERTIES
         RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/ )
 target_link_libraries(optional_test ${Boost_LIBRARIES})
+
+###############################################################################
+
+add_subdirectory(geometry)
+
+###############################################################################
+
+add_executable(BoostAny any/main.cpp)
+set_target_properties(
+        BoostAny
+        PROPERTIES
+        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/ )
+
+###############################################################################

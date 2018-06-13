@@ -38,5 +38,28 @@ set_target_properties(
         PROPERTIES
         RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/ )
 
+###############################################################################
+
+add_executable(std_prettyFunc PrettyFuncMacro.cpp)
+set_target_properties(
+        std_prettyFunc
+        PROPERTIES
+        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/ )
+
+###############################################################################
+
+add_executable(std_vector Vector.cpp)
+set_target_properties(
+        std_vector
+        PROPERTIES
+        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/ )
+
+###############################################################################
+
+add_executable(std_weakPtr WeakPtr.cpp)
+set_target_properties(
+        std_weakPtr
+        PROPERTIES
+        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/ )
 
 ###############################################################################

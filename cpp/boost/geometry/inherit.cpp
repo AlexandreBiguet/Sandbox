@@ -1,10 +1,9 @@
-//
-//  inherit.cpp
-//  Sandbox
-//
-//  Created by Alexandre Biguet on 26/04/2018 at 09:33.
-//  Copyright © 2018
-//
+/**
+ * @Author: Alexandre Biguet <alexandrebiguet>
+ * @Date:   20 - May - 2018
+ * @Last modified by:   alexandrebiguet
+ * @Last modified time: 13 - Jun - 2018
+ */
 
 #include <iostream>
 
