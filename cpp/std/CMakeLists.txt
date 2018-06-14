@@ -63,3 +63,11 @@ set_target_properties(
         RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/ )
 
 ###############################################################################
+
+add_executable(std_CastOperator CastOperator.cpp)
+set_target_properties(
+        std_CastOperator
+        PROPERTIES
+        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/ )
+
+###############################################################################
