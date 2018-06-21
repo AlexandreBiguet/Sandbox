@@ -44,7 +44,53 @@ struct MyVector : public std::vector<T, std::allocator<T>> {
   MyVector() : base_t() {}
 };
 
+Two::Tensor3d<double> getTensor3d() {
+  return {{{1.0, 2.0}, {3.0, 4.0}}, {{10.0, 20.0}, {30.0, 40.0}}};
+}
+
+/// Testing very simple set
+void simpleTest1();
+
+/// Testing if a non trivial tensor3d is appened properly
+void simpleTest2();
+
+/// Testing how to append quantities to an existing key
+void simpleTest3();
+
 int main() {
+  simpleTest1();
+  std::cout << std::endl;
+  simpleTest2();
+  std::cout << std::endl;
+  simpleTest3();
+  std::cout << std::endl;
+  return 0;
+}
+
+void simpleTest3() {
+  std::cout << "Simple Test 3 \n";
+  nlohmann::json json, json_2;
+  // json["list"] = {};
+  json_2["a"] = 12.0;
+  json_2["sublist 1"]["item 1"] = 1.0;
+  json_2["sublist 1"]["item 2"] = 2.0;
+  json_2["sublist 2"]["item 1"] = 10.0;
+  json_2["sublist 2"]["item 2"] = 20.0;
+  json["list"].push_back(json_2);
+  std::cout << json << std::endl;
+  std::cout << "Simple Test 3 : Ended\n";
+}
+
+void simpleTest2() {
+  std::cout << "Simple Test 2 \n";
+  nlohmann::json json;
+  json["tensord3d"] = getTensor3d();
+  std::cout << json << std::endl;
+  std::cout << "Simple Test 2 : Ended \n";
+}
+
+void simpleTest1() {
+  std::cout << "Simple Test 1 \n";
   nlohmann::json json;
   Two two;
   json["vector"] = two.vector();
@@ -56,7 +102,6 @@ int main() {
   vec.push_back(2.0);
   vec.push_back(3.0);
   json["myVector"] = vec;
-
   std::cout << json << std::endl;
-  return 0;
+  std::cout << "Simple Test 1 : Ended \n";
 }
