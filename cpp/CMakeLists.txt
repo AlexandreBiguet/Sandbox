@@ -41,10 +41,14 @@ find_package(
         thread
         REQUIRED)
 
-set ( RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin )
+set(RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin )
+set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake-modules" )
+set(EXTERNAL_PROJECTS_PREFIX ${CMAKE_BINARY_DIR}/external-projects)
+include(ExternalProject)
+include("${CMAKE_MODULE_PATH}/install.cmake")
 
 add_subdirectory(std)
 add_subdirectory(boost)
 add_subdirectory(plugins)
 add_subdirectory(geographiclib)
-
+add_subdirectory(nlohmann_json)
