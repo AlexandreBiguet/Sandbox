@@ -1,0 +1,4 @@
+- Kalman filter
+  - http://www.ferdinandpiette.com/blog/2011/04/le-filtre-de-kalman-de-lestimateur-optimal-au-filtre-de-kalman/
+  - http://www.ferdinandpiette.com/blog/2011/04/exemple-dutilisation-du-filtre-de-kalman/
+  - http://www.ferdinandpiette.com/blog/2011/05/le-filtre-de-kalman-etendu-principe-et-exemple/
