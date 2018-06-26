@@ -1,7 +1,7 @@
 ## Author: Alexandre BIGUET
 ## Created: 2018/04/23 9:28
 
-cmake_minimum_required (VERSION 3.5.1)
+cmake_minimum_required (VERSION 3.7.2)
 
 project(Sandbox LANGUAGES C CXX VERSION 0.0.1)
 
