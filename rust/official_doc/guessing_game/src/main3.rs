@@ -1,0 +1,36 @@
+// rand is an external dependency
+extern crate rand;
+
+// Don't know if there is anything about import order (alpha ?)
+use rand::Rng;
+use std::cmp::Ordering;
+use std::io;
+
+fn main() {
+
+    let secret_number = rand::thread_rng().gen_range(1, 101);
+
+    println!("Guess the number in [1, 100][Hint {}]", secret_number);
+
+    loop {
+        let mut guess = String::new();
+
+        io::stdin().read_line(&mut guess)
+            .expect("Failed to read line");
+
+        let guess: u32 = guess.trim().parse()
+            .expect("Please type a number!");
+
+        match guess.cmp(&secret_number) {
+                Ordering::Less => println!("Too small!"),
+                Ordering::Greater => println!("Too big!"),
+                Ordering::Equal => {
+                    println!("You win!");
+                    println!("quit");
+                    break;
+                },
+            }
+    }
+
+    println!("Allright");
+}

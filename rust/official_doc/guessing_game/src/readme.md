@@ -1,0 +1,2 @@
+- `main.rs`  : just use i/o read line stuff
+- `main2.rs`: same as main.rs but uses the `rand` dependency.

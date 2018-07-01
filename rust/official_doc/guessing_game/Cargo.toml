@@ -1,0 +1,23 @@
+[package]
+name = "guessing_game"
+version = "0.1.0"
+authors = ["AlexandreBiguet <alexandre.biguet@gmail.com>"]
+
+[dependencies]
+rand = "0.3.14"
+
+[[bin]]
+name = "main"
+path = "src/main.rs"
+
+[[bin]]
+name = "main2"
+path = "src/main2.rs"
+
+[[bin]]
+name = "main3"
+path = "src/main3.rs"
+
+[[bin]]
+name = "main4"
+path = "src/main4.rs"
