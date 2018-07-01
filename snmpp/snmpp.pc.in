@@ -1,0 +1,27 @@
+### snmpp.pc.in --- 
+## 
+## Filename: snmpp.pc.in
+## Author: Alexandre BIGUET
+## Created: Mer sep 13 20:50:34 2017 (+0200)
+## Last-Updated: Mer sep 13 20:51:33 2017 (+0200)
+##           By: Alexandre BIGUET
+##     Update #: 4
+## 
+## snmpp
+## 
+
+prefix=@CMAKE_INSTALL_PREFIX@
+exec_prefix=${prefix}/@INSTALL_PATH_BIN@
+libdir=${prefix}/@INSTALL_PATH_LIB@
+includedir=${prefix}/@INSTALL_PATH_HEADERS@
+
+Name: @PROJECT_NAME@
+Description: @PROJECT_DESCRIPTION@
+Version: @PROJECT_VERSION@
+Requires: 
+Libs: -L${libdir} -lsnmpp
+Cflags: -I${includedir}
+
+
+
+######################################################################
