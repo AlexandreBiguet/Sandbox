@@ -2,3 +2,10 @@
   - http://www.ferdinandpiette.com/blog/2011/04/le-filtre-de-kalman-de-lestimateur-optimal-au-filtre-de-kalman/
   - http://www.ferdinandpiette.com/blog/2011/04/exemple-dutilisation-du-filtre-de-kalman/
   - http://www.ferdinandpiette.com/blog/2011/05/le-filtre-de-kalman-etendu-principe-et-exemple/
+- machine learning / computer vision
+  - https://github.com/shurans/DeepSlidingShape
+  - https://github.com/arashno/tensorflow_multigpu_imagenet
+  - https://github.com/wy1iu/DCNets
+  - https://github.com/excamera/AWSLambdaFace
+  - https://github.com/python-pillow/Pillow
+- Fuzzy logic for control systems or PID ?
