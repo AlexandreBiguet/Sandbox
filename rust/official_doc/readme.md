@@ -1,6 +1,6 @@
 # Following official doc
 
-[https://doc.rust-lang.org/stable/book/second-edition/ch01-03-hello-cargo.html][link]
+[link](https://doc.rust-lang.org/stable/book/second-edition/ch01-03-hello-cargo.html)
 
 - hello world example
 - hello cargo (cargo = rust build system and package manager).
