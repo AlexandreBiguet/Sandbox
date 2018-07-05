@@ -4,6 +4,7 @@
 include(CTest)
 
 # Dl the google test framework
+enable_testing()
 
 include(${CMAKE_MODULE_PATH}/DownloadProject.cmake)
 
@@ -19,3 +20,8 @@ add_subdirectory(${googletest_SOURCE_DIR} ${googletest_BINARY_DIR})
 add_executable(TestCoolTarget Cool.cpp)
 target_link_libraries(TestCoolTarget gtest gmock_main myTest)
 add_test(NAME TestCool COMMAND TestCoolTarget)
+
+add_custom_target(check
+                  COMMAND GTEST_COLOR=1 ${CMAKE_CTEST_COMMAND} --verbose -C Debug
+                  DEPENDS
+                  TestCoolTarget)

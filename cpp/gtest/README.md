@@ -1,13 +1,22 @@
 This a 'clean' CMake project in order to test how to use the google
 test framework
 
-Links :
+## Note
+
+CMake 3.11 includes a FetchContent which does the same thing as the
+cmake-modules/DownloadProject.cmake
+
+the content of cmake-modules was taken from
+[https://github.com/Crascit/DownloadProject](here)
+
+
+## Links
 - http://www.yolinux.com/TUTORIALS/Cpp-GoogleTest.html
 - https://github.com/Crascit/DownloadProject
 - https://github.com/kaizouman/gtest-cmake-example
 - https://github.com/snikulov/google-test-examples
 - https://github.com/bilke/cmake-modules
-- https://github.com/google/googletest 
+- https://github.com/google/googletest
 - https://cliutils.gitlab.io/modern-cmake/chapters/testing/googletest.html
 - https://crascit.com/2015/07/25/cmake-gtest/
 - https://texus.me/2015/09/06/cmake-and-gcov/
