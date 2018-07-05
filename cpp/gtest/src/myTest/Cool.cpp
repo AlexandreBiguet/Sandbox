@@ -2,11 +2,12 @@
  * @Author: Alexandre Biguet <alexandrebiguet>
  * @Date:   24 - Jun - 2018
  * @Last modified by:   alexandrebiguet
- * @Last modified time: 24 - Jun - 2018
+ * @Last modified time: 05 - Jul - 2018
  */
 
 #include "Cool.hpp"
 
+#include <iostream>
 #include <map>
 
 static std::map<int, std::string> mapConversion{
@@ -20,5 +21,7 @@ std::string getString(int a) {
   }
   return std::string("Nothing");
 }
+
+void anotherFunction() { std::cout << std::endl; }
 
 }  // namespace myTest

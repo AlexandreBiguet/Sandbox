@@ -3,12 +3,12 @@ test framework
 
 ## Note
 
-CMake 3.11 includes a FetchContent which does the same thing as the
+* CMake 3.11 includes a FetchContent which does the same thing as the
 cmake-modules/DownloadProject.cmake
 
-the content of cmake-modules was taken from
-[https://github.com/Crascit/DownloadProject](here)
-
+- The content of cmake-modules was taken from
+  - DownloadProject [https://github.com/Crascit/DownloadProject](here)
+  - CodeCoverage [https://github.com/bilke/cmake-modules/blob/master/CodeCoverage.cmake](here) (there are diffs with the one used here)
 
 ## Links
 - http://www.yolinux.com/TUTORIALS/Cpp-GoogleTest.html

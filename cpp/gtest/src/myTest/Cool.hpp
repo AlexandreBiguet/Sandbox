@@ -2,7 +2,7 @@
  * @Author: Alexandre Biguet <alexandrebiguet>
  * @Date:   24 - Jun - 2018
  * @Last modified by:   alexandrebiguet
- * @Last modified time: 24 - Jun - 2018
+ * @Last modified time: 05 - Jul - 2018
  */
 #include <string>
 namespace myTest {
@@ -12,4 +12,6 @@ namespace myTest {
  * \return a string
  */
 std::string getString(int a);
+
+void anotherFunction();
 }  // namespace myTest

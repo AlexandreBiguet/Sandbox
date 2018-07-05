@@ -21,7 +21,23 @@ add_executable(TestCoolTarget Cool.cpp)
 target_link_libraries(TestCoolTarget gtest gmock_main myTest)
 add_test(NAME TestCool COMMAND TestCoolTarget)
 
+# add the Stuff exec test
+
+add_executable(TestStuffTarget Stuff.cpp)
+target_link_libraries(TestStuffTarget gtest gmock_main myTest)
+add_test(NAME TestStuff COMMAND TestStuffTarget)
+
 add_custom_target(check
                   COMMAND GTEST_COLOR=1 ${CMAKE_CTEST_COMMAND} --verbose -C Debug
                   DEPENDS
-                  TestCoolTarget)
+                  TestCoolTarget TestStuffTarget)
+
+if(${MYTEST_CODE_COVERAGE})
+  set(COVERAGE_EXCLUDES '${CMAKE_BINARY_DIR}/*')
+
+  setup_target_for_coverage(
+    NAME coverage
+    EXECUTABLE ${CMAKE_COMMAND} --build ${CMAKE_BINARY_DIR} --target check #TestCoolTarget # TestStuffTarget
+    DEPENDENCIES myTest
+  )
+endif()

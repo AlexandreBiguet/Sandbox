@@ -2,7 +2,7 @@
  * @Author: Alexandre Biguet <alexandrebiguet>
  * @Date:   24 - Jun - 2018
  * @Last modified by:   alexandrebiguet
- * @Last modified time: 24 - Jun - 2018
+ * @Last modified time: 05 - Jul - 2018
  */
 
 #include <myTest/Cool.hpp>
@@ -17,6 +17,10 @@ TEST(myTestCool, getString) {
   ASSERT_EQ("Vietnam", myTest::getString(2));
   ASSERT_EQ("Nothing", myTest::getString(-1));
   ASSERT_EQ("Nothing", myTest::getString(3));
+}
+
+TEST(myTestCool, anotherFunction) {
+  EXPECT_NO_THROW(myTest::anotherFunction());
 }
 
 int main(int argc, char *argv[]) {

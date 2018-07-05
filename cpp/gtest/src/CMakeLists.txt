@@ -5,7 +5,9 @@ include(CMakePackageConfigHelpers)
 
 message(STATUS "Library Name : ${LIBRARY_NAME}")
 
-add_library(${LIBRARY_NAME} SHARED myTest/Cool.cpp myTest/Cool.hpp)
+add_library(${LIBRARY_NAME} SHARED
+  myTest/Cool.cpp myTest/Cool.hpp
+myTest/Stuff.cpp myTest/Stuff.hpp)
 
 # set_target_properties(
 #   ${LIBRARY_NAME} PROPERTIES
