@@ -2,5 +2,5 @@
 venv/
 .DS_Store
 cmake-build-debug
-build
+build*
 cmake-build
