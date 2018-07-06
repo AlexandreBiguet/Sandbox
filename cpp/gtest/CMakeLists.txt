@@ -10,6 +10,12 @@ set(LIBRARY_NAME ${PROJECT_NAME})
 
 option(MYTEST_CODE_COVERAGE "compute code coverage" ON)
 
+## Using the download project utility make the downloaded project part of
+## the current project. The install target installs everything... Which sucks
+## in the case of google test
+option(INSTALL_GMOCK "This must be off" OFF)
+option(INSTALL_GTEST "This must be off" OFF)
+
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
