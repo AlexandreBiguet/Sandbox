@@ -10,8 +10,18 @@ set(LIBRARY_NAME ${PROJECT_NAME})
 
 option(MYTEST_CODE_COVERAGE "compute code coverage" ON)
 
+
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+# TODO : exclude system files
+find_program (iwyu_prg NAMES iwyu)
+if(NOT iwyu_prg)
+  message(STATUS "Include what you use program : Not Found")
+else()
+  message(STATUS "Include what you use program : Found")
+  set(CMAKE_CXX_INCLUDE_WHAT_YOU_USE iwyu)
+  set(CMAKE_C_INCLUDE_WHAT_YOU_USE iwyu)
+endif()
 # Creation of the myTest library
 
 # Dl the google test framework
