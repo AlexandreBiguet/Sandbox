@@ -4,3 +4,4 @@ venv/
 cmake-build-debug
 build*
 cmake-build
+data

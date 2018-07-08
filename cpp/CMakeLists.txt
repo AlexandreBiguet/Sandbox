@@ -30,16 +30,14 @@ set ( CMAKE_CXX_STANDARD 14)
 
 add_definitions(-DBOOST_LOG_DYN_LINK)
 
-find_package(
-        Boost 1.64
-        COMPONENTS
-        coroutine
-        graph
-        filesystem
-        log
-        system
-        thread
-        REQUIRED)
+find_package(Boost 1.64 COMPONENTS
+             coroutine
+             graph
+             filesystem
+             log
+             system
+             thread
+             REQUIRED)
 
 set(RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin )
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake-modules" )
@@ -52,4 +50,5 @@ add_subdirectory(boost)
 add_subdirectory(plugins)
 add_subdirectory(geographiclib)
 add_subdirectory(nlohmann_json)
-add_subdirectory(cppcon/cppcon2016)
+add_subdirectory(cppcon)
+add_subdirectory(cppnow)
