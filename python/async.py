@@ -2,6 +2,7 @@
 import socket
 from threading import Thread
 import asyncio
+import sys
 from abc import ABCMeta, abstractmethod
 
 # 1) Example with servers
@@ -173,6 +174,13 @@ async def abstract_class_main():
         o.cool()
     except TypeError as e:
         print(e)
+
+def called_from_coroutine(n):
+    """
+    :param n:
+    :return:
+    """
+    return bool(sys._getframe(n).f_code.co_flags & 0x80)
 
 def main():
     # server_main()
