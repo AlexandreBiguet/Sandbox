@@ -33,8 +33,7 @@ unique CMake project
   - gtest : using google test (cmake 3.7.2) and gcov / lcov for test coverage
   - nlohmann_json : testing the nlohmann json (cpp) utility
   - Standard Library (some tests)
-* **LaTex** (legacy) : I don't even remember what it is I was testing when I
-  wrote all those files. This had something to do with my Phd thesis.
+* **LaTex** : Phd thesis legacy.
 * **Python** :
   - Generators
   - List comprehension
