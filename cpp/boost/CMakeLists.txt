@@ -1,60 +1,34 @@
+macro(add_exec _name _src)
+  set(exec_name test-boost-${_name})
+  add_executable(${exec_name} ${_src})
+  set_target_properties(
+   ${exec_name}
+   PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/ )
+  target_include_directories(${exec_name} PRIVATE ${Boost_INCLUDE_DIRS})
+  target_link_libraries(${exec_name} ${Boost_LIBRARIES})
+endmacro()
 
-###############################################################################
+add_exec(asio_task asio/task.cpp)
+add_exec(graph_tuto_write graph/examples/graphviz_write.cpp)
+add_exec(graph_tuto_read graph/examples/graphviz_read.cpp)
+add_exec(concept concept/main.cpp)
+add_exec(optional optional/main.cpp)
+add_exec(any any/main.cpp)
 
-add_executable(asio_task asio/task.cpp)
-set_target_properties(
-        asio_task
-        PROPERTIES
-        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/ )
-target_link_libraries(asio_task ${Boost_LIBRARIES})
+add_exec(geo-inherit geometry/Inherit.cpp)
+add_exec(geo-difference geometry/Difference.cpp)
+add_exec(geo-union geometry/Union.cpp)
 
-###############################################################################
+set(SRC geometry/Point.cpp geometry/Point.hpp)
+add_exec(geo-point ${SRC})
 
-add_executable(graph_tuto_write graph/examples/graphviz_write.cpp)
-set_target_properties(
-        graph_tuto_write
-        PROPERTIES
-        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/ )
-target_link_libraries(graph_tuto_write ${Boost_LIBRARIES})
+add_exec(geo-templated-conversion geometry/TemplatedConversion.cpp)
+add_exec(geo-within-strategy geometry/WithinStrategy.cpp)
 
-###############################################################################
+set(SRC geometry/NumSegment.cpp geometry/Definitions.hpp)
+add_exec(geo-num-segment ${SRC})
 
-add_executable(graph_tuto_read graph/examples/graphviz_read.cpp)
-set_target_properties(
-        graph_tuto_read
-        PROPERTIES
-        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/ )
-target_link_libraries(graph_tuto_read ${Boost_LIBRARIES})
-
-###############################################################################
-
-add_executable(concept_test concept/main.cpp)
-set_target_properties(
-        concept_test
-        PROPERTIES
-        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/ )
-target_link_libraries(concept_test ${Boost_LIBRARIES})
-
-###############################################################################
-
-add_executable(optional_test optional/main.cpp)
-set_target_properties(
-        optional_test
-        PROPERTIES
-        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/ )
-target_link_libraries(optional_test ${Boost_LIBRARIES})
-
-###############################################################################
-
-add_subdirectory(geometry)
-
-###############################################################################
-
-add_executable(BoostAny any/main.cpp)
-set_target_properties(
-        BoostAny
-        PROPERTIES
-        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/ )
-
-###############################################################################
-
+add_exec(geo-ForEachSegmentTuto geometry/ForEachSegmentTuto.cpp)
+add_exec(geo-intersection geometry/Intersection.cpp)
+add_exec(geo-overlaps geometry/Overlaps.cpp)
+add_exec(geo-AreaClockWisePolygon geometry/AreaClockWisePolygon.cpp)

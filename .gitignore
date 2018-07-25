@@ -5,3 +5,4 @@ cmake-build-debug
 build-cmake
 cmake-build
 data
+opencv/build
