@@ -10,3 +10,4 @@ target_link_libraries(${exec_name} ${OPENCV_LDFLAGS} ${OPENCV_LIBRARIES})
 endmacro()
 
 add_sample(example-2-1 example-2-1.cpp)
+add_sample(example-2-3 example-2-3.cpp)
