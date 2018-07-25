@@ -1,0 +1,10 @@
+## Author: Alexandre BIGUET
+
+cmake_minimum_required(VERSION 3.7.2)
+project(opencv-samples LANGUAGES C CXX VERSION 0.0.1)
+set(CMAKE_CXX_STANDARD 14)
+find_package ( PkgConfig REQUIRED )
+pkg_check_modules( OPENCV REQUIRED opencv)
+
+# find_package(opencv REQUIRED)
+add_subdirectory(samples)
