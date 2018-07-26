@@ -2,6 +2,10 @@
 
 #include <opencv2/opencv.hpp>
 
+/**
+ * This program just creates a window and displays an image
+ */
+
 int main(int argc, char** argv) {
   if (argc < 2) {
     std::cout << "need one arg (a path to an image) \n";

@@ -3,6 +3,11 @@
 #include <opencv2/highgui/highgui.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 
+/**
+ * The current program allows the user to play a video and select (as an
+ * optional second argument) the framerate use to display the video
+ */
+
 void help() {
   std::cout << "first argument must be a valid path to a video \n";
   std::cout << "second argument (optional) the framerate (default to 40 ms) \n";

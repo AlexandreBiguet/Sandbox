@@ -8,6 +8,8 @@
 
 #include <opencv2/highgui/highgui.hpp>
 
+// What does the waitkey function return ?
+
 // https://stackoverflow.com/questions/5217519/what-does-opencvs-cvwaitkey-function-do
 // cvWaitKey(x) / cv::waitKey(x) does two things:
 
