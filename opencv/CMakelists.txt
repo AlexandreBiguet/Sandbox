@@ -6,5 +6,16 @@ set(CMAKE_CXX_STANDARD 14)
 find_package ( PkgConfig REQUIRED )
 pkg_check_modules( OPENCV REQUIRED opencv)
 
-# find_package(opencv REQUIRED)
+macro(add_exec _name _src)
+  set(exec_name opencv-samples-${_name})
+  add_executable(${exec_name} ${_src})
+  set_target_properties(
+    ${exec_name}
+    PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/ )
+  target_include_directories(${exec_name} PRIVATE ${OPENCV_INCLUDE_DIRS})
+  target_link_libraries(${exec_name} ${OPENCV_LDFLAGS} ${OPENCV_LIBRARIES})
+endmacro()
+
 add_subdirectory(samples)
+add_subdirectory(sandbox)

@@ -36,7 +36,7 @@ int main(int argc, char** argv) {
     }
 
     cv::imshow("title", frame);
-    if (cv::waitKey(stupid_framerate_ms) >= 0) {
+    if (cv::waitKey((int) stupid_framerate_ms) >= 0) {
       break;
     }
   }

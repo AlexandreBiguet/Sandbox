@@ -1,0 +1,1 @@
+add_exec(waitkey waitkey.cpp)
