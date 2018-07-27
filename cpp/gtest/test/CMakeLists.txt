@@ -13,7 +13,8 @@ download_project(PROJ                googletest
                  GIT_TAG             master
                  UPDATE_DISCONNECTED 1)
 
-add_subdirectory(${googletest_SOURCE_DIR} ${googletest_BINARY_DIR})
+add_subdirectory(
+  ${googletest_SOURCE_DIR} ${googletest_BINARY_DIR} EXCLUDE_FROM_ALL)
 
 # add the Cool exec test
 
