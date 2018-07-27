@@ -1,21 +1,60 @@
 ## Author: Alexandre BIGUET
 
-cmake_minimum_required(VERSION 3.7.2)
+cmake_minimum_required(VERSION 3.11.4)
 project(opencv-samples LANGUAGES C CXX VERSION 0.0.1)
 set(CMAKE_CXX_STANDARD 14)
-find_package ( PkgConfig REQUIRED )
-pkg_check_modules( OPENCV REQUIRED opencv)
+find_package(PkgConfig REQUIRED )
+# find_package(Boost)
+pkg_check_modules(OPENCV REQUIRED opencv)
 
-macro(add_exec _name _src)
-  set(exec_name opencv-samples-${_name})
-  add_executable(${exec_name} ${_src})
+# Helper to create sample targets
+macro(add_exec)
+
+  set(options "" )
+  set(oneValueArgs NAME)
+  set(multiValueArgs SOURCES INCLUDES LIBRARIES)
+
+  cmake_parse_arguments(
+    EXEC "${options}" "${oneValueArgs}" "${multiValueArgs}" ${ARGN})
+
+  set(exec_name opencv-samples-${EXEC_NAME})
+
+  add_executable(${exec_name} ${EXEC_SOURCES})
+
   set_target_properties(
     ${exec_name}
     PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/ )
-  target_include_directories(${exec_name} PRIVATE ${OPENCV_INCLUDE_DIRS})
-  target_link_libraries(${exec_name} ${OPENCV_LDFLAGS} ${OPENCV_LIBRARIES})
+
+  target_include_directories(
+    ${exec_name} PRIVATE ${OPENCV_INCLUDE_DIRS} ${EXEC_INCLUDES})
+
+  target_link_libraries(
+    ${exec_name} ${OPENCV_LDFLAGS} ${OPENCV_LIBRARIES} ${EXEC_LIBRARIES})
 endmacro()
+
+# Fetching docopt.cpp
+
+include(FetchContent)
+
+set(FETCHCONTENT_QUIET OFF)
+
+FetchContent_Declare(
+  docopt
+  GIT_REPOSITORY https://github.com/docopt/docopt.cpp.git
+  GIT_TAG        v0.6.2
+)
+
+FetchContent_GetProperties(docopt)
+if(NOT docopt_POPULATED)
+  FetchContent_Populate(docopt)
+  add_subdirectory(${docopt_SOURCE_DIR} ${docopt_BINARY_DIR} EXCLUDE_FROM_ALL)
+endif()
 
 add_subdirectory(samples)
 add_subdirectory(sandbox)
+
+# Copy the data directory to bin dir
+if(EXISTS ${CMAKE_SOURCE_DIR}/data)
+  file(COPY ${CMAKE_SOURCE_DIR}/data DESTINATION ${CMAKE_BINARY_DIR}/bin/)
+endif()

@@ -1,1 +1,1 @@
-add_exec(waitkey waitkey.cpp)
+add_exec(NAME waitkey SOURCES waitkey.cpp)

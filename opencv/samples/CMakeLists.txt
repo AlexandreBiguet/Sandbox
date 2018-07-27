@@ -1,5 +1,6 @@
 
-add_exec(example-2-1 example-2-1.cpp)
-add_exec(example-2-3 example-2-3.cpp)
-add_exec(example-2-4 example-2-4.cpp)
-add_exec(example-2-5 example-2-5.cpp)
+add_exec(NAME example-2-1 SOURCES example-2-1.cpp)
+add_exec(NAME example-2-3 SOURCES example-2-3.cpp)
+add_exec(NAME example-2-4 SOURCES example-2-4.cpp)
+add_exec(NAME example-2-5 SOURCES example-2-5.cpp LIBRARIES docopt)
+
