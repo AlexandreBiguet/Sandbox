@@ -6,7 +6,8 @@
 //
 
 /**
- * Input from camera
+ * Input from camera.
+ * Saving the output to file if wanted
  */
 
 #define PRINT_ARGS_TO_STDOUT
@@ -14,12 +15,16 @@
 #include <iostream>
 #include <memory>
 
+#include <boost/optional.hpp>
+
 #include <opencv2/opencv.hpp>
 
 #include <docopt.h>
 
+// ----------------------------------------------------------------------------
+
 static const char USAGE[] =
-R"(example-2-10.
+    R"(example-2-10.
 
 Usage:
   example-2-10 [options] canny [--downsample | --upsample] [--blur-first]
@@ -28,18 +33,27 @@ Options:
   -h --help             Shows this help
   -V --version          Shows the version
   --framerate <rate>    waitKey argument [unit : ms]
+  --save <filename>     Saves the output to file
 
 )";
 
+// ----------------------------------------------------------------------------
+
 using MapArgs = std::map<std::string, docopt::value>;
 
+// ----------------------------------------------------------------------------
+
 void apply(const cv::Mat& original,
-    cv::Mat& modified, const std::unique_ptr<MapArgs>& args);
+           cv::Mat& modified,
+           const std::unique_ptr<MapArgs>& args);
+
+// ----------------------------------------------------------------------------
 
 int main(int argc, char ** argv) {
 
   std::unique_ptr<MapArgs> args (nullptr);
   uint framerate_ms(30);
+
 
   if (argc > 1) {
 
@@ -75,6 +89,33 @@ int main(int argc, char ** argv) {
 
   cv::Mat input, modified;
 
+  std::string filename;
+  cv::VideoWriter writer;
+
+  if (args->at("--save").isString()) {
+
+    // TODO
+    std::cout << "?????? CV_FOURCC : check value ??????" << std::endl;
+
+    filename = args->at("--save").asString();
+
+    double input_fps    = capture.get(CV_CAP_PROP_FPS);
+    double input_width  = capture.get(CV_CAP_PROP_FRAME_WIDTH);
+    double input_height = capture.get(CV_CAP_PROP_FRAME_HEIGHT);
+
+    // TODO : if downsample / update sample is used, then the ouput width
+    //        and height are different from input
+
+    std::cout << "video saved to : " << filename << "\n"
+              << "   - fps    : " << input_fps << "\n"
+              << "   - width  : " << input_width << "\n"
+              << "   - height : " << input_height << "\n";
+
+    writer.open(filename, CV_FOURCC('I', 'Y', 'U', 'V'),
+                input_fps, cv::Size((int) input_width,(int) input_height));
+  }
+
+
   for(;;) {
 
     capture >> input;
@@ -89,7 +130,10 @@ int main(int argc, char ** argv) {
 
     cv::imshow("modified", modified);
 
+    writer << modified;
+
     auto key = cv::waitKey(framerate_ms);
+
     if (key == 'k') {
       break;
     }
@@ -101,8 +145,11 @@ int main(int argc, char ** argv) {
   return 0;
 }
 
+// ----------------------------------------------------------------------------
+
 void apply(const cv::Mat& original,
-           cv::Mat& modified, const std::unique_ptr<MapArgs>& args) {
+           cv::Mat& modified,
+           const std::unique_ptr<MapArgs>& args) {
 
   if (! args) {
     modified = original;
