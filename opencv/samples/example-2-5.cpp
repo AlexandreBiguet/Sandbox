@@ -37,6 +37,7 @@ static const char USAGE[] =
     example-2-5 [options] bilateral (<video-path>)
                           [(--sigma-color <color>)] [(--sigma-space <space>)]
                           [(--diameter <diameter>)]
+    example-2-5 [options] box-filter (<video-path>) [--ksize <ksize>]
 
   Options:
     -h --help       Shows this help
@@ -46,12 +47,14 @@ static const char USAGE[] =
 
 using MapArgs = std::map<std::string, docopt::value>;
 
-enum class BlurType { Gaussian, Median, BilateralFilter, Undefined};
+enum class BlurType {
+  Gaussian, Median, BilateralFilter, BoxFilter, Undefined};
 
 static const std::map<BlurType, std::string> BlurTypeString { /* NOLINT */
     {BlurType::Gaussian, "Gaussian Blur"},
     {BlurType::Median, "Median Blur"},
     {BlurType::BilateralFilter, "Bilateral Filter"},
+    {BlurType::BoxFilter, "Box Filter"},
     {BlurType::Undefined, "Undefined Blur"}
 };
 
@@ -139,6 +142,11 @@ struct MedianBluring : public Bluring {
 };
 
 struct BilateralBluring : public Bluring {
+  void apply(const cv::Mat& original,
+             cv::Mat& modified, const Options& opts) override;
+};
+
+struct BoxFilter : public Bluring {
   void apply(const cv::Mat& original,
              cv::Mat& modified, const Options& opts) override;
 };
@@ -241,6 +249,8 @@ Options::Options(int argc, char **argv)
     _type = BlurType::Median;
   } else if (args["bilateral"].asBool()) {
     _type = BlurType::BilateralFilter;
+  } else if (args["box-filter"].asBool()) {
+    _type = BlurType::BoxFilter;
   } else {
     throw std::runtime_error("blur type cannot be undefined");
   }
@@ -338,11 +348,22 @@ std::shared_ptr<Bluring> Options::getImplementation() const {
     ptr = std::make_shared<GaussianBluring>();
   } else if (_type == BlurType::BilateralFilter) {
     ptr = std::make_shared<BilateralBluring>();
+  } else if (_type == BlurType::BoxFilter)  {
+    ptr = std::make_shared<BoxFilter>();
   } else {
     throw std::runtime_error("not possible");
   }
 
   return ptr;
+}
+
+void BoxFilter::apply(const cv::Mat &original,
+                      cv::Mat &modified,
+                      const Options &opts) {
+
+  auto ks = *opts._kernelSize;
+  cv::boxFilter(original, modified, -1, cv::Size(ks,ks));
+
 }
 
 // example-2-5.cpp ends here
