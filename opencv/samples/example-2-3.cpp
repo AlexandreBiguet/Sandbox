@@ -46,5 +46,7 @@ int main(int argc, char** argv) {
     }
   }
 
+  cv::destroyWindow("title");
+
   return 0;
 }

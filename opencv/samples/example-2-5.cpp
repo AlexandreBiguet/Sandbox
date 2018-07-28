@@ -234,7 +234,7 @@ Options::Options(int argc, char **argv)
       _diameter(5), // TODO sigmaSpace and diameter should not be set together (?)
       _sigmaSpace(15.0) {
 
-  std::map<std::string, docopt::value> args =
+  MapArgs args =
       docopt::docopt(USAGE, {argv + 1, argv + argc}, true, "test version");
 
 #ifdef PRINT_ARGS_TO_STDOUT
