@@ -4,7 +4,7 @@ cmake_minimum_required(VERSION 3.11.4)
 project(opencv-samples LANGUAGES C CXX VERSION 0.0.1)
 set(CMAKE_CXX_STANDARD 14)
 find_package(PkgConfig REQUIRED )
-# find_package(Boost)
+find_package(Boost COMPONENTS filesystem REQUIRED)
 pkg_check_modules(OPENCV REQUIRED opencv)
 
 # Helper to create sample targets
@@ -53,6 +53,7 @@ endif()
 
 add_subdirectory(samples)
 add_subdirectory(sandbox)
+add_subdirectory(doc)
 
 # Copy the data directory to bin dir
 if(EXISTS ${CMAKE_SOURCE_DIR}/data)

@@ -7,4 +7,5 @@ add_exec(NAME example-2-6 SOURCES example-2-6.cpp)
 add_exec(NAME example-2-7 SOURCES example-2-7.cpp)
 add_exec(NAME example-2-8 SOURCES example-2-8.cpp)
 add_exec(NAME example-2-9 SOURCES example-2-9.cpp)
-add_exec(NAME example-2-10 SOURCES example-2-10.cpp LIBRARIES docopt)
+add_exec(NAME example-2-10 SOURCES example-2-10.cpp
+         LIBRARIES docopt Boost::filesystem)

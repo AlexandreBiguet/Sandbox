@@ -1,0 +1,1 @@
+add_exec(NAME tuto_video_writer SOURCES video_writer.cpp)
