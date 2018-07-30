@@ -1,5 +1,5 @@
 //
-//  example-2-10.cpp 
+//  ex10.cpp
 //  opencv-samples
 //
 //  Created by Alexandre Biguet on 28/07/2018 at 15:23.

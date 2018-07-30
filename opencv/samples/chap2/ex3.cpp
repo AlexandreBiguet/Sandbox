@@ -1,3 +1,9 @@
+//
+//  ex3.cpp
+//  opencv-samples
+//
+//  Created by Alexandre Biguet
+
 #include <iostream>
 
 #include <opencv2/highgui/highgui.hpp>

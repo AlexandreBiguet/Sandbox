@@ -1,3 +1,9 @@
+//
+//  ex1.cpp
+//  opencv-samples
+//
+//  Created by Alexandre Biguet
+
 #include <iostream>
 
 #include <opencv2/opencv.hpp>

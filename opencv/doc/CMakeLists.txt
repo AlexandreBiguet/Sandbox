@@ -1,1 +1,1 @@
-add_exec(NAME tuto_video_writer SOURCES video_writer.cpp)
+add_exec(NAME doc-video-writer SOURCES video_writer.cpp)
