@@ -10,5 +10,3 @@ Contents :
 - The `sandbox` directory contains some very small tests. 
 - The `doc` directory contains some tutos from the openCV doc
 Note : More informations about the tests and samples in the code.
-
-The program `samples/example-2-5.cpp` shows several type of blur 
