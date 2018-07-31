@@ -13,4 +13,4 @@ add_exec(NAME ch2-e10 SOURCES chap2/ex10.cpp LIBRARIES docopt Boost::filesystem)
 
 # chap4
 
-
+add_exec(NAME ch4-mat SOURCES chap4/mat.cpp)
