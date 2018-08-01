@@ -58,7 +58,7 @@ int main(int argc, char ** argv) {
   if (argc > 1) {
 
     args = std::make_unique<cv_samples::utils::MapArgs> (
-        docopt::docopt(USAGE, {argv + 1, argv + argc}, true, "test version"));
+        docopt::docopt(USAGE, {argv + 1, argv + argc}, true, "v0"));
 
 #ifdef PRINT_ARGS_TO_STDOUT
     cv_samples::utils::print_docargs(*args);
