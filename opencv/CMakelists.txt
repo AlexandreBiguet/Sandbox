@@ -7,6 +7,9 @@ find_package(PkgConfig REQUIRED )
 find_package(Boost COMPONENTS filesystem REQUIRED)
 pkg_check_modules(OPENCV REQUIRED opencv)
 
+# Name of the utils library
+set(LIB_UTILS_NAME "cv_samples_utils")
+
 # Helper to create sample targets
 macro(add_exec)
 
@@ -51,6 +54,7 @@ if(NOT docopt_POPULATED)
   add_subdirectory(${docopt_SOURCE_DIR} ${docopt_BINARY_DIR} EXCLUDE_FROM_ALL)
 endif()
 
+add_subdirectory(utils)
 add_subdirectory(samples)
 add_subdirectory(sandbox)
 add_subdirectory(doc)

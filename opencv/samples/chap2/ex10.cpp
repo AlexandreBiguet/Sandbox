@@ -21,7 +21,7 @@
 
 #include <opencv2/opencv.hpp>
 
-#include <docopt.h>
+#include <utils/utils.hpp>
 
 // ----------------------------------------------------------------------------
 
@@ -43,59 +43,25 @@ Options:
 
 // ----------------------------------------------------------------------------
 
-using MapArgs = std::map<std::string, docopt::value>;
-
-// ----------------------------------------------------------------------------
-
 void apply(const cv::Mat& original,
            cv::Mat& modified,
-           const std::unique_ptr<MapArgs>& args);
-
-// ----------------------------------------------------------------------------
-
-static std::string get_fourcc(int fourcc) {
-  char EXT[] = {(char)(fourcc & 0XFF) ,
-                (char)((fourcc & 0XFF00) >> 8),
-                (char)((fourcc & 0XFF0000) >> 16),
-                (char)((fourcc & 0XFF000000) >> 24), 0};
-  return std::string(EXT);
-}
-
-// ----------------------------------------------------------------------------
-
-static void print_docargs(const MapArgs& args) {
-  std::size_t maxsize(0);
-  for (const auto& elem: args) {
-    std::size_t size = elem.first.size();
-    if (size > maxsize) {
-      maxsize = size;
-    }
-  }
-
-  std::string fmt("%" + std::to_string(maxsize) + "s");
-
-  for (const auto& arg: args) {
-    std::cout << "[ " <<boost::format(fmt) % arg.first << " ] [ "
-              << arg.second << " ]\n";
-  }
-
-}
+           const std::unique_ptr<cv_samples::utils::MapArgs>& args);
 
 // ----------------------------------------------------------------------------
 
 int main(int argc, char ** argv) {
 
-  std::unique_ptr<MapArgs> args (nullptr);
+  std::unique_ptr<cv_samples::utils::MapArgs> args (nullptr);
   uint framerate_ms(40);
   bool use_web_cam(true);
 
   if (argc > 1) {
 
-    args = std::make_unique<MapArgs> (
+    args = std::make_unique<cv_samples::utils::MapArgs> (
         docopt::docopt(USAGE, {argv + 1, argv + argc}, true, "test version"));
 
 #ifdef PRINT_ARGS_TO_STDOUT
-    print_docargs(*args);
+    cv_samples::utils::print_docargs(*args);
 #endif
 
     if (args->at("--framerate").isLong()) {
@@ -160,7 +126,8 @@ int main(int argc, char ** argv) {
     // auto fourcc = CV_FOURCC('a', 'v', 'c', '1' );
     int fourcc = static_cast<int>(capture.get(CV_CAP_PROP_FOURCC));
 
-    std::cout << "Input fourcc type : " << get_fourcc(fourcc) << "\n";
+    std::cout << "Input fourcc type : "
+              << cv_samples::utils::get_fourcc(fourcc) << "\n";
 
     writer.open(filename, fourcc, fps, cv::Size((int) width,(int) height));
 
@@ -245,7 +212,7 @@ int main(int argc, char ** argv) {
 
 void apply(const cv::Mat& original,
            cv::Mat& modified,
-           const std::unique_ptr<MapArgs>& args) {
+           const std::unique_ptr<cv_samples::utils::MapArgs>& args) {
 
   if (! args) {
     modified = original;

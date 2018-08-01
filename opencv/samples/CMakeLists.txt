@@ -9,7 +9,10 @@ add_exec(NAME ch2-e6  SOURCES chap2/ex6.cpp)
 add_exec(NAME ch2-e7  SOURCES chap2/ex7.cpp)
 add_exec(NAME ch2-e8  SOURCES chap2/ex8.cpp)
 add_exec(NAME ch2-e9  SOURCES chap2/ex9.cpp)
-add_exec(NAME ch2-e10 SOURCES chap2/ex10.cpp LIBRARIES docopt Boost::filesystem)
+add_exec(NAME ch2-e10
+         SOURCES chap2/ex10.cpp
+         LIBRARIES ${LIB_UTILS_NAME} Boost::filesystem
+         INCLUDES ${CMAKE_SOURCE_DIR})
 
 # chap4
 
