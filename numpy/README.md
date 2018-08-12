@@ -9,3 +9,6 @@ http://scipy.github.io/old-wiki/pages/Tentative_NumPy_Tutorial
 * `e2.py` : numpy array creation
 * `e3.py` : numpy array printing
 * `e4.py` : basic operations
+* `e5.py` : indexing, slicing, iterating
+* `e6.py` : shape manipulation
+* `e7.py` : a numpy histogram example

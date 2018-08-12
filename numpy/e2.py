@@ -15,7 +15,7 @@ import numpy as np
 
 
 def print_array_info(array):
-    print(array)
+    print('\n', array)
     print(' - type  : ', array.dtype)
     print(' - ndim  : ', array.ndim)
     print(' - shape : ', array.shape)

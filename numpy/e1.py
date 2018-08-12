@@ -14,20 +14,19 @@ import numpy as np
 def main():
     #
     a = np.arange(15)
-    print(a)
+    print(a, '\n')
 
     a = a.reshape(3, 5)
-    print(a)
+    print(a, '\n')
 
     a = np.arange(0, 15, 2)
-    print(a)
+    print(a, '\n')
 
-    npoint = 30
+    n_point = 30
     include_endpoint = True
-
-    space = np.linspace(0, 15, num=npoint, endpoint=include_endpoint,
+    space = np.linspace(0, 15, num=n_point, endpoint=include_endpoint,
                         retstep=False)
-    print(space)
+    print(space, '\n')
     print('[shape : {}] [ndim: {}] [nelement: {}] \n'
           .format(space.shape, space.ndim, space.size))
 

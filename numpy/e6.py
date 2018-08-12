@@ -46,10 +46,39 @@ def stacking_arrays():
     hstacked = np.hstack((a2, a3, a4))
     print('\nhstack((a2, a3, a4)) : \n', hstacked)
 
+    ar1 = np.array([1, 2])
+    ar2 = np.array([3, 4])
+    ar3 = np.array([5, 6])
+    col_stacked = np.column_stack((ar1, ar2, ar3))
+    print('\nar1 = ', ar1)
+    print('ar2 = ', ar2)
+    print('ar3 = ', ar3)
+    print('column_stack((ar1, ar2, ar3)) = \n', col_stacked, '\n')
+
+    print('creating array using r_: \n')
+    arr = np.r_[1:10, 3:6, 1, 2]
+    print('np.r_[1:10, 3:6, 1, 2] = \n', arr, '\n')
+
+    print('creating array using c_: \n')
+    arr = np.c_[1:10, 3:12]
+    print('np.c_[1:10, 3:12] : \n', arr, '\n')
+
+
+def splitting_arrays():
+    ar = np.floor(5.0 * np.random.random((2, 4)))
+    print('random array : \n', ar, '\n')
+
+    hsplitted = np.hsplit(ar, 2)
+    print('hsplitted = \n', hsplitted, '\n')
+    print('iter over array list : \n')
+    for arr in hsplitted:
+        print(arr, '\n')
+
 
 def main():
     changing_shape()
     stacking_arrays()
+    splitting_arrays()
 
 
 if __name__ == '__main__':
