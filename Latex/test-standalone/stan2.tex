@@ -1,5 +1,6 @@
 \documentclass[beamer]{standalone}
 
+\usepackage{etoolbox}
 \usepackage[beamer]{these-pkg}
 
 \begin{document}
@@ -18,10 +19,10 @@
 
 \begin{frame}
   \only<1>{
-    \newcommand{\tintin}{tintin}
+    \ifdef{\tintin}{\renewcommand{\tintin}{tintin}}{\newcommand{\tintin}{tintin}}
   }
   \only <2>{
-    \newcommand{\tintin}{TINTIN}
+    \ifdef{\tintin}{\renewcommand{\tintin}{TINTIN}}{\newcommand{\tintin}{TINTIN}}
     }
     \begin{itemize}
     \only <1> { \item \tintin }

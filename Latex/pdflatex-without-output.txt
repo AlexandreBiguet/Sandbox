@@ -1,4 +1,0 @@
-Pour virer l'output qui ne sert à rien de pdflatex on peut:
-
-
-texfot pdflatex $NOMFICHIER.tex
