@@ -14,27 +14,36 @@ import numpy as np
 img_path = '../data/photo.jpg'
 
 
-def main():
-    img = cv2.imread(img_path, 1)
+def using_split():
+    img = cv2.imread(img_path, cv2.IMREAD_COLOR)
+    b, g, r = cv2.split(img)
+    blue = cv2.merge((b, np.zeros_like(g), np.zeros_like(r)))
+    red = cv2.merge((np.zeros_like(b), np.zeros_like(g), r))
+    green = cv2.merge((np.zeros_like(b), g, np.zeros_like(r)))
+    cv2.imshow('original', img)
+    cv2.imshow('blue channel', blue)
+    cv2.imshow('red channel', red)
+    cv2.imshow('green channel', green)
 
-    # b, g, r = cv2.split(img)
+    cv2.waitKey()
+    cv2.destroyAllWindows()
 
-    b = img[:, :, 0]
-    g = img[:, :, 1]
-    r = img[:, :, 2]
 
-    b_chnl = np.array(b, dtype=np.uint8)
-    g_chnl = np.array(g, dtype=np.uint8)
-    r_chnl = np.array(r, dtype=np.uint8)
+def only_blue():
+    img = cv2.imread(img_path, cv2.IMREAD_COLOR)
+
+    img_cpy = np.copy(img)
+
+    img_cpy[:, :, 1] = 0
+    img_cpy[:, :, 2] = 0
 
     cv2.imshow('original', img)
-    cv2.imshow('blue channel', b_chnl)
-    cv2.imshow('green channel', g_chnl)
-    cv2.imshow('red channel', r_chnl)
+    cv2.imshow('blue channel', img_cpy)
 
     cv2.waitKey()
     cv2.destroyAllWindows()
 
 
 if __name__ == '__main__':
-    main()
+    only_blue()
+    using_split()
