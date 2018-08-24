@@ -33,14 +33,37 @@ def range_pair(stop_at=0):
             yield n
 
 
-s = [i for i in range2(3)]
-print(s)
+# fill in this function
+def fib():
+    i = 1
+    j = 1
+    for k in count(0):
+        yield i
+        i, j = j, i + j
 
-s = [i for i in range_pair(10)]
-print(s)
 
-s = list(map(lambda x: x**2, range_pair(10)))
-print(s)
+def gen_fib(max_number):
+    counter = 0
+    for n in fib():
+        print(n)
+        counter += 1
+        if counter == max_number:
+            break
 
-s = list(filter(lambda x: not x % 2, range1(11)))
-print(s)
+
+if __name__ == '__main__':
+    s = [i for i in range2(3)]
+    print(s)
+
+    s = [i for i in range_pair(10)]
+    print(s)
+
+    s = list(map(lambda x: x ** 2, range_pair(10)))
+    print(s)
+
+    s = list(filter(lambda x: not x % 2, range1(11)))
+    print(s)
+
+    max_n = 10
+    print('the %d first fib numbers' % max_n)
+    gen_fib(max_n)
