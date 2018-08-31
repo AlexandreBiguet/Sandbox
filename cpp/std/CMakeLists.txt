@@ -1,89 +1,19 @@
-###############################################################################
+macro(add_exec _name _src)
+  set(exec_name std_${_name})
+  add_executable(${exec_name} ${_src})
+  set_target_properties(
+    ${exec_name}
+    PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/ )
+endmacro()
 
-add_executable(std_templatedForLoop templatedForLoop.cpp)
-set_target_properties(
-        std_templatedForLoop
-        PROPERTIES
-        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/ )
-
-###############################################################################
-
-add_executable(std_for_each for_each.cpp)
-set_target_properties(
-        std_for_each
-        PROPERTIES
-        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/ )
-
-###############################################################################
-
-add_executable(std_inheritance inheritance.cpp)
-set_target_properties(
-        std_inheritance
-        PROPERTIES
-        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/ )
-
-###############################################################################
-
-add_executable(std_inheritance2 inheritance2.cpp)
-set_target_properties(
-        std_inheritance2
-        PROPERTIES
-        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/ )
-
-###############################################################################
-
-add_executable(std_conversion conversion.cpp)
-set_target_properties(
-        std_conversion
-        PROPERTIES
-        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/ )
-
-###############################################################################
-
-add_executable(std_prettyFunc PrettyFuncMacro.cpp)
-set_target_properties(
-        std_prettyFunc
-        PROPERTIES
-        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/ )
-
-###############################################################################
-
-add_executable(std_vector Vector.cpp)
-set_target_properties(
-        std_vector
-        PROPERTIES
-        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/ )
-
-###############################################################################
-
-add_executable(std_weakPtr WeakPtr.cpp)
-set_target_properties(
-        std_weakPtr
-        PROPERTIES
-        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/ )
-
-###############################################################################
-
-add_executable(std_CastOperator CastOperator.cpp)
-set_target_properties(
-        std_CastOperator
-        PROPERTIES
-        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/ )
-
-###############################################################################
-
-add_executable(std_TemplateSpecialization TemplateSpecialization.cpp)
-set_target_properties(
-        std_TemplateSpecialization
-        PROPERTIES
-        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/ )
-
-###############################################################################
-
-add_executable(std_ostreamTemplateOverload ostreamTemplateOverload.cpp)
-set_target_properties(
-        std_ostreamTemplateOverload
-        PROPERTIES
-        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/ )
-
-###############################################################################
+add_exec(templated_for_loop templatedForLoop.cpp)
+add_exec(for_each for_each.cpp)
+add_exec(inheritance inheritance.cpp)
+add_exec(inheritance2 inheritance2.cpp)
+add_exec(conversion conversion.cpp)
+add_exec(pretty_func PrettyFuncMacro.cpp)
+add_exec(vector Vector.cpp)
+add_exec(weak_ptr WeakPtr.cpp)
+add_exec(cast_operator CastOperator.cpp)
+add_exec(template_specialization TemplateSpecialization.cpp)
+add_exec(ostream_template_overload ostreamTemplateOverload.cpp)
