@@ -52,11 +52,6 @@ DataParser::Descriptor DataParser::parse() {
 
     size_t Ncol = *std::max_element(_wantedCols.begin(), _wantedCols.end());
 
-//    if (tok_line.size() > Ncol) {
-//      throw std::runtime_error("Invalid data file format");
-//    }
-
-
     double a = std::stod(tok_line[_wantedCols[0]]);
     double b = std::stod(tok_line[_wantedCols[1]]);
 
@@ -87,9 +82,6 @@ void DataParser::discover() {
   }
 
   std::vector<std::string> seps{",", ";"};
-
-  //    auto iter = std::find_first_of(line.begin(), line.end(),
-  //                                   seps.begin(), seps.end());
 
   for (const auto& s : seps) {
     if (line.find(s) != std::string::npos) {
