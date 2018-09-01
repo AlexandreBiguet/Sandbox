@@ -9,3 +9,16 @@
   - https://github.com/excamera/AWSLambdaFace
   - https://github.com/python-pillow/Pillow
 - Fuzzy logic for control systems or PID ?
+- Heavy Hitters:
+  - http://theory.stanford.edu/~tim/s17/l/l2.pdf
+  - http://theory.stanford.edu/~trevisan/cs154-12/notestream.pdf
+  - https://en.wikipedia.org/wiki/Boyer%E2%80%93Moore_majority_vote_algorithm
+  - https://en.wikipedia.org/wiki/Streaming_algorithm
+  - https://www.cs.utah.edu/~jeffp/teaching/cs5955/L12-Heavy-Hitters.pdf
+  - https://courses.cs.washington.edu/courses/cse522/14sp/lectures/lect04.pdf
+  - https://arxiv.org/pdf/1705.07001.pdf
+  - http://romania.amazon.com/techon/presentations/DataStreamsAlgorithms_FlorinManolache.pdf
+  - http://dmac.rutgers.edu/Workshops/WGUnifyingTheory/Slides/cormode.pdf
+  - https://github.com/fzakaria/space-saving
+  - http://www.cse.ust.hk/~raywong/comp5331/References/EfficientComputationOfFrequentAndTop-kElementsInDataStreams.pdf
+  - https://github.com/byronknoll/space-saving

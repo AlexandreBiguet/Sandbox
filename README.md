@@ -34,6 +34,8 @@ unique CMake project
   - nlohmann_json : testing the nlohmann json (cpp) utility
   - Standard Library (some tests)
 * **LaTex** : Phd thesis legacy.
+* **NumPy** : Some numpy tests
+* **OpenCV** : Following the docs of opencv (c++ and some python)
 * **Python** :
   - Generators
   - List comprehension
