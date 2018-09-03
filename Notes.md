@@ -22,3 +22,8 @@
   - https://github.com/fzakaria/space-saving
   - http://www.cse.ust.hk/~raywong/comp5331/References/EfficientComputationOfFrequentAndTop-kElementsInDataStreams.pdf
   - https://github.com/byronknoll/space-saving
+- Substring searching:
+  - https://en.wikipedia.org/wiki/Knuth%E2%80%93Morris%E2%80%93Pratt_algorithm
+  - https://en.wikipedia.org/wiki/Boyer%E2%80%93Moore_string-search_algorithm
+  - https://en.wikipedia.org/wiki/Apostolico%E2%80%93Giancarlo_algorithm
+  - https://en.wikipedia.org/wiki/Raita_algorithm

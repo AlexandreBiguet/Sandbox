@@ -30,7 +30,7 @@ set ( CMAKE_CXX_STANDARD 14)
 
 add_definitions(-DBOOST_LOG_DYN_LINK)
 
-find_package(Boost 1.64 COMPONENTS
+find_package(Boost COMPONENTS
              coroutine
              graph
              filesystem
@@ -38,6 +38,11 @@ find_package(Boost 1.64 COMPONENTS
              system
              thread
              REQUIRED)
+
+set( CONFILEPATH "${CMAKE_BINARY_DIR}/src/${PROJECT_NAME}/config" )
+configure_file(
+       ${CMAKE_SOURCE_DIR}/config.hpp.in ${CONFILEPATH}/config.hpp @ONLY)
+include_directories(${CONFILEPATH})
 
 set(RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin )
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake-modules" )
