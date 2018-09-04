@@ -41,7 +41,7 @@ find_package(Boost COMPONENTS
 
 set( CONFILEPATH "${CMAKE_BINARY_DIR}/src/${PROJECT_NAME}/config" )
 configure_file(
-       ${CMAKE_SOURCE_DIR}/config.hpp.in ${CONFILEPATH}/config.hpp @ONLY)
+  ${CMAKE_SOURCE_DIR}/config.hpp.in ${CONFILEPATH}/config.hpp @ONLY)
 include_directories(${CONFILEPATH})
 
 set(RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin )
@@ -49,6 +49,11 @@ set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake-modules" )
 set(EXTERNAL_PROJECTS_PREFIX ${CMAKE_BINARY_DIR}/external-projects)
 include(ExternalProject)
 include("${CMAKE_MODULE_PATH}/install.cmake")
+
+macro(set_output_dir_properties _exec)
+    set_target_properties(${_exec} PROPERTIES
+                          RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/)
+endmacro()
 
 add_subdirectory(std)
 add_subdirectory(boost)

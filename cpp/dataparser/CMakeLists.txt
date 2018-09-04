@@ -1,7 +1,7 @@
 
 add_executable(dataparser main.cpp DataParser.cpp DataParser.hpp)
 target_include_directories(dataparser PRIVATE ${Boost_INCLUDE_DIRS})
-set_target_properties(dataparser PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/ )
+set_output_dir_properties(dataparser)
 
 macro(copy_data _file)
   if(EXISTS ${_file})
