@@ -9,8 +9,6 @@
 #include <vector>
 
 /// \brief this is a helper class to compute running statistic
-/// TODO : this should be moved to an utils / tools namespace / repo / dir...
-
 class RunningStats {
 public:
   explicit RunningStats(
