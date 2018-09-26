@@ -79,6 +79,8 @@ public:
 
   virtual boost::any get() const = 0;
 
+  virtual ~Base() = default;
+
 protected:
   Base(Type type, std::size_t id) : _type(type), _id(id) {}
 
