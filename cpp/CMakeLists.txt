@@ -9,20 +9,20 @@ option(BUILD_WITH_CCACHE "Build with CCache" ON)
 
 if(BUILD_WITH_CCACHE)
 
-    if("${CMAKE_SYSTEM_NAME}" STREQUAL "Darwin")
-        SET(ENV{PATH} /usr/local/opt/ccache/libexec:$ENV{PATH})
-    elseif("${CMAKE_SYSTEM_NAME}" STREQUAL "Linux")
-        SET(ENV{PATH} /usr/lib/ccache:$ENV{PATH})
-    else()
-        message(FATAL_ERROR "CCache is not handled for your system: ${CMAKE_SYSTEM_NAME}")
-    endif()
+  if("${CMAKE_SYSTEM_NAME}" STREQUAL "Darwin")
+    SET(ENV{PATH} /usr/local/opt/ccache/libexec:$ENV{PATH})
+  elseif("${CMAKE_SYSTEM_NAME}" STREQUAL "Linux")
+    SET(ENV{PATH} /usr/lib/ccache:$ENV{PATH})
+  else()
+    message(FATAL_ERROR "CCache is not handled for your system: ${CMAKE_SYSTEM_NAME}")
+  endif()
 
-    find_program(CCACHE_FOUND ccache)
+  find_program(CCACHE_FOUND ccache)
 
-    if(CCACHE_FOUND)
-        set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE ccache)
-        set_property(GLOBAL PROPERTY RULE_LAUNCH_LINK ccache)
-    endif(CCACHE_FOUND)
+  if(CCACHE_FOUND)
+    set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE ccache)
+    set_property(GLOBAL PROPERTY RULE_LAUNCH_LINK ccache)
+  endif(CCACHE_FOUND)
 
 endif()
 
@@ -51,8 +51,8 @@ include(ExternalProject)
 include("${CMAKE_MODULE_PATH}/install.cmake")
 
 macro(set_output_dir_properties _exec)
-    set_target_properties(${_exec} PROPERTIES
-                          RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/)
+  set_target_properties(${_exec} PROPERTIES
+                        RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/)
 endmacro()
 
 add_subdirectory(std)
@@ -64,3 +64,4 @@ add_subdirectory(cppcon)
 add_subdirectory(cppnow)
 add_subdirectory(dataparser)
 add_subdirectory(sort_by_index)
+add_subdirectory(rstat)
