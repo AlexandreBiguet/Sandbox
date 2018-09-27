@@ -20,7 +20,7 @@ class Vehicle {
   virtual ~Vehicle() { std::cout << "Destroying a vehicle" << std::endl; }
 
  protected:
-  Vehicle(Type type) : _type(type) {}
+  explicit Vehicle(Type type) : _type(type) {}
 
  private:
   Type _type;
@@ -32,7 +32,7 @@ class Car : public Vehicle {
   Type type() const { return _type; }
 
  protected:
-  Car(Type type) : Vehicle(Vehicle::Type::Car), _type(type) {}
+  explicit Car(Type type) : Vehicle(Vehicle::Type::Car), _type(type) {}
 
  private:
   Type _type;
@@ -42,11 +42,11 @@ class Ferrari : public Car {
  public:
   enum class Color { Red, Yellow };
 
-  Ferrari(Color color) : Car(Car::Type::Ferrari), _color(color) {}
+  explicit Ferrari(Color color) : Car(Car::Type::Ferrari), _color(color) {}
 
   Color color() const { return _color; }
 
-  ~Ferrari() {
+  ~Ferrari() override {
     std::string col((_color == Color::Red ? "Red" : "Yellow"));
     std::cout << "Destructing a " << col << " Ferrari \n";
   }
@@ -57,10 +57,10 @@ class Ferrari : public Car {
 
 class Audi : public Car {
  public:
-  Audi(const std::string& name) : Car(Car::Type::Audi), _name(name) {}
+  explicit Audi(const std::string& name) : Car(Car::Type::Audi), _name(name) {}
   const std::string& name() const { return _name; }
 
-  ~Audi() { std::cout << "destruct : " << _name << std::endl; }
+  ~Audi() override { std::cout << "destruct : " << _name << std::endl; }
 
  private:
   std::string _name;
@@ -72,7 +72,7 @@ class Boat : public Vehicle {
   Type type() const { return _type; }
 
  protected:
-  Boat(Type type) : Vehicle(Vehicle::Type::Boat), _type(type) {}
+  explicit Boat(Type type) : Vehicle(Vehicle::Type::Boat), _type(type) {}
 
  private:
   Type _type;
@@ -80,7 +80,7 @@ class Boat : public Vehicle {
 
 class Brig : public Boat {
  public:
-  Brig(size_t crewNumber) : Boat(Boat::Type::Brig), _crewNumber(crewNumber) {}
+  explicit Brig(size_t crewNumber) : Boat(Boat::Type::Brig), _crewNumber(crewNumber) {}
   size_t crewNumber() const { return _crewNumber; }
 
  private:
