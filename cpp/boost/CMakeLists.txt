@@ -43,3 +43,5 @@ add_exec(geo_for_each_segment_tuto geometry/ForEachSegmentTuto.cpp)
 add_exec(geo_intersection geometry/Intersection.cpp)
 add_exec(geo_overlaps geometry/Overlaps.cpp)
 add_exec(geo_area_clock_wise_polygon geometry/AreaClockWisePolygon.cpp)
+
+add_exec(functional_hash functional/hash.cpp)

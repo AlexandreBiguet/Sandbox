@@ -1,6 +1,8 @@
 macro(add_exec _name _src)
   set(exec_name std_${_name})
   add_executable(${exec_name} ${_src})
+  target_include_directories(${exec_name} PRIVATE ${Boost_INCLUDE_DIRS})
+  target_link_libraries(${exec_name} ${Boost_LIBRARIES})
   set_target_properties(
     ${exec_name}
     PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/ )

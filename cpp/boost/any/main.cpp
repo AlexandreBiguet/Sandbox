@@ -2,16 +2,17 @@
  * @Author: Alexandre Biguet <alexandrebiguet>
  * @Date:   13 - Jun - 2018
  * @Last modified by:   alexandrebiguet
- * @Last modified time: 13 - Jun - 2018
+ * @Last modified time: 14 - Nov - 2018
  */
 
 /**
  * Testing boost::any stuff
  */
 
-#include <boost/any.hpp>
 #include <iostream>
 #include <vector>
+
+#include <boost/any.hpp>
 
 void test(const boost::any& value) {
   if (value.type() == typeid(int)) {
