@@ -74,6 +74,9 @@ int main() {
     assert(false == angle.relative());
   }
 
+  // Angle<double> angle(12.0);
+  // Angle<CoucouAngle> angle(12.0);
+
   std::cout << " ---> All right \n";
 
   return 0;
