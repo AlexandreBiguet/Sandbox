@@ -9,16 +9,16 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}")
 
 include(GNUInstallDirs)
 
-set(RPATH ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_FULL_LIBDIR})
-SET(CMAKE_INSTALL_RPATH "${RPATH}")
-# if("${CMAKE_SYSTEM_NAME}" STREQUAL "Darwin")
-#   set(CMAKE_INSTALL_NAME_DIR ${RPATH})
-# elseif("${CMAKE_SYSTEM_NAME}" STREQUAL "Linux")
-#   set(CMAKE_INSTALL_RPATH ${RPATH}:${CMAKE_INSTALL_RPATH})
-# else()
-#   message(FATAL_ERROR "On [${CMAKE_SYSTEM_NAME}] system : rpath not handled")
-# endif()
-#
+set(RPATH ${CMAKE_INSTALL_FULL_LIBDIR})
+
+if("${CMAKE_SYSTEM_NAME}" STREQUAL "Darwin")
+  set(CMAKE_INSTALL_NAME_DIR ${RPATH})
+elseif("${CMAKE_SYSTEM_NAME}" STREQUAL "Linux")
+  set(CMAKE_INSTALL_RPATH ${RPATH}:${CMAKE_INSTALL_RPATH})
+else()
+  message(FATAL_ERROR "On [${CMAKE_SYSTEM_NAME}] system : rpath not handled")
+endif()
+
 set(CMAKE_INSTALL_FULL_CMAKECONFDIR ${CMAKE_INSTALL_FULL_LIBDIR}/cmake)
 
 add_library(${project_lib} SHARED packgen/test.cpp)
