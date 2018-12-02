@@ -1,0 +1,5 @@
+cmake_minimum_required(VERSION 3.8.2)
+project(packgen_exec CXX VERSION 0.0.1)
+find_package(packgen REQUIRED)
+add_executable(packgen_exec main.cpp)
+target_link_libraries(packgen_exec sandbox::packgen)
