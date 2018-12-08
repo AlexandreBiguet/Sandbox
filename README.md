@@ -46,3 +46,6 @@ unique CMake project
 - **snmpp** : stands for simple numerical methods in cpp. I started it a few
   month ago as a unique git repo, but it is more a project for fun than
   anything else.
+
+## Talks
+Optimization https://www.youtube.com/watch?v=nXaxk27zwlk
