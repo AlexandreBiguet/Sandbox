@@ -1,0 +1,5 @@
+cmake_minimum_required (VERSION 3.13)
+project (OpenCL_simple_test)
+find_package(OpenCL REQUIRED)
+add_executable (opencl_example opencl_example.cpp)
+target_link_libraries(opencl_example OpenCL::OpenCL)
