@@ -15,6 +15,6 @@ void hello(const std::string& name) {
   std::cout << "Hello " << name << std::endl;
 }
 
-double buggy(double a) { return a / 0; }
+double buggy(double* a) { return a[12345]; }
 
 }  // namespace myTest

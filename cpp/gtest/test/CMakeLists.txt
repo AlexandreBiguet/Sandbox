@@ -19,13 +19,13 @@ add_subdirectory(
 # add the Cool exec test
 
 add_executable(TestCoolTarget Cool.cpp)
-target_link_libraries(TestCoolTarget gtest gmock_main myTest)
+target_link_libraries(TestCoolTarget gtest myTest)
 add_test(NAME TestCool COMMAND TestCoolTarget)
 
 # add the Stuff exec test
 
 add_executable(TestStuffTarget Stuff.cpp)
-target_link_libraries(TestStuffTarget gtest gmock_main myTest)
+target_link_libraries(TestStuffTarget gtest myTest)
 add_test(NAME TestStuff COMMAND TestStuffTarget)
 
 add_custom_target(check
