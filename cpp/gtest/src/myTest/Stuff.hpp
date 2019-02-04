@@ -11,6 +11,6 @@ namespace myTest {
 
 void hello(const std::string& name);
 
-double buggy(double a);
+double buggy(double* a);
 
 }  // namespace myTest

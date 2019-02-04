@@ -3,12 +3,12 @@
 
 cmake_minimum_required (VERSION 3.7.2)
 # cmake_minimum_required (VERSION 3.10.0)
-project(myTest LANGUAGES CXX VERSION 0.0.1)
+project(TestingGoogleTest LANGUAGES CXX VERSION 0.0.1)
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake-modules" )
-set(LIBRARY_NAME ${PROJECT_NAME})
 
-option(MYTEST_CODE_COVERAGE "compute code coverage" ON)
+
+option(MYTEST_CODE_COVERAGE "compute code coverage" OFF)
 
 ## Using the download project utility make the downloaded project part of
 ## the current project. The install target installs everything... Which sucks
