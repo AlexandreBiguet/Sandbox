@@ -4,7 +4,7 @@ namespace mocking {
 
 class Rng {
  public:
-  virtual ~Rng();
+  virtual ~Rng() = default;
   virtual double generate(double min, double max) const = 0;
 };
 

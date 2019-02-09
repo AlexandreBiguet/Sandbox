@@ -9,6 +9,7 @@ set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake-modules" )
 
 
 option(MYTEST_CODE_COVERAGE "compute code coverage" OFF)
+option(ACTIVATE_INCLUDE_WHAT_YOU_USE "Activates the iwyu (include what you use) program" OFF)
 
 ## Using the download project utility make the downloaded project part of
 ## the current project. The install target installs everything... Which sucks
@@ -20,16 +21,17 @@ option(MYTEST_CODE_COVERAGE "compute code coverage" OFF)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-# TODO : exclude system files
-find_program (iwyu_prg NAMES iwyu)
-if(NOT iwyu_prg)
-  message(STATUS "Include what you use program : Not Found")
-else()
-  message(STATUS "Include what you use program : Found")
-  set(CMAKE_CXX_INCLUDE_WHAT_YOU_USE iwyu)
-  set(CMAKE_C_INCLUDE_WHAT_YOU_USE iwyu)
+if(ACTIVATE_INCLUDE_WHAT_YOU_USE)
+  # TODO : exclude system files
+  find_program (iwyu_prg NAMES iwyu)
+  if(NOT iwyu_prg)
+    message(STATUS "Include what you use program : Not Found")
+  else()
+    message(STATUS "Include what you use program : Found")
+    set(CMAKE_CXX_INCLUDE_WHAT_YOU_USE iwyu)
+    set(CMAKE_C_INCLUDE_WHAT_YOU_USE iwyu)
+  endif()
 endif()
-# Creation of the myTest library
 
 # Dl the google test framework
 if(${MYTEST_CODE_COVERAGE})

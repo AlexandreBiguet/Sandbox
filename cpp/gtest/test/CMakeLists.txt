@@ -16,24 +16,23 @@ download_project(PROJ                googletest
 add_subdirectory(
   ${googletest_SOURCE_DIR} ${googletest_BINARY_DIR} EXCLUDE_FROM_ALL)
 
-# add the Cool exec test
 
-add_executable(TestCoolTarget Cool.cpp)
-target_link_libraries(TestCoolTarget gtest myTest)
-add_test(NAME TestCool COMMAND TestCoolTarget)
+macro(test_decl _prefix _src)
+  add_executable(${_prefix}_test_target ${_src})
+  target_link_libraries(${_prefix}_test_target PRIVATE gtest gmock myTest mocking)
+  add_test(NAME ${_prefix}_test COMMAND ${_prefix}_test_target)
+endmacro()
 
-# add the Stuff exec test
-
-add_executable(TestStuffTarget Stuff.cpp)
-target_link_libraries(TestStuffTarget gtest myTest)
-add_test(NAME TestStuff COMMAND TestStuffTarget)
+test_decl(cool Cool.cpp)
+test_decl(stuff Stuff.cpp)
+test_decl(coin_flipper coin_flipper.cpp)
 
 add_custom_target(check
                   COMMAND GTEST_COLOR=1 ${CMAKE_CTEST_COMMAND} --verbose -C Debug
                   DEPENDS
-                  TestCoolTarget TestStuffTarget)
+                  cool_test_target stuff_test_target)
 
-if(${MYTEST_CODE_COVERAGE})
+if(MYTEST_CODE_COVERAGE)
   set(COVERAGE_EXCLUDES '${CMAKE_BINARY_DIR}/*')
 
   setup_target_for_coverage(
