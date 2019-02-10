@@ -1,3 +1,5 @@
+## Building PyTorch
+
 Building pytorch from sources:
 
 ```
@@ -20,3 +22,9 @@ CAFFE_KNOWN_TYPE(Tensor<OpenCLContext>);
 
 Just to give it a try, commenting out this line make the build succeed
 (but i don't know if there are some side effects).
+
+## Useful links
+
+- https://github.com/pytorch/examples
+- https://pytorch.org/cppdocs/frontend.html
+- https://pytorch.org/tutorials/advanced/cpp_frontend.html
