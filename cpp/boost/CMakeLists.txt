@@ -45,3 +45,6 @@ add_exec(geo_overlaps geometry/Overlaps.cpp)
 add_exec(geo_area_clock_wise_polygon geometry/AreaClockWisePolygon.cpp)
 
 add_exec(functional_hash functional/hash.cpp)
+add_exec(state_machine_simple_tuto state_machine/player_simple_tuto.cpp)
+add_exec(state_machine_turnstile state_machine/turnstile.cpp)
+add_exec(state_machine_turnstile_functor_frontend state_machine/turnstile_functor_frontend.cpp)
