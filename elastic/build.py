@@ -52,6 +52,9 @@ def build(build_info, execute_unit_test=False):
     # gen = '"' + build_info.generator() + '" '
     gen = build_info.generator
     options = build_info.cmake_options
+
+    print('--------' * 4, 'rel dir = ', rel_dir)
+
     if options:
         print('options : ', options)
         sub.run(['cmake', src_dir, build_dir, rel_dir, '-G', gen, '-LH'] +
@@ -79,7 +82,7 @@ def get_base_build_name():
 
 def main():
 
-    base_dir = get_base_build_name()
+    base_dir = SCRIPT_DIR + '/' + get_base_build_name()
     build_dir = base_dir + '/' + 'build_' + DIRNAME
     release_dir = base_dir + '/' + 'release'
     gen = DEFAULT_GENERATOR
