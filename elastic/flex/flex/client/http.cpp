@@ -97,7 +97,7 @@ Http::Response Http::write(boost::beast::http::verb verb,
   req.set(boost::beast::http::field::content_length, body.length());
   req.body() = body;
 
-  BOOST_LOG_TRIVIAL(trace) << body;
+  BOOST_LOG_TRIVIAL(debug) << body;
 
   // Send the HTTP request to the remote host
 
@@ -116,6 +116,7 @@ Http::Response Http::write(boost::beast::http::verb verb,
     throw std::runtime_error("read : " + ec.message());
   }
 
+  BOOST_LOG_TRIVIAL(trace) << res;
   return res;
 }
 
