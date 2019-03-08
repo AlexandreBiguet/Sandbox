@@ -7,6 +7,9 @@
 #include <iostream>
 
 #include <boost/asio/signal_set.hpp>
+#include <boost/log/core.hpp>
+#include <boost/log/trivial.hpp>
+#include <boost/log/expressions.hpp>
 
 #include <nlohmann/json.hpp>
 
@@ -34,10 +37,11 @@ int main() {
 
   boost::asio::io_context context;
 
-  flex::producer::Config cfg("/sine_producer");
+  flex::producer::Config cfg("/sine_producer/_doc");
   flex::producer::Producer producer(context, cfg);
 
-  // SineProducer sine_prod;
+  boost::log::core::get()->set_filter(
+      boost::log::trivial::severity >= boost::log::trivial::debug);
 
   producer.run(SineProducer());
 
