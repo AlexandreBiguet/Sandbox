@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.5.1)
+cmake_minimum_required(VERSION 3.13.0)
 
 project(ElasticFlex LANGUAGES CXX C VERSION 1.0.0)
 
@@ -27,9 +27,21 @@ endif()
 set(boost_components program_options system filesystem graph regex coroutine log)
 find_package(Boost REQUIRED COMPONENTS ${boost_components})
 
+include(FetchContent)
+
+FetchContent_Declare(
+  nlohmanjson
+  URL https://github.com/nlohmann/json/releases/download/v3.5.0/include.zip
+)
+
+FetchContent_GetProperties(nlohmanjson)
+if(NOT nlohmanjson_POPULATED)
+  FetchContent_Populate(nlohmanjson)
+endif()
+
 # -----------------------------------------------------------------------------
 # --- source files
 
-# add_subdirectory(msg)
-# add_subdirectory(flex)
-add_subdirectory(test)
+add_subdirectory(flex)
+add_subdirectory(tests)
+add_subdirectory(samples)

@@ -25,12 +25,23 @@
 
 #include <boost/log/trivial.hpp>
 
+#include <nlohmann/json.hpp>
+
 namespace {
 
 /// \brief
 class HttpClient {
 
 public:
+  template <typename Body> using Request_t = boost::beast::http::request<Body>;
+
+  template <typename Body>
+  using Response_t = boost::beast::http::response<Body>;
+
+  using Request = Request_t<boost::beast::http::string_body>;
+
+  using Response = Response_t<boost::beast::http::string_body>;
+
   /// \brief
   struct Config {
 
@@ -72,13 +83,11 @@ public:
 
   /// \brief
   /// \param target
-  boost::beast::http::response<boost::beast::http::string_body>
-  get(const std::string &target, boost::asio::yield_context yield) {
+  Response get(const std::string &target, boost::asio::yield_context yield) {
 
     boost::system::error_code ec;
 
-    boost::beast::http::request<boost::beast::http::string_body> req{
-        boost::beast::http::verb::get, target, _http_version};
+    Request req{boost::beast::http::verb::get, target, _http_version};
     req.set(boost::beast::http::field::host, _config._host);
     req.set(boost::beast::http::field::user_agent, BOOST_BEAST_VERSION_STRING);
 
@@ -90,7 +99,7 @@ public:
     }
 
     // Declare a container to hold the response
-    boost::beast::http::response<boost::beast::http::string_body> res;
+    Response res;
 
     boost::beast::http::async_read(_socket, _buffer, res, yield[ec]);
 
@@ -99,6 +108,68 @@ public:
     }
 
     return res;
+  }
+
+  Response put(const std::string &target, const std::string &body,
+               boost::asio::yield_context yield) {
+    boost::system::error_code ec;
+
+    Request req{boost::beast::http::verb::put, target, _http_version};
+    req.set(boost::beast::http::field::host, _config._host);
+    req.set(boost::beast::http::field::user_agent, BOOST_BEAST_VERSION_STRING);
+    req.set(boost::beast::http::field::content_type, "application/json");
+    req.set(boost::beast::http::field::content_length, body.length());
+    req.body() = body;
+
+    // Send the HTTP request to the remote host
+
+    boost::beast::http::async_write(_socket, req, yield[ec]);
+
+    if (ec) {
+      throw std::runtime_error("write : " + ec.message());
+    }
+
+    // Declare a container to hold the response
+    Response res;
+
+    boost::beast::http::async_read(_socket, _buffer, res, yield[ec]);
+
+    if (ec) {
+      throw std::runtime_error("read : " + ec.message());
+    }
+
+    return res;
+  }
+
+  Response post(const std::string& target, const std::string& body, boost::asio::yield_context yield) {
+    boost::system::error_code ec;
+
+    Request req{boost::beast::http::verb::post, target, _http_version};
+    req.set(boost::beast::http::field::host, _config._host);
+    req.set(boost::beast::http::field::user_agent, BOOST_BEAST_VERSION_STRING);
+    req.set(boost::beast::http::field::content_type, "application/json");
+    req.set(boost::beast::http::field::content_length, body.length());
+    req.body() = body;
+
+    // Send the HTTP request to the remote host
+
+    boost::beast::http::async_write(_socket, req, yield[ec]);
+
+    if (ec) {
+      throw std::runtime_error("write : " + ec.message());
+    }
+
+    // Declare a container to hold the response
+    Response res;
+
+    boost::beast::http::async_read(_socket, _buffer, res, yield[ec]);
+
+    if (ec) {
+      throw std::runtime_error("read : " + ec.message());
+    }
+
+    return res;
+
   }
 
   ~HttpClient() {
@@ -128,7 +199,7 @@ void print_response(const boost::beast::http::response<BodyType> &res) {
   BOOST_LOG_TRIVIAL(trace) << res.body() << "\n";
 }
 
-void wait(boost::asio::io_context &context, boost::asio::yield_context yield,
+bool wait(boost::asio::io_context &context, boost::asio::yield_context yield,
           size_t timeout_ms = 500) {
   boost::asio::deadline_timer timer(context);
   timer.expires_at(boost::asio::deadline_timer::traits_type::now() +
@@ -139,13 +210,14 @@ void wait(boost::asio::io_context &context, boost::asio::yield_context yield,
   if (ec) {
     throw std::runtime_error("wait : " + ec.message());
   }
+  return true;
 }
 
 } // namespace
 
 int main(int argc, char **argv) {
 
-  std::string target{"/twitter"};
+  std::string target{"/twitter/_doc"};
 
   if (argc == 2) {
     target = argv[1];
@@ -156,15 +228,38 @@ int main(int argc, char **argv) {
 
   HttpClient client(context);
 
-  boost::asio::spawn(
-      context, [&context, &client, &target](boost::asio::yield_context yield) {
-        client.connect(yield);
+  nlohmann::json json;
+  json["user"] = "kimchy";
+  json["post_date"] = "2009-11-15T14:12:12";
+  json["message"] = "Hello, elastic search";
 
-        while (true) {
-          print_response(client.get(target, yield));
-          wait(context, yield, 1000);
-        }
-      });
+  boost::asio::spawn(context, [&context, &client, &target,
+                               json](boost::asio::yield_context yield) {
+    client.connect(yield);
+
+    boost::system::error_code ec;
+
+    while (wait(context, yield, 1000)) {
+      print_response(client.get(target + "/0", yield[ec]));
+
+      if (ec) {
+        throw std::runtime_error("get : " + ec.message());
+      }
+
+      print_response(client.put(target + "/0", json.dump(), yield[ec]));
+
+      if (ec) {
+        throw std::runtime_error("put : " + ec.message());
+      }
+
+      print_response(client.post(target, json.dump(), yield[ec]));
+
+      if (ec) {
+        throw std::runtime_error("put : " + ec.message());
+      }
+
+    }
+  });
 
   boost::asio::signal_set signals(context, SIGINT, SIGTERM);
 
