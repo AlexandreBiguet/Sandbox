@@ -255,7 +255,7 @@ int main(int argc, char **argv) {
       print_response(client.post(target, json.dump(), yield[ec]));
 
       if (ec) {
-        throw std::runtime_error("put : " + ec.message());
+        throw std::runtime_error("post : " + ec.message());
       }
 
     }

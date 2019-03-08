@@ -97,6 +97,8 @@ Http::Response Http::write(boost::beast::http::verb verb,
   req.set(boost::beast::http::field::content_length, body.length());
   req.body() = body;
 
+  BOOST_LOG_TRIVIAL(trace) << body;
+
   // Send the HTTP request to the remote host
 
   boost::beast::http::async_write(_socket, req, yield[ec]);
