@@ -1,6 +1,12 @@
+//
+//
+//
+
 #pragma once
 
 #include "config.hpp"
+
+#include <memory>
 
 #include <boost/asio/deadline_timer.hpp>
 #include <boost/asio/io_context.hpp>
@@ -19,25 +25,30 @@ public:
   /// \param functor
   template <typename Functor> void run(const Functor &&functor) {
 
-    // clang-format off
-    boost::asio::spawn(
-        _strand, [this, functor](boost::asio::yield_context yield) {
+    boost::asio::spawn( // trick clang-format :-)
+        _strand.get_io_context(),
+        [this, functor](boost::asio::yield_context yield) {
           boost::system::error_code ec;
-          _client.connect(yield[ec]);
+          _client.connect(yield);
 
-          while (loop(yield)) {
-            _client.post(_config._target, functor(), yield[ec]);
+          if (_config._requireTimeStampedDatae) {
+            timestamp(yield);
+          }
+
+          while (loop(yield[ec])) {
+            _client.post(_config._index + "/_doc/" + generateDocumentId(),
+                         functor(), yield[ec]);
             if (ec) {
               throw std::runtime_error("post : " + ec.message());
             }
           }
         });
-    // clang-format on
   }
 
 private:
-
   bool loop(boost::asio::yield_context yield);
+  void timestamp(boost::asio::yield_context yield);
+  std::string generateDocumentId() const;
 
   boost::asio::io_context::strand _strand;
   Config _config;

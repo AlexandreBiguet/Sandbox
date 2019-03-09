@@ -1,5 +1,5 @@
 //
-//  Created by Alexandre Biguet on 2019-03-07 at 16:05.
+//
 //
 
 #include <iostream>
