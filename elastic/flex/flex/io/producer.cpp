@@ -5,13 +5,12 @@
 #include "producer.hpp"
 
 namespace flex {
-namespace producer {
+namespace io {
 
 // ----------------------------------------------------------------------------
 
 Producer::Producer(boost::asio::io_context &context, const Config &config)
-    : _strand(context), _config(config), _timer(context), _client(context) {
-}
+    : _strand(context), _config(config), _timer(context), _client(context) {}
 
 // ----------------------------------------------------------------------------
 
@@ -42,7 +41,6 @@ void Producer::timestamp(boost::asio::yield_context yield) {
   nlohmann::json json = nlohmann::json::parse(json_msg);
 
   _client.post(_config._index + "/_doc/", json, yield);
-
 }
 
 // ----------------------------------------------------------------------------
@@ -57,5 +55,5 @@ std::string Producer::generateDocumentId() const {
 
 // ----------------------------------------------------------------------------
 
-} // namespace producer
+} // namespace io
 } // namespace flex

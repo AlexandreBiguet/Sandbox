@@ -15,6 +15,7 @@
 #include <nlohmann/json.hpp>
 
 namespace flex {
+namespace io {
 namespace client {
 
 // ----------------------------------------------------------------------------
@@ -149,4 +150,5 @@ Http::~Http() {
 // ----------------------------------------------------------------------------
 
 } // namespace client
+} // namespace io
 } // namespace flex

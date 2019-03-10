@@ -17,11 +17,11 @@
 #include <nlohmann/json.hpp>
 
 namespace flex {
+namespace io {
 namespace client {
 
 class Http {
 public:
-
   using Request = boost::beast::http::request<boost::beast::http::string_body>;
 
   using Response =
@@ -65,4 +65,5 @@ private:
 };
 
 } // namespace client
+} // namespace io
 } // namespace flex

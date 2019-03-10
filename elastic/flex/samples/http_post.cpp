@@ -4,7 +4,7 @@
 
 #include <iostream>
 
-#include <flex/client/http.hpp>
+#include <flex/io/client/http.hpp>
 
 int main() {
 
@@ -13,7 +13,7 @@ int main() {
 
   std::string target{"/twitter/_doc/0"};
 
-  flex::client::Http client(context);
+  flex::io::client::Http client(context);
 
   nlohmann::json json;
   json["user"] = "kimchy";

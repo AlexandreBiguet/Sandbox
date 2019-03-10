@@ -9,6 +9,12 @@
 namespace flex {
 namespace algo {
 
+/// \brief
+/// \tparam Iter
+/// \tparam Container
+/// \param begin
+/// \param end
+/// \return
 template <typename Iter,
           template <typename, typename> class Container = std::vector>
 Container<typename std::iterator_traits<Iter>::value_type,

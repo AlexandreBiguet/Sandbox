@@ -13,7 +13,7 @@
 
 #include <nlohmann/json.hpp>
 
-#include <flex/producer/producer.hpp>
+#include <flex/io/producer.hpp>
 
 class SineProducer {
 public:
@@ -37,9 +37,9 @@ int main() {
 
   boost::asio::io_context context;
 
-  flex::producer::Config cfg("sine_producer");
+  flex::io::Producer::Config cfg("sine_producer");
 
-  flex::producer::Producer producer(context, cfg);
+  flex::io::Producer producer(context, cfg);
 
   boost::log::core::get()->set_filter(boost::log::trivial::severity >=
                                       boost::log::trivial::trace);

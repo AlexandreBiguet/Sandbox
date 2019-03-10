@@ -4,20 +4,33 @@
 
 #pragma once
 
-#include "config.hpp"
-
 #include <memory>
 
 #include <boost/asio/deadline_timer.hpp>
 #include <boost/asio/io_context.hpp>
 
-#include <flex/client/http.hpp>
+#include <flex/io/client/http.hpp>
 
 namespace flex {
-namespace producer {
+namespace io {
 
+/// \brief Push data to ElasticSearch
 class Producer {
 public:
+  struct Config {
+    explicit Config(std::string &&index) : _index(std::move(index)) {}
+
+    enum class IdGeneratorType { None, Incremental, Hash };
+
+    std::string _index;
+    std::size_t _period_ms{300};
+    bool _requireTimeStampedDatae{true};
+    IdGeneratorType _idGeneratorType{IdGeneratorType::Incremental};
+  };
+
+  /// \brief
+  /// \param context
+  /// \param config
   Producer(boost::asio::io_context &context, const Config &config);
 
   /// \brief
@@ -56,5 +69,5 @@ private:
   client::Http _client;
 };
 
-} // namespace producer
+} // namespace io
 } // namespace flex

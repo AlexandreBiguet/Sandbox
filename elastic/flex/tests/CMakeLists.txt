@@ -24,6 +24,8 @@ add_test(test_http_client_coro test_http_client_coro.cpp)
 
 add_test(test_http_client_asio test_http_client_asio.cpp)
 
+add_test(test_circular_container test_circular_container.cpp)
+
 # -----------------------------------------------------------------------------
 # --- adding http client tests
 
