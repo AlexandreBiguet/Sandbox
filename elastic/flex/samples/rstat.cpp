@@ -69,6 +69,8 @@ int main() {
     std::cout << "\nexpected mean   : " << expected_mean << "\n";
     std::cout << "expected stddev : " << expected_stddev << "\n";
     std::cout << " 1/ sqrt(size) = " << 1.0 / std::sqrt(size) << std::endl;
+    std::cout << " stddev / sqrt(size) = " << stat.stddev() / std::sqrt(size)
+              << std::endl;
   }
 
   return 0;
