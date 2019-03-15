@@ -52,7 +52,7 @@ endif()
 # ---
 
 install(
-  TARGETS ${LIBRARY_NAME} DESTINATION ${CMAKE_INSTALL_LIBDIR})
+  TARGETS ${LIBRARY_NAME} DESTINATION ${CMAKE_INSTALL_FULL_LIBDIR})
 
 # -----------------------------------------------------------------------------
 # ---
@@ -61,13 +61,12 @@ macro(install_headers src dst)
   foreach(file ${src})
     get_filename_component(file ${file} ABSOLUTE)
     get_filename_component(file_dir ${file} DIRECTORY)
-    string(REPLACE "${PROJECT_SOURCE_DIR}" "" file_dir "${file_dir}")
+    string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}" "flex" file_dir "${file_dir}")
     file(TO_CMAKE_PATH "${dst}/${file_dir}" dst_dir)
     install(FILES ${file} DESTINATION ${dst_dir} COMPONENT Devel)
   endforeach()
 endmacro()
 
-install_headers(${PUBLIC_HEADERS} ${CMAKE_INSTALL_INCLUDEDIR})
+install_headers("${PUBLIC_HEADERS}" ${CMAKE_INSTALL_FULL_INCLUDEDIR})
 
-install_headers(
-  ${nlohmanjson_SOURCE_DIR}/nlohmann/json.hpp ${CMAKE_INSTALL_INCLUDEDIR}) # yurk
+install(DIRECTORY ${nlohmanjson_SOURCE_DIR}/nlohmann DESTINATION ${CMAKE_INSTALL_FULL_INCLUDEDIR}) # yurk
