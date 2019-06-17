@@ -27,3 +27,8 @@
   - https://en.wikipedia.org/wiki/Boyer%E2%80%93Moore_string-search_algorithm
   - https://en.wikipedia.org/wiki/Apostolico%E2%80%93Giancarlo_algorithm
   - https://en.wikipedia.org/wiki/Raita_algorithm
+- Others:
+  - ISL : http://isl.gforge.inria.fr
+  - http://glaros.dtc.umn.edu/gkhome/software
+  - looking swig cmake integration
+  - https://gowerrobert.github.io/
