@@ -15,7 +15,7 @@ long arrayManipulation(int n, const std::vector<crush::Query>& queries) {
   std::cout << "n : " << n << std::endl;
 #endif
   // return arrayManipulation_1(n, queries);
-  return crush::arrayManipulation_2(n, queries);
+  return crush::arrayManipulation_3(n, queries);
 }
 
 void testing_interval();
