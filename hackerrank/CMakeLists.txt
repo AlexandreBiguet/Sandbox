@@ -15,4 +15,6 @@ endif()
 add_executable(array2d array2d/main.cpp)
 add_executable(dynamic_array dynamic_array/main.cpp)
 add_subdirectory(crush)
+add_executable(attribute_parser attribute_parser/main.cpp)
+
 
