@@ -17,4 +17,7 @@ add_executable(dynamic_array dynamic_array/main.cpp)
 add_subdirectory(crush)
 add_executable(attribute_parser attribute_parser/main.cpp)
 
+add_executable(cpp_class_template cpp_class_template/main.cpp)
+
+add_executable(cpp_box_it box_it.cpp)
 
