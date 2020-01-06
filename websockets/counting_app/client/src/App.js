@@ -1,3 +1,4 @@
+import './App.css';
 import React from 'react';
 
 class SimpleContent extends React.Component {
@@ -99,24 +100,23 @@ class App extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <div>
-          <header>
-            <title> Counting stuff with websockets </title>
-          </header>
+        <div className='App'>
+          <h1> Counting stuff with websockets </h1>
         </div>
 
         <div className='buttons'>
-          <button className='minus button' onClick={() => this.decrementCount()} > - </button>
-          <button className='value  button' onClick={() => this.incrementCount()}> + </button>
+          <button className='btn-3d blue rounded' onClick={() => this.decrementCount()} > - </button>
+          <button className='btn-3d red rounded' onClick={() => this.incrementCount()}> + </button>
         </div>
 
-        <div>
-          <SimpleContent ref={this.counterValueRef} header='Counter Value: ' value={this.state.receivedCounterValue} > </SimpleContent>
+        <div className='simple-content'>
+          <SimpleContent ref={this.counterValueRef} header='Counter Value : ' value={this.state.receivedCounterValue} > </SimpleContent>
+          <SimpleContent ref={this.numberOfConnectedUsersRef} header='# of connected users : ' value={this.state.numberOfConnectedUsers} > </SimpleContent>
         </div>
 
-        <div className='connected'>
-          <SimpleContent ref={this.numberOfConnectedUsersRef} header='# of connected users: ' value={this.state.numberOfConnectedUsers} > </SimpleContent>
-        </div>
+        {/* <div className='simple-content'>
+
+        </div> */}
 
       </React.Fragment>
 
