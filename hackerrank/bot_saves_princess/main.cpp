@@ -1,7 +1,4 @@
-// Copyright (C) UAVIA, SAS - All Rights Reserved
-// Unauthorized copying of this file, via any medium is strictly prohibited
-// Proprietary and confidential
-// Written by UAVIA <embedded@uavia.eu>
+
 
 #include <iostream>
 #include <string>
