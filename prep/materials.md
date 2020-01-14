@@ -3,6 +3,7 @@
 ## Algorithms, Designs
 
 * [HackerRank Algorithms videos](https://www.youtube.com/playlist?list=PLI1t_8YX-ApvMthLj56t1Rf-Buio5Y8KL)
+* [HackerRank Data structure videos](https://www.youtube.com/playlist?list=PLI1t_8YX-Apv-UiRlnZwqqrRT8D1RhriX)
 * [Big-O Notation](https://www.youtube.com/watch?v=v4cd1O4zkGw)
 * [System design](https://www.hiredintech.com/classrooms/system-design/lesson/52)
 * [Scalibility](http://highscalability.com/)
