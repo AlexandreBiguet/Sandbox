@@ -1,5 +1,6 @@
 #include <cstdlib>
 #include <exception>
+#include <functional>
 #include <iomanip>
 #include <iostream>
 #include <map>
@@ -20,9 +21,7 @@
 
 // Implementation notes:
 // * If Boost is allowed in production code, we could use the Boost.Graph library for the graph data structure
-// * For this problem we choose to represent the graph as an adjacency list
-
-#define DEBUG_MODE
+// * For this problem we choose to represent the graph as an adjacency matrix
 
 namespace {
 
@@ -76,43 +75,43 @@ class custom_error : public std::runtime_error {
  public:
   custom_error(const error_type type, const std::string& str) : std::runtime_error(str), _error_type(type) {}
 
-  error_type error_type() const { return _error_type; }
+  error_type get_error_type() const { return _error_type; }
 
  private:
   enum error_type _error_type;
 };
 
-class bad_parsing : public custom_error {
- public:
+struct bad_parsing : public custom_error {
   explicit bad_parsing() : custom_error(error_type::invalid_input_format, "input parsing error") {}
 };
 
-class bad_input : public custom_error {
+struct bad_input : public custom_error {
   // Bit of code duplication with bad_parsing but this structure might change in the future
   // if more error types are introduced
- public:
   explicit bad_input() : custom_error(error_type::invalid_input_format, "input sanity checks failed") {}
 };
 
-class internal_error : public std::runtime_error {
- public:
+struct internal_error : public std::runtime_error {
   explicit internal_error(const std::string& reason) : std::runtime_error("internal error : " + reason) {}
 };
 
-class duplicate_vertex : public custom_error {
- public:
-  duplicate_vertex(const std::string& reason)
+struct duplicate_vertex : public custom_error {
+  explicit duplicate_vertex(const std::string& reason)
       : custom_error(error_type::duplicate_pair, "duplicated vertex" + reason) {}
 };
 
-class not_binary : public custom_error {
- public:
-  not_binary(const std::string& reason) : custom_error(error_type::not_binary, "graph not binary: " + reason) {}
+struct not_binary : public custom_error {
+  explicit not_binary() : custom_error(error_type::not_binary, "graph not binary") {}
 };
 
-class circular_graph : public custom_error {
- public:
-  circular_graph(const std::string& reason) : custom_error(error_type::contains_cycle, "circular graph : " + reason) {}
+struct circular_graph : public custom_error {
+  explicit circular_graph(const std::string& reason = "")
+      : custom_error(error_type::contains_cycle, "circular graph " + reason) {}
+};
+
+struct multiple_root : public custom_error {
+  explicit multiple_root(const std::string& reason)
+      : custom_error(error_type::multiple_root, "multiple roots detected " + reason) {}
 };
 
 class parser {
@@ -221,6 +220,7 @@ class graph {
 
  public:
   graph() {
+    // TODO implement an efficient adjacency matrix
     _adjacency_matrix.resize(_initial_size);
     for (auto& v : _adjacency_matrix) {
       v.resize(_initial_size);
@@ -257,29 +257,26 @@ class graph {
     _max_index = std::max(_max_index, std::max(v1, v2));
   }
 
-  bool is_binary() const {
-    for (size_t i = 0; i < _max_index - 2; ++i) {
-      std::size_t sum{0};
-      for (size_t j = i + 1; j < _max_index; ++j) {
-        sum += _adjacency_matrix[i][j];
-        if (sum >= 2) {
-          return true;
-        }
-      }
+  std::string to_string_tree() const {
+    if (not is_binary()) {
+      throw not_binary();
     }
 
-    return false;
-  }
+    auto roots = all_roots();
 
-  bool is_cyclic() const { return false; }
+    if (is_cyclic(roots)) {
+      throw circular_graph();
+    }
 
-  bool is_tree() const { return false; }
+    if (roots.size() > 1) {
+      std::stringstream stream;
+      for (const auto& root : roots) {
+        stream << to_node_name(root) << " ; ";
+      }
+      throw multiple_root(stream.str());
+    }
 
-  std::string to_string(std::size_t v1, std::size_t v2) {
-    std::string str("a--b");
-    str.front() = _letters[v1];
-    str.back() = _letters[v2];
-    return str;
+    return s_exp(roots[0]);
   }
 
   std::size_t to_index(char c) {
@@ -289,23 +286,6 @@ class graph {
       throw internal_error("vertex is not an upper case letter");
     }
     return _letters.find(c);
-  }
-
-  std::string to_string() const {
-    std::stringstream stream;
-    stream << "   ";
-    for (size_t i = 0; i <= _max_index; ++i) {
-      stream << std::setw(2) << _letters[i] << " ";
-    }
-    stream << "\n";
-    for (size_t i = 0; i <= _max_index; ++i) {
-      stream << _letters[i] << "  ";
-      for (size_t j = 0; j <= _max_index; ++j) {
-        stream << std::setw(2) << _adjacency_matrix[i][j] << " ";
-      }
-      stream << "\n";
-    }
-    return stream.str();
   }
 
   std::string to_string_triangle() const {
@@ -331,6 +311,217 @@ class graph {
   }
 
  private:
+  bool is_binary() const {
+    // Brute force O(n^2) implementation that uses
+    //   - the fact that the matrix is a triangle
+    //   - the fact that self linked node are already sorted out
+    //
+    // Implementation Note:
+    // * Another possibility O(n) in space could have been to increment a running sum for each row of the matrix and
+    // throw a not_binary exception (Time complexity of this would have been O(1)) I chose not to do that in order to
+    // not over-engineer the add_edge method which I would to keep simple. In a team I would have ask for feedback here
+
+    for (std::size_t i = 0; i < _adjacency_matrix.size() - 2; ++i) {
+      std::size_t sum{0};
+      for (std::size_t j = i + 1; j < _adjacency_matrix[i].size(); ++j) {
+        sum += _adjacency_matrix[i][j];
+        if (sum > 2) {
+          return false;
+        }
+      }
+    }
+
+    return true;
+  }
+
+  bool is_cyclic(const std::vector<std::size_t> starting_nodes) const {
+    for (const auto& node : starting_nodes) {
+      std::vector<bool> visited_nodes(_max_index + 1, false);
+      if (is_cyclic_helper(visited_nodes, node)) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  bool is_cyclic_helper(std::vector<bool>& visited, std::size_t v) const {
+    if (visited[v]) {
+      return true;
+    }
+
+    visited[v] = true;
+
+    for (auto&& n : neighbour_of(v)) {
+      if (is_cyclic_helper(visited, n)) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  std::vector<std::size_t> neighbour_of(std::size_t index) const {
+    // O(n) implementation due to the fact that the adjacency matrix is a matrix and not a 'smart' matrix
+
+    std::vector<std::size_t> neighbours;
+
+    for (size_t i = index + 1; i < _adjacency_matrix[index].size(); ++i) {
+      if (_adjacency_matrix[index][i] == 1) {
+        neighbours.push_back(i);
+      }
+    }
+
+    return neighbours;
+  }
+
+  // Access the first root in graph in alphabetical order
+  std::size_t alpha_root_node() const {
+    // O(n^2) implementation
+    for (std::size_t i = 0; i < _adjacency_matrix.size() - 2; ++i) {
+      for (std::size_t j = i + 1; j < _adjacency_matrix[i].size(); ++j) {
+        if (_adjacency_matrix[i][j] != 0) {
+          return i;
+        }
+      }
+    }
+    throw internal_error("graph appears to have no node");
+  }
+
+  std::vector<std::size_t> all_roots_1() const {
+    // Note: because of priority in errors, cycles must be detected in every possibly disconnected part of the graph
+
+    // Single root : if starting from the root and visited all node would leave none unvisited
+
+    std::vector<bool> visited(_max_index + 1, false);
+
+    std::vector<std::size_t> roots;
+
+    auto first_root = alpha_root_node();
+    roots.push_back(first_root);
+
+    is_cyclic_helper(visited, first_root);
+
+    // Finding the last visited node connected to the alpha_root_node
+    std::size_t index{0};
+    for (std::size_t i = 0; i < visited.size(); ++i) {
+      if (visited[i]) {
+        index = i;
+      }
+    }
+
+    // starting after this index looking if there are other connected edge
+
+    for (std::size_t i = index + 1; i < _adjacency_matrix.size(); ++i) {
+      for (std::size_t j = i + 1; j < _adjacency_matrix[i].size(); ++j) {
+        if (_adjacency_matrix[i][j] != 0) {
+          roots.push_back(i);
+        }
+      }
+    }
+
+    return roots;
+  }
+
+  std::vector<std::size_t> all_roots() const {
+    // Note: because of priority in errors, cycles must be detected in every possibly disconnected part of the graph
+
+    // Single root : if starting from the root and visited all node would leave none unvisited
+
+    std::vector<std::size_t> roots;
+    auto first_root = alpha_root_node();
+    roots.push_back(first_root);
+
+    for (;;) {
+      auto next = next_root(roots.back());
+      if (next == std::string::npos) {
+        break;
+      }
+      roots.push_back(next);
+    }
+
+    return roots;
+  }
+
+  std::size_t next_root(const std::size_t node) const {
+    std::vector<bool> visited(_max_index + 1, false);
+    is_cyclic_helper(visited, node);
+
+    // Finding the last visited node connected to the alpha_root_node
+    std::size_t index{0};
+    for (std::size_t i = 0; i < visited.size(); ++i) {
+      if (visited[i]) {
+        index = i;
+      }
+    }
+
+    // starting after this index looking if there are other connected edge
+
+    for (std::size_t i = index + 1; i < _adjacency_matrix.size(); ++i) {
+      for (std::size_t j = i + 1; j < _adjacency_matrix[i].size(); ++j) {
+        if (_adjacency_matrix[i][j] != 0) {
+          return i;
+        }
+      }
+    }
+
+    return std::string::npos;
+  }
+
+  std::string s_exp(std::size_t root) const {
+    std::stringstream stream;
+
+    std::vector<std::size_t> next;
+
+    for (std::size_t i = root; i < _adjacency_matrix[root].size(); ++i) {
+      if (_adjacency_matrix[root][i] != 0) {
+        next.push_back(i);
+      }
+    }
+
+    stream << "(" << to_node_name(root);
+
+    for (const auto& node : next) {
+      stream << s_exp(node);
+    }
+
+    stream << ")";
+
+    return stream.str();
+  }
+
+  std::string to_string(std::size_t v1, std::size_t v2) {
+    std::string str("a--b");
+    str.front() = _letters[v1];
+    str.back() = _letters[v2];
+    return str;
+  }
+
+  std::string to_string() const {
+    std::stringstream stream;
+    stream << "   ";
+    for (size_t i = 0; i <= _max_index; ++i) {
+      stream << std::setw(2) << _letters[i] << " ";
+    }
+    stream << "\n";
+    for (size_t i = 0; i <= _max_index; ++i) {
+      stream << _letters[i] << "  ";
+      for (size_t j = 0; j <= _max_index; ++j) {
+        stream << std::setw(2) << _adjacency_matrix[i][j] << " ";
+      }
+      stream << "\n";
+    }
+    return stream.str();
+  }
+
+  std::string to_node_name(std::size_t index) const {
+    if (index >= _letters.size()) {
+      throw internal_error("index can't be >= " + std::to_string(_letters.size()));
+    }
+    return std::string{_letters[index]};
+  }
+
+ private:
   std::vector<std::vector<int>> _adjacency_matrix;
 
   const std::string _letters{"ABCDEFGHIJKLMNOPQRSTUVWXYZ"};
@@ -338,11 +529,14 @@ class graph {
   std::size_t _max_index{0};
 };
 
-void handle_error(std::exception_ptr error) {
+void handle_error(std::exception_ptr error, bool print_message = true) {
   try {
     std::rethrow_exception(error);
   } catch (const custom_error& except) {
-    std::cout << except.what() << " -> " << to_string(except.error_type()) << std::endl;
+    if (print_message) {
+      std::cout << except.what() << " -> ";
+    }
+    std::cout << to_string(except.get_error_type());
   } catch (const std::runtime_error& except) {
     std::cout << except.what() << std::endl;
   }
@@ -350,27 +544,35 @@ void handle_error(std::exception_ptr error) {
 
 }  // namespace
 
-static const std::string USAGE{R"(
-tree_of_errors usage:
-tree_of_errors space_separated_adjacency_pair
-)"};
+#define DEBUG_MODE
 
-int main(int argc, char** argv) {
+int main() {
 #ifndef DEBUG_MODE
-  if (argc != 2) {
-    std::cerr << USAGE << std::endl;
-    return EXIT_FAILURE;
-  }
+
+  std::string input_string;
+  std::getline(std::cin, input_string);
+
 #endif
 
-  std::string correct_input{"(A,B) (Z,E)"};
+#ifdef DEBUG_MODE
+  std::string input_string{"(U,P) (O,L) (A,S) (N,O) (S,T) (U,M) (A,N) (S,U) (L,D)"};
+  // std::string input_string{"(A,B) (B,C) (E,F) (F,G) (X,Y) (Y,Z)"};
+  // std::string input_string{"(A,B) (B,C) (C,E) (E,D) (D,F) (F,G) (A,E)"};
+  // std::string input_string{"(C,E) (B,C) (D,E) (D,B)"};
+  // std::string input_string{"(A,B) (A,C) (B,D) (E,F) (F,G) (F,H)"};
+#endif
 
   input_sanity_checker checker;
 
+  bool print_error_message = false;
+
   try {
-    checker(correct_input);
+    checker(input_string);
   } catch (const bad_input& except) {
-    std::cout << except.what() << " -> " << to_string(except.error_type()) << std::endl;
+    if (print_error_message) {
+      std::cout << except.what() << " -> ";
+    }
+    std::cout << to_string(except.get_error_type());
     return EXIT_FAILURE;
   }
 
@@ -403,17 +605,30 @@ int main(int argc, char** argv) {
   std::exception_ptr error{nullptr};
 
   try {
-    parser(correct_input);
+    parser(input_string);
   } catch (...) {
     error = std::current_exception();
   }
 
   if (error) {
-    handle_error(error);
+    handle_error(error, print_error_message);
     return EXIT_FAILURE;
   }
 
+  try {
+    std::cout << graph.to_string_tree() << std::endl;
+  } catch (...) {
+    error = std::current_exception();
+  }
+
+  if (error) {
+    handle_error(error, print_error_message);
+    return EXIT_FAILURE;
+  }
+
+#ifdef DEBUG_MODE
   std::cout << graph.to_string_triangle() << std::endl;
+#endif
 
   return EXIT_SUCCESS;
 }
