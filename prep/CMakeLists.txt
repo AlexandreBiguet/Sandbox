@@ -6,5 +6,7 @@ add_executable(${PROJECT_NAME}_1 main1.cpp)
 add_executable(${PROJECT_NAME}_shape shape.cpp)
 add_executable(${PROJECT_NAME}_third_latest_data third_latest_data.cpp)
 add_executable(${PROJECT_NAME}_tree_of_errors tree_of_errors.cpp)
+add_executable(${PROJECT_NAME}_find_range find_range.cpp find_range.hpp)
+add_executable(${PROJECT_NAME}_climbing_leaderboard climbing_leaderboard.cpp)
 
 # add_executable(${PROJECT_NAME}_ )
