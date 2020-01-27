@@ -9,4 +9,11 @@ add_executable(${PROJECT_NAME}_tree_of_errors tree_of_errors.cpp)
 add_executable(${PROJECT_NAME}_find_range find_range.cpp find_range.hpp)
 add_executable(${PROJECT_NAME}_climbing_leaderboard climbing_leaderboard.cpp)
 
+add_executable(${PROJECT_NAME}_gcd_euclid gcd_euclid.cpp)
+add_executable(${PROJECT_NAME}_find_missing_element_in_sorted_array find_missing_element_in_sorted_array.cpp)
+
 # add_executable(${PROJECT_NAME}_ )
+
+add_subdirectory(complete_search)
+add_subdirectory(tall_ranges)
+

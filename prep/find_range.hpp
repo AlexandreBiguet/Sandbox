@@ -43,4 +43,3 @@ std::size_t binary_find_range(Iter begin, Iter end, int val) {
     }
   }
 }
-
