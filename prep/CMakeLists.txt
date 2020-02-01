@@ -14,6 +14,6 @@ add_executable(${PROJECT_NAME}_find_missing_element_in_sorted_array find_missing
 
 # add_executable(${PROJECT_NAME}_ )
 
-add_subdirectory(complete_search)
+add_subdirectory(laaksonen)
 add_subdirectory(tall_ranges)
 
