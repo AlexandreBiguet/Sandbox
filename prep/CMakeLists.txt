@@ -14,6 +14,9 @@ add_executable(${PROJECT_NAME}_find_missing_element_in_sorted_array find_missing
 
 # add_executable(${PROJECT_NAME}_ )
 
+add_executable(${PROJECT_NAME}_map  map.cpp )
+set_property(TARGET PROPERTY CXX_STANDARD 17)
+
 add_subdirectory(laaksonen)
 add_subdirectory(tall_ranges)
 
