@@ -1,6 +1,9 @@
 
-Other Go starting project todo: https://howistart.org/posts/go/1/
-With corresponding github repo : https://github.com/peterbourgon/how-i-start-go
+Official docs: 
+
+- https://golang.org/doc/effective_go.html
+- https://github.com/golang/go/wiki/CodeReviewComments
+
 
 About Go Modules https://blog.golang.org/using-go-modules
 
@@ -8,6 +11,7 @@ https://github.com/golang/go
 https://golang.org/
 https://gokit.io/
 
+https://github.com/vladimirvivien/go-grpc
 
 Flutter / Dart
 
