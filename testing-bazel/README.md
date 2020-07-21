@@ -1,0 +1,2 @@
+- https://medium.com/@hardyantz/getting-started-monorepo-golang-application-with-bazel-370ed1069b4f
+- https://brendanjryan.com/2018/05/12/building-go-applications-with-bazel.html
